@@ -1,6 +1,6 @@
 # From Hoare to Hoare
 
-I have been very intressted in Rust programming language and here is a fascinating  rabbit hole.
+I have been interested in history of computing and Rust programming language. Here is a fascinating  rabbit hole I have fallen into.
 
 - <https://graydon2.dreamwidth.org/318788.html>
 
