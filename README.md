@@ -1,7 +1,6 @@
 # Rabbit Holes
 
-- [from-hoare-to-hoare](from-hoare-to-hoare)
-
+<https://ontouchstart.github.io/rabbit-holes>
 
 👨🏻‍✈️🤖💻🐢🐇🕳️🐍🦀🤔
 
