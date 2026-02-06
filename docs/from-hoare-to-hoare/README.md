@@ -24,5 +24,6 @@ Now I can disappear into a rabbit hole with my Kindle Scribe. 🐇🕳️ 📚 �
 ![IMG_8791.png](resized_png/IMG_8791.png)
 ![IMG_8793.png](resized_png/IMG_8793.png)
 ![IMG_8794.png](resized_png/IMG_8794.png)
+![IMG_8799.png](resized_png/IMG_8799.png)
 ![IMG_8795.png](resized_png/IMG_8795.png)
 ![IMG_8796.png](resized_png/IMG_8796.png)
