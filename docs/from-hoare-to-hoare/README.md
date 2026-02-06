@@ -18,3 +18,8 @@ I have been interested in the history of computing and Rust programming language
 ![IMG_8782.png](IMG_8782.png)
 ![IMG_8783.png](IMG_8783.png)
 
+![IMG_8791.png](IMG_8791.png)
+![IMG_8793.png](IMG_8793.png)
+![IMG_8794.png](IMG_8794.png)
+![IMG_8795.png](IMG_8795.png)
+![IMG_8796.png](IMG_8796.png)
