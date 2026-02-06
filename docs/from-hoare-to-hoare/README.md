@@ -27,3 +27,23 @@ Now I can disappear into a rabbit hole with my Kindle Scribe. 🐇🕳️ 📚 �
 ![IMG_8799.png](resized_png/IMG_8799.png)
 ![IMG_8795.png](resized_png/IMG_8795.png)
 ![IMG_8796.png](resized_png/IMG_8796.png)
+
+
+# The last rabbit hole
+
+Since the pictures taken form iPhone are too big (see the `raw_png` folder), I wrote a quick rust program to 
+resize them. It generated a 632M target folder which is gitignored. The total size of the local folder is 
+approaching 1G.
+
+```
+% du -hsc *
+ 28K	Cargo.lock
+4.0K	Cargo.toml
+271M	raw_png
+4.0K	README.md
+ 20M	resized_png
+4.0K	src
+632M	target
+923M	total
+```
+
