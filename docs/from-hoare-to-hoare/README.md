@@ -1,6 +1,7 @@
 # From Hoare to Hoare
 
-I have been interested in the history of computing and Rust programming language. Here is a fascinating  rabbit hole I have fallen into.
+I am interested in the history of computing and Rust programming language.
+Here is a fascinating  rabbit hole I have fallen into.
 
 - <https://graydon2.dreamwidth.org/318788.html>
 
@@ -17,6 +18,8 @@ I have been interested in the history of computing and Rust programming language
 ![IMG_8781.png](IMG_8781.png)
 ![IMG_8782.png](IMG_8782.png)
 ![IMG_8783.png](IMG_8783.png)
+
+Now I can disappear into a rabbit hole with my Kindle Scribe. 🐇🕳️ 📚 🙇🏻‍♂️
 
 ![IMG_8791.png](IMG_8791.png)
 ![IMG_8793.png](IMG_8793.png)
