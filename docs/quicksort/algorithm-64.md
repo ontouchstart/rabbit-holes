@@ -6,8 +6,8 @@ C. A. R. HOARE
 Elliott Brothers Ltd., Borehamwood, Hertfordshire, Eng.
 
 ```code
-procedure     quicksort (A,M,N); value M,N;
-                array A; integer M,N;
+procedure	quicksort (A,M,N);	value M,N;
+		array A;	integer M,N;
 ```
 
 __comment__ Quicksort is a very fast and convenient method of
@@ -17,3 +17,12 @@ required. The average number of comparisons made is `2(M-N) ln(N-M)`,
 and the average number of exchanges is one sixth this amount.
 Suitable refinements of this method will be desirable for
 its implementation on any actual computer. 
+
+```code
+begin	integer I,J;
+	if M < N	then	begin	partition (A,M,N,I,J);      
+					quicksort(A,M,J);
+					quicksort(A,I,N)
+				end
+end	quicksort
+```

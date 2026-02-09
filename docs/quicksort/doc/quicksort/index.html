@@ -2,39 +2,46 @@
 <p>PARTITION</p>
 <p>C. A. R. HOARE</p>
 <p>Elliott Brothers Ltd., Borehamwood, Hertfordshire, Eng.</p>
-<div class="example-wrap"><pre class="language-code"><code>procedure partition (A,M,N,I,J);  value M,N;
-            array A; integer M,N,I,J;</code></pre></div>
+<div class="example-wrap"><pre class="language-code"><code>procedure	partition (A,M,N,I,J);	value M,N;
+		array A;	integer	 M,N,I,J;</code></pre></div>
 <p><strong>comment</strong> <code>I</code> and <code>J</code> are output variables, and <code>A</code> is the array (with
 subscript bounds <code>M:N</code>) which is operated by this procdeure.
 Partition take the value <code>X</code> of a random element of the array <code>A</code>,
 and rearrange the values of the elements of the arrary in such a
 way that there exists integers <code>I</code> and <code>J</code> with the following properties:</p>
-<div class="example-wrap"><pre class="language-code"><code>M &lt;= I &lt; I &lt;= N provided M &lt; N
-A[R] &lt;= X for M &lt;= R &lt;= J
-A[R] =  X for J &lt;= R &lt;= I
-A[R] &gt;= X for I &lt;= R &lt;= N</code></pre></div>
+<div class="example-wrap"><pre class="language-code"><code>M	&lt;=	J	&lt;	I	 &lt;=	N	provided M &lt; N
+A[R]	&lt;=	X	for M &lt;= R &lt;= J
+A[R]	==	X	for J &lt;= R &lt;= I
+A[R]	&gt;=	X	for I &lt;= R &lt;= N</code></pre></div>
 <p>The procedure uses an integer procedure <code>random (M,N)</code> which
 chooses equiprobably a random interger <code>F</code> between <code>M</code> and <code>N</code>, and
 also a procedure <code>exchange</code>, which exchanges the value of its two
 parameters;</p>
-<div class="example-wrap"><pre class="language-code"><code>begin    real X; integer F;
-         F := random (M,N); X := A[F];
-         I := M; J := N;
-up:
-         ...
-
-down:
-         ...
-
-change:
-         ...
-
-end      partition</code></pre></div><h3 id="algorithm-64"><a class="doc-anchor" href="#algorithm-64">§</a>ALGORITHM 64</h3>
+<div class="example-wrap"><pre class="language-code"><code>begin	real X; integer F;
+	F := random (M,N); X := A[F];
+	I := M; J := N;
+up:	for I := I	step 1	until N do
+	if X &lt; A[I]	then	go to	down;
+	I := N;
+down:	for J := J	step -1	until M do
+	if A[J] &lt; X	then 	go to	change;
+	J := M;
+change:	for I &lt; J	then	begin	exchange (A[I], A[J]);
+				I := I + 1; J := J - 1;			
+				go to	up;
+			end
+else	if I &lt; F then	begin	exchange (A[I], A[F]);
+				I := I + 1;
+			end
+else	if F&lt; J	then	begin	exchange (A[F], A[J]);
+				J := J - 1;
+			end;
+end    partition</code></pre></div><h3 id="algorithm-64"><a class="doc-anchor" href="#algorithm-64">§</a>ALGORITHM 64</h3>
 <p>QUICKSORT</p>
 <p>C. A. R. HOARE</p>
 <p>Elliott Brothers Ltd., Borehamwood, Hertfordshire, Eng.</p>
-<div class="example-wrap"><pre class="language-code"><code>procedure     quicksort (A,M,N); value M,N;
-                array A; integer M,N;</code></pre></div>
+<div class="example-wrap"><pre class="language-code"><code>procedure	quicksort (A,M,N);	value M,N;
+		array A;	integer M,N;</code></pre></div>
 <p><strong>comment</strong> Quicksort is a very fast and convenient method of
 sorting an array in the random-access store of a computer. The
 entire contents of the store may be sorted, since no extra space is
@@ -42,7 +49,12 @@ required. The average number of comparisons made is <code>2(M-N) ln(N-M)</code>,
 and the average number of exchanges is one sixth this amount.
 Suitable refinements of this method will be desirable for
 its implementation on any actual computer.</p>
-<h3 id="implementation-in-rust"><a class="doc-anchor" href="#implementation-in-rust">§</a>Implementation in Rust</h3>
+<div class="example-wrap"><pre class="language-code"><code>begin	integer I,J;
+	if M &lt; N	then	begin	partition (A,M,N,I,J);      
+					quicksort(A,M,J);
+					quicksort(A,I,N)
+				end
+end	quicksort</code></pre></div><h3 id="implementation-in-rust"><a class="doc-anchor" href="#implementation-in-rust">§</a>Implementation in Rust</h3>
 <p>To implement quicksort, we need <a href="../rand/index.html" title="mod rand">rand</a></p>
 <div class="example-wrap"><pre class="language-toml"><code>[package]
 name = &quot;quicksort&quot;
