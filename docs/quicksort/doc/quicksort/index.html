@@ -11,7 +11,7 @@ and rearrange the values of the elements of the arrary in such a
 way that there exists integers <code>I</code> and <code>J</code> with the following properties:</p>
 <div class="example-wrap"><pre class="language-code"><code>M	&lt;=	J	&lt;	I	 &lt;=	N	provided M &lt; N
 A[R]	&lt;=	X	for M &lt;= R &lt;= J
-A[R]	==	X	for J &lt;= R &lt;= I
+A[R]	==	X	for J &lt;  R  &lt; I
 A[R]	&gt;=	X	for I &lt;= R &lt;= N</code></pre></div>
 <p>The procedure uses an integer procedure <code>random (M,N)</code> which
 chooses equiprobably a random interger <code>F</code> between <code>M</code> and <code>N</code>, and
@@ -21,20 +21,20 @@ parameters;</p>
 	F := random (M,N); X := A[F];
 	I := M; J := N;
 up:	for I := I	step 1	until N do
-	if X &lt; A[I]	then	go to	down;
+		if X &lt; A[I]	then	go to	down;
 	I := N;
 down:	for J := J	step -1	until M do
-	if A[J] &lt; X	then 	go to	change;
+		if A[J] &lt; X	then 	go to	change;
 	J := M;
 change:	for I &lt; J	then	begin	exchange (A[I], A[J]);
 				I := I + 1; J := J - 1;			
-				go to	up;
+				go to	up
 			end
 else	if I &lt; F then	begin	exchange (A[I], A[F]);
-				I := I + 1;
+				I := I + 1
 			end
 else	if F&lt; J	then	begin	exchange (A[F], A[J]);
-				J := J - 1;
+				J := J - 1
 			end;
 end    partition</code></pre></div><h3 id="algorithm-64"><a class="doc-anchor" href="#algorithm-64">§</a>ALGORITHM 64</h3>
 <p>QUICKSORT</p>
