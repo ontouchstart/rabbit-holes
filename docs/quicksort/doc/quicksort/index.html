@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A rabbit hole to quicksort"><title>quicksort - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-ca0dd0c4.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="quicksort" data-themes="" data-resource-suffix="" data-rustdoc-version="1.93.0 (254b59607 2026-01-19)" data-channel="1.93.0" data-search-js="search-9e2438ea.js" data-stringdex-js="stringdex-a3946164.js" data-settings-js="settings-c38705f0.js" ><script src="../static.files/storage-e2aeef58.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-a410ff4d.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-263c88ec.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate quicksort</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../quicksort/index.html">quicksort</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#a-rabbit-hole-to-quicksort" title="A rabbit hole to quicksort">A rabbit hole to quicksort</a><ul><li><a href="#algorithm-63" title="ALGORITHM 63">ALGORITHM 63</a></li><li><a href="#algorithm-64" title="ALGORITHM 64">ALGORITHM 64</a></li><li><a href="#implementation-in-rust" title="Implementation in Rust">Implementation in Rust</a></li></ul></li></ul><h3><a href="#functions">Crate Items</a></h3><ul class="block"><li><a href="#functions" title="Functions">Functions</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content"><div class="main-heading"><h1>Crate <span>quicksort</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/quicksort/main.rs.html#1-9">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="a-rabbit-hole-to-quicksort"><a class="doc-anchor" href="#a-rabbit-hole-to-quicksort">§</a>A rabbit hole to quicksort</h2><h3 id="algorithm-63"><a class="doc-anchor" href="#algorithm-63">§</a>ALGORITHM 63</h3>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A rabbit hole to quicksort"><title>quicksort - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-ca0dd0c4.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="quicksort" data-themes="" data-resource-suffix="" data-rustdoc-version="1.93.0 (254b59607 2026-01-19)" data-channel="1.93.0" data-search-js="search-9e2438ea.js" data-stringdex-js="stringdex-a3946164.js" data-settings-js="settings-c38705f0.js" ><script src="../static.files/storage-e2aeef58.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-a410ff4d.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-263c88ec.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate quicksort</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../quicksort/index.html">quicksort</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#a-rabbit-hole-to-quicksort" title="A rabbit hole to quicksort">A rabbit hole to quicksort</a><ul><li><a href="#algorithm-63" title="ALGORITHM 63">ALGORITHM 63</a></li><li><a href="#algorithm-64" title="ALGORITHM 64">ALGORITHM 64</a></li><li><a href="#implementation-in-rust" title="Implementation in Rust">Implementation in Rust</a></li></ul></li></ul><h3><a href="#functions">Crate Items</a></h3><ul class="block"><li><a href="#functions" title="Functions">Functions</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content"><div class="main-heading"><h1>Crate <span>quicksort</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/quicksort/main.rs.html#1-19">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="a-rabbit-hole-to-quicksort"><a class="doc-anchor" href="#a-rabbit-hole-to-quicksort">§</a>A rabbit hole to quicksort</h2><h3 id="algorithm-63"><a class="doc-anchor" href="#algorithm-63">§</a>ALGORITHM 63</h3>
 <p>PARTITION</p>
 <p>C. A. R. HOARE</p>
 <p>Elliott Brothers Ltd., Borehamwood, Hertfordshire, Eng.</p>
@@ -54,7 +54,87 @@ its implementation on any actual computer.</p>
 					quicksort(A,M,J);
 					quicksort(A,I,N)
 				end
-end	quicksort</code></pre></div><h3 id="implementation-in-rust"><a class="doc-anchor" href="#implementation-in-rust">§</a>Implementation in Rust</h3>
+end	quicksort</code></pre></div>
+<p>Implementation in C (generated by AI)</p>
+<div class="example-wrap"><pre class="language-c"><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+
+void exchange(char *a, char *b) {
+    char temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void partition(char A[], int M, int N, int *final_I, int *final_J) {
+
+    int F = M + rand() % (N - M + 1);
+    char X = A[F];
+
+    int I = M;
+    int J = N;
+
+up:
+    for (; I &lt;= N; I++) {
+        if (X &lt; A[I]) goto down;
+    }
+    I = N;
+
+down:
+    for (; J &gt;= M; J--) {
+        if (A[J] &lt; X) goto change;
+    }
+    J = M;
+
+change:
+    if (I &lt; J) {
+       exchange(&amp;A[I], &amp;A[J]); 
+       I = I + 1;
+       J = J - 1;
+       goto up;
+    }
+    else if (I &lt; F) {
+       exchange(&amp;A[I], &amp;A[F]); 
+       I = I + 1;
+    }
+    else if (F &lt; J) {
+       exchange(&amp;A[F], &amp;A[J]); 
+       J = J - 1;
+    }
+    *final_I = I;
+    *final_J = J;
+}
+
+void quicksort(char A[], int M, int N) {
+    int I;
+    int J;
+    if (M &lt; N) {
+        partition(A, M, N, &amp;I, &amp;J);
+        quicksort(A, M, J); 
+        quicksort(A, I, N); 
+    }
+}
+
+int main() {
+    char str[] = &quot;PARTITION&quot;;
+    int n = strlen(str);
+    int i = 0;
+    int j = n-1;
+
+    printf(&quot;%s\n&quot;, str);
+    partition(str, 0, n-1, &amp;i, &amp;j);
+    printf(&quot;%s\n&quot;, str);
+    quicksort(str, 0, n-1);
+    printf(&quot;%s\n&quot;, str);
+   
+    return 0;
+} 
+
+
+</code></pre></div><div class="example-wrap"><pre class="language-sh"><code>cc quicksort.c &amp;&amp; ./a.out
+PARTITION
+AIRTPTION
+AIINOPRTT</code></pre></div><h3 id="implementation-in-rust"><a class="doc-anchor" href="#implementation-in-rust">§</a>Implementation in Rust</h3>
 <p>To implement quicksort, we need <a href="../rand/index.html" title="mod rand">rand</a></p>
 <div class="example-wrap"><pre class="language-toml"><code>[package]
 name = &quot;quicksort&quot;
