@@ -1,0 +1,19 @@
+## ALGORITHM 64
+QUICKSORT
+
+C. A. R. HOARE
+
+Elliott Brothers Ltd., Borehamwood, Hertfordshire, Eng.
+
+```code
+procedure     quicksort (A,M,N); value M,N;
+                array A; integer M,N;
+```
+
+__comment__ Quicksort is a very fast and convenient method of
+sorting an array in the random-access store of a computer. The
+entire contents of the store may be sorted, since no extra space is
+required. The average number of comparisons made is `2(M-N) ln(N-M)`,
+and the average number of exchanges is one sixth this amount.
+Suitable refinements of this method will be desirable for
+its implementation on any actual computer. 

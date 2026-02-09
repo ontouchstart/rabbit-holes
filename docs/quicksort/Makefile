@@ -2,7 +2,7 @@ all:
 	cargo clippy
 	cargo fmt
 	cargo run
-	cargo doc --open
+	cargo doc --release --open
 	cp -r target/doc .
 
 clean:
