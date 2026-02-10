@@ -7,3 +7,8 @@ all:
 
 clean:
 	cargo clean
+
+quicksort-test:
+	clang -S -emit-llvm quicksort.c
+	clang quicksort.ll -o quicksort
+	./quicksort
