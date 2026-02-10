@@ -47,3 +47,10 @@ approaching 1G.
 923M	total
 ```
 
+# [TIL](TIL)
+
+```  
+sips --resampleWidth 756 raw_png/*.png --out resized_png/
+```
+
+So we can finally remove rust.
