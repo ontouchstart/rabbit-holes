@@ -38,7 +38,7 @@ up:	for I := I	step 1	until N do
 down:	for J := J	step -1	until M do
 		if A[J] < X	then 	go to	change;
 	J := M;
-change:	for I < J	then	begin	exchange (A[I], A[J]);
+change:	if I < J	then	begin	exchange (A[I], A[J]);
 				I := I + 1; J := J - 1;			
 				go to	up
 			end
@@ -50,3 +50,4 @@ else	if F< J	then	begin	exchange (A[F], A[J]);
 			end;
 end    partition
 ```
+
