@@ -411,3 +411,48 @@ input_path: raw_png/IMG_8799.png
 output_path: resized_png/IMG_8799.png
 ```
 
+It seems that sips can do image resize, 
+
+```
+sips --resampleWidth 756 raw_png/*.png --out resized_png/
+```
+
+```
+/Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/raw_png/IMG_8775.png
+  /Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/resized_png/IMG_8775.png
+/Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/raw_png/IMG_8776.png
+  /Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/resized_png/IMG_8776.png
+/Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/raw_png/IMG_8777.png
+  /Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/resized_png/IMG_8777.png
+/Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/raw_png/IMG_8778.png
+  /Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/resized_png/IMG_8778.png
+/Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/raw_png/IMG_8779.png
+  /Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/resized_png/IMG_8779.png
+/Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/raw_png/IMG_8780.png
+  /Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/resized_png/IMG_8780.png
+/Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/raw_png/IMG_8781.png
+  /Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/resized_png/IMG_8781.png
+/Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/raw_png/IMG_8782.png
+  /Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/resized_png/IMG_8782.png
+/Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/raw_png/IMG_8783.png
+  /Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/resized_png/IMG_8783.png
+/Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/raw_png/IMG_8791.png
+  /Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/resized_png/IMG_8791.png
+/Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/raw_png/IMG_8793.png
+  /Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/resized_png/IMG_8793.png
+/Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/raw_png/IMG_8794.png
+  /Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/resized_png/IMG_8794.png
+/Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/raw_png/IMG_8795.png
+  /Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/resized_png/IMG_8795.png
+/Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/raw_png/IMG_8796.png
+  /Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/resized_png/IMG_8796.png
+/Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/raw_png/IMG_8799.png
+  /Users/sam/github/ontouchstart/rabbit-holes/docs/from-hoare-to-hoare/resized_png/IMG_8799.png
+```
+
+We can remove the whole rust implementation:
+
+```
+rm -rf Cargo.* src
+```
+
