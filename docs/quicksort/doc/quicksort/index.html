@@ -285,7 +285,7 @@ quicksort.ll:
 	
 test-quicksort: partition.ll quicksort.ll
 	clang -S -emit-llvm quicksort-test.c
-	clang quicksort-test.c partition.ll quicksort.ll
+	clang quicksort-test.ll partition.ll quicksort.ll
 	./a.out
 	rm a.out
 
@@ -295,7 +295,8 @@ test-partition: partition.ll
 	./a.out
 	rm a.out</code></pre></div>
 <p><code>make test</code></p>
-<div class="example-wrap"><pre class="language-sh"><code>clang -S -emit-llvm partition-test.c 
+<div class="example-wrap"><pre class="language-sh"><code>clang -S -emit-llvm partition.c
+clang -S -emit-llvm partition-test.c 
 clang partition-test.ll partition.ll
 ./a.out
 f=0
@@ -326,8 +327,9 @@ f=8
 Before:	PARTITION
 After:	IAINRTPOT
 rm a.out
+clang -S -emit-llvm quicksort.c
 clang -S -emit-llvm quicksort-test.c
-clang quicksort-test.c partition.ll quicksort.ll
+clang quicksort-test.ll partition.ll quicksort.ll
 ./a.out
 PARTITION
 AIINOPRTT
