@@ -12,9 +12,6 @@ void partition(char A[], int M, int N, int F, int *final_I, int *final_J);
 `partition.c`
 
 ```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "partition.h"
 
 static void exchange(char *a, char *b) {
@@ -63,9 +60,7 @@ change:
 `partition-while.c`
 
 ```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "partition.h"
 
 static void exchange(char *a, char *b) {
     char temp = *a;
@@ -125,9 +120,7 @@ void quicksort(char A[], int M, int N);
 `quicksort.c`
 
 ```c
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "quicksort.h"
 #include "partition.h"
 
@@ -147,7 +140,6 @@ void quicksort(char A[], int M, int N) {
 
 ```
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include "partition.h"
 
@@ -175,7 +167,6 @@ int main() {
 
 ```
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include "quicksort.h"
 

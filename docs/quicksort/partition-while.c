@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "partition.h"
 
 static void exchange(char *a, char *b) {
     char temp = *a;

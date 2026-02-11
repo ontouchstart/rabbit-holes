@@ -161,10 +161,7 @@ A[R]	&gt;=	I	for 3 &lt;= R &lt;= 9</code></pre></div><h3 id="implementation-in-c
 void partition(char A[], int M, int N, int F, int *final_I, int *final_J);
 #endif</code></pre></div>
 <p><code>partition.c</code></p>
-<div class="example-wrap"><pre class="language-c"><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;string.h&gt;
-#include &quot;partition.h&quot;
+<div class="example-wrap"><pre class="language-c"><code>#include &quot;partition.h&quot;
 
 static void exchange(char *a, char *b) {
     char temp = *a;
@@ -209,9 +206,7 @@ change:
     *final_J = J;
 }</code></pre></div>
 <p><code>partition-while.c</code></p>
-<div class="example-wrap"><pre class="language-c"><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;string.h&gt;
+<div class="example-wrap"><pre class="language-c"><code>#include &quot;partition.h&quot;
 
 static void exchange(char *a, char *b) {
     char temp = *a;
@@ -263,9 +258,7 @@ void partition(char A[], int M, int N, int F, int *final_I, int *final_J) {
 void quicksort(char A[], int M, int N);
 #endif</code></pre></div>
 <p><code>quicksort.c</code></p>
-<div class="example-wrap"><pre class="language-c"><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;string.h&gt;
+<div class="example-wrap"><pre class="language-c"><code>#include &lt;stdlib.h&gt;
 #include &quot;quicksort.h&quot;
 #include &quot;partition.h&quot;
 
@@ -282,7 +275,6 @@ void quicksort(char A[], int M, int N) {
 <p><code>partition-test.c</code></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
 #include &lt;string.h&gt;
 #include <span class="string">"partition.h"
 
@@ -307,7 +299,6 @@ int main() {
 <p><code>quicksort-test.c</code></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
 #include &lt;string.h&gt;
 #include <span class="string">"quicksort.h"
 
