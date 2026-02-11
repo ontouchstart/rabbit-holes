@@ -5,7 +5,6 @@
 //! <https://doi.org/10.1145/366622.366642>
 #![doc = include_str!("../partition.md")]
 #![doc = include_str!("../c.md")]
-
 //! ## Implementation in Rust
 //! To implement quicksort, we need [rand]
 //! ```toml

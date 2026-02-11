@@ -60,6 +60,58 @@ change:
     *final_J = J;
 }
 ```
+`partition-while.c`
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+static void exchange(char *a, char *b) {
+    char temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void partition(char A[], int M, int N, int F, int *final_I, int *final_J) {
+    char X = A[F];
+    int I = M;
+    int J = N;
+
+    while (1) {
+        // Equivalent to 'up:' loop
+        while (I <= N && A[I] <= X) {
+            I++;
+        }
+
+        // Equivalent to 'down:' loop
+        while (J >= M && A[J] >= X) {
+            J--;
+        }
+
+        if (I < J) {
+            // Equivalent to 'change:' swap and 'goto up'
+            exchange(&A[I], &A[J]);
+            I++;
+            J--;
+        } else {
+            // Termination logic
+            if (I < F) {
+                exchange(&A[I], &A[F]);
+                I++;
+            } else if (F < J) {
+                exchange(&A[F], &A[J]);
+                J--;
+            }
+            break; // Exit the main loop
+        }
+    }
+
+    *final_I = I;
+    *final_J = J;
+}
+
+```
 
 `quicksort.h`
 
@@ -144,23 +196,38 @@ int main() {
 `Makefile`
 
 ```make
-test:	test-partition test-quicksort
+test:	test-partition test-quicksort test-partition-while test-quicksort-while
 
 partition.ll:	partition.c partition.h
 	clang -S -emit-llvm partition.c
 
+partition-while.ll:	partition-while.c partition.h
+	clang -S -emit-llvm partition-while.c
+
 quicksort.ll:
 	clang -S -emit-llvm quicksort.c
 	
+test-partition: partition.ll
+	clang -S -emit-llvm partition-test.c 
+	clang partition-test.ll partition.ll
+	./a.out
+	rm a.out
+
+test-partition-while: partition-while.ll
+	clang -S -emit-llvm partition-test.c 
+	clang partition-test.ll partition-while.ll
+	./a.out
+	rm a.out
+
 test-quicksort: partition.ll quicksort.ll
 	clang -S -emit-llvm quicksort-test.c
 	clang quicksort-test.ll partition.ll quicksort.ll
 	./a.out
 	rm a.out
 
-test-partition: partition.ll
-	clang -S -emit-llvm partition-test.c 
-	clang partition-test.ll partition.ll
+test-quicksort-while: partition-while.ll quicksort.ll
+	clang -S -emit-llvm quicksort-test.c
+	clang quicksort-test.ll partition-while.ll quicksort.ll
 	./a.out
 	rm a.out
 ```
@@ -207,5 +274,42 @@ clang quicksort-test.ll partition.ll quicksort.ll
 PARTITION
 AIINOPRTT
 rm a.out
+clang -S -emit-llvm partition-while.c
+clang -S -emit-llvm partition-test.c 
+clang partition-test.ll partition-while.ll
+./a.out
+f=0
+Before:	PARTITION
+After:	IANOIPTTR
+f=1
+Before:	PARTITION
+After:	APRTITION
+f=2
+Before:	PARTITION
+After:	PAINIORTT
+f=3
+Before:	PARTITION
+After:	PARNITIOT
+f=4
+Before:	PARTITION
+After:	AIRTPTION
+f=5
+Before:	PARTITION
+After:	PARTINIOT
+f=6
+Before:	PARTITION
+After:	AIRTITPON
+f=7
+Before:	PARTITION
+After:	NAIIOTRTP
+f=8
+Before:	PARTITION
+After:	IAINRTPOT
+rm a.out
+clang -S -emit-llvm quicksort-test.c
+clang quicksort-test.ll partition-while.ll quicksort.ll
+./a.out
+PARTITION
+AIINOPRTT
+rm a.out
 ```
-
