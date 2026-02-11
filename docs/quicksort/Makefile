@@ -8,7 +8,16 @@ all:
 clean:
 	cargo clean
 
-quicksort-test:
-	clang -S -emit-llvm quicksort.c
-	clang quicksort.ll -o quicksort
-	./quicksort
+test:	test-partition test-quicksort
+
+test-quicksort:
+	clang -S -emit-llvm quicksort-test.c
+	clang quicksort-test.ll 
+	./a.out
+	rm a.out
+
+test-partition:
+	clang -S -emit-llvm partition-test.c 
+	clang partition-test.ll
+	./a.out
+	rm a.out
