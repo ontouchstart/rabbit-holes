@@ -1,6 +1,6 @@
 JJ=./.cargo/bin/jj
 
-all:	.jj
+all:	./.cargo/bin/jj .jj
 	$(JJ) --version
 	$(JJ) status
 
