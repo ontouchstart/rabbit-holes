@@ -11,6 +11,7 @@
 - <https://www.typescriptlang.org/>
 - <https://www.rust-lang.org/>
 
-Found my perfect stack for a new project, and perfect tech talks to listen to if I am not coding
+Found the full stack for my future open source and private projects, 
+and tech talks to listen to when I am not coding.
 
 -  <https://www.youtube.com/@gitbutlerapp/videos>
