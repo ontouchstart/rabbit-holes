@@ -1,11 +1,12 @@
-JJ=./.cargo/bin/jj
+JJ=jj-src/target/debug/jj
 
-all:	./.cargo/bin/jj .jj
+all:	jj-src/target/debug/jj .jj
 	$(JJ) --version
 	$(JJ) --help && $(JJ)
 
-.cargo/bin/jj:
-	cargo install --git https://github.com/jj-vcs/jj.git --locked --bin jj jj-cli --root .cargo
+jj-src/target/debug/jj:
+	git submodule update --init
+	cd jj-src && cargo build && cd ..
 
 .jj:
 	$(JJ) git init 
