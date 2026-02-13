@@ -1,11 +1,6 @@
-JJ=./.cargo/bin/jj
+all:	gg/target/debug/gg	
+	gg/target/debug/gg  --version
 
-all:	./.cargo/bin/jj .jj
-	$(JJ) --version
-	$(JJ) --help && $(JJ)
-
-.cargo/bin/jj:
-	cargo install --git https://github.com/jj-vcs/jj.git --locked --bin jj jj-cli --root .cargo
-
-.jj:
-	$(JJ) git init 
+gg/target/debug/gg: 
+	git submodule update --init
+	cd gg && npm install && npm run build && cargo build && cd ..
