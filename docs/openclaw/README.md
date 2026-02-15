@@ -15,5 +15,5 @@ This is the key issue. Symptoms or causes?
 - What do we really want? 
 - What do we really need?
 - Do we really have options and choices?
-- Can we really fight the temptation or tide? 
+- Can we fight the temptation or tide? 
 
