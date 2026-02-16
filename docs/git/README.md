@@ -2,6 +2,8 @@
 
 ## May the [source](https://git.kernel.org/pub/scm/git/) be with you.
 
+<https://git.kernel.org/pub/scm/git/git.git/log/>
+
 ## Other noises 
 
 <https://git-scm.com>
