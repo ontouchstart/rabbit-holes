@@ -1,5 +1,5 @@
 GIT=git/git
-all:	env version new-version
+all:	env version make new-version
 
 env:
 	env
