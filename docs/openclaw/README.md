@@ -17,3 +17,8 @@ This is the key issue. Symptoms or causes?
 - Do we really have options and choices?
 - Can we fight the temptation or tide? 
 
+### Happy ending?
+
+<https://steipete.me/posts/2026/openclaw>
+
+See how this rabbit hole goes ... 🤔
