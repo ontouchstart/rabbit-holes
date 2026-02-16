@@ -1,17 +1,16 @@
-GIT=git/git
-all:	env old_version make new-version
+all:	env old-version make new-version
 
 env:
 	env
 
-old_version:
+old-version:
 	git version
 
-new-version: git/git-version
-	git/git-version
+new-version: git/GIT-VERSION-FILE
+	cat git/GIT-VERSION-FILE
 
-git/git-version: git
-	make -C git git-version
+git/GIT-VERSION-FILE: git
+	make -C git GIT-VERSION-FILE
 
 git:
 	git clone --help | col -b 
