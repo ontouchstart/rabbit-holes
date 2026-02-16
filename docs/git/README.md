@@ -1,8 +1,8 @@
 # git
 
-## May the [source](https://git.kernel.org/pub/scm/git/) be with you.
+## May the [source](https://git.kernel.org/pub/scm/git/commit) be with you.
 
-<https://git.kernel.org/pub/scm/git/git.git/log/>
+<https://git.kernel.org/pub/scm>
 
 ## Other noises 
 
