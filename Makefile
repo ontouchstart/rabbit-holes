@@ -1,7 +1,10 @@
 all:	openclaw
 	du -h openclaw
-	cd openclaw && git branch -a | cat -n
-	cargo run
+	cd openclaw && git branch -a | grep remote | cat -n
+	cargo run --bin remote-branches
 
 openclaw:
-	git clone https://github.com/openclaw/openclaw
+	cargo run --bin clone
+
+clean:
+	rm -rf openclaw	target
