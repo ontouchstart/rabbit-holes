@@ -9,5 +9,6 @@ Every pothole has a rabbit hole underneath.
 ## [review](review)
 ## [openclaw](openclaw)
 ## [git](git)
+## [turing](turing)
 
 © 2026  [Sam Liu](https://github.com/ontouchstart)
