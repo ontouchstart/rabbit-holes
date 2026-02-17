@@ -26,3 +26,8 @@ make:	git
 build:	make
 	make -C git
 
+status:	build
+	$(GIT) status
+
+test:	build
+	time (make -C git test) > stdout-`date +%s`.log 2> stderr-`date +%s`.log
