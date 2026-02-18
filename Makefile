@@ -21,6 +21,7 @@ all:	libgit2 git2-rs openclaw
 	cargo run --bin openclaw-latest-commit | tee openclaw-latest-commit.log
 
 	cargo tree | tee cargo-tree.log
+	cargo run --bin fs-dir | tee fs-dir.log
 
 libgit2:
 	cargo run --bin libgit2-clone

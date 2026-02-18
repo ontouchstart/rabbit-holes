@@ -1,0 +1,420 @@
+"openclaw/.git/config"
+config
+Ok(
+    FileType {
+        is_file: true,
+        is_dir: false,
+        is_symlink: false,
+        ..
+    },
+)
+false
+Ok(
+    Metadata {
+        file_type: FileType {
+            is_file: true,
+            is_dir: false,
+            is_symlink: false,
+            ..
+        },
+        permissions: Permissions(
+            FilePermissions {
+                mode: 0o100644 (-rw-r--r--),
+            },
+        ),
+        len: 302,
+        modified: SystemTime {
+            tv_sec: 1771436138,
+            tv_nsec: 974244911,
+        },
+        accessed: SystemTime {
+            tv_sec: 1771436138,
+            tv_nsec: 974724744,
+        },
+        created: SystemTime {
+            tv_sec: 1771436138,
+            tv_nsec: 974173787,
+        },
+        ..
+    },
+)
+
+
+"openclaw/.git/objects"
+objects
+Ok(
+    FileType {
+        is_file: false,
+        is_dir: true,
+        is_symlink: false,
+        ..
+    },
+)
+true
+Ok(
+    Metadata {
+        file_type: FileType {
+            is_file: false,
+            is_dir: true,
+            is_symlink: false,
+            ..
+        },
+        permissions: Permissions(
+            FilePermissions {
+                mode: 0o040755 (drwxr-xr-x),
+            },
+        ),
+        len: 128,
+        modified: SystemTime {
+            tv_sec: 1771436105,
+            tv_nsec: 544244470,
+        },
+        accessed: SystemTime {
+            tv_sec: 1771436142,
+            tv_nsec: 440341081,
+        },
+        created: SystemTime {
+            tv_sec: 1771436105,
+            tv_nsec: 544103179,
+        },
+        ..
+    },
+)
+
+
+"openclaw/.git/HEAD"
+HEAD
+Ok(
+    FileType {
+        is_file: true,
+        is_dir: false,
+        is_symlink: false,
+        ..
+    },
+)
+false
+Ok(
+    Metadata {
+        file_type: FileType {
+            is_file: true,
+            is_dir: false,
+            is_symlink: false,
+            ..
+        },
+        permissions: Permissions(
+            FilePermissions {
+                mode: 0o100644 (-rw-r--r--),
+            },
+        ),
+        len: 21,
+        modified: SystemTime {
+            tv_sec: 1771436138,
+            tv_nsec: 975647950,
+        },
+        accessed: SystemTime {
+            tv_sec: 1771436138,
+            tv_nsec: 976165449,
+        },
+        created: SystemTime {
+            tv_sec: 1771436138,
+            tv_nsec: 975389617,
+        },
+        ..
+    },
+)
+
+
+"openclaw/.git/info"
+info
+Ok(
+    FileType {
+        is_file: false,
+        is_dir: true,
+        is_symlink: false,
+        ..
+    },
+)
+true
+Ok(
+    Metadata {
+        file_type: FileType {
+            is_file: false,
+            is_dir: true,
+            is_symlink: false,
+            ..
+        },
+        permissions: Permissions(
+            FilePermissions {
+                mode: 0o040755 (drwxr-xr-x),
+            },
+        ),
+        len: 96,
+        modified: SystemTime {
+            tv_sec: 1771436105,
+            tv_nsec: 544936052,
+        },
+        accessed: SystemTime {
+            tv_sec: 1771436144,
+            tv_nsec: 516345866,
+        },
+        created: SystemTime {
+            tv_sec: 1771436105,
+            tv_nsec: 544514136,
+        },
+        ..
+    },
+)
+
+
+"openclaw/.git/logs"
+logs
+Ok(
+    FileType {
+        is_file: false,
+        is_dir: true,
+        is_symlink: false,
+        ..
+    },
+)
+true
+Ok(
+    Metadata {
+        file_type: FileType {
+            is_file: false,
+            is_dir: true,
+            is_symlink: false,
+            ..
+        },
+        permissions: Permissions(
+            FilePermissions {
+                mode: 0o040755 (drwxr-xr-x),
+            },
+        ),
+        len: 128,
+        modified: SystemTime {
+            tv_sec: 1771436138,
+            tv_nsec: 975595367,
+        },
+        accessed: SystemTime {
+            tv_sec: 1771436144,
+            tv_nsec: 516409449,
+        },
+        created: SystemTime {
+            tv_sec: 1771436138,
+            tv_nsec: 721027918,
+        },
+        ..
+    },
+)
+
+
+"openclaw/.git/description"
+description
+Ok(
+    FileType {
+        is_file: true,
+        is_dir: false,
+        is_symlink: false,
+        ..
+    },
+)
+false
+Ok(
+    Metadata {
+        file_type: FileType {
+            is_file: true,
+            is_dir: false,
+            is_symlink: false,
+            ..
+        },
+        permissions: Permissions(
+            FilePermissions {
+                mode: 0o100644 (-rw-r--r--),
+            },
+        ),
+        len: 73,
+        modified: SystemTime {
+            tv_sec: 1771436105,
+            tv_nsec: 544685219,
+        },
+        accessed: SystemTime {
+            tv_sec: 1771436105,
+            tv_nsec: 544576095,
+        },
+        created: SystemTime {
+            tv_sec: 1771436105,
+            tv_nsec: 544576095,
+        },
+        ..
+    },
+)
+
+
+"openclaw/.git/hooks"
+hooks
+Ok(
+    FileType {
+        is_file: false,
+        is_dir: true,
+        is_symlink: false,
+        ..
+    },
+)
+true
+Ok(
+    Metadata {
+        file_type: FileType {
+            is_file: false,
+            is_dir: true,
+            is_symlink: false,
+            ..
+        },
+        permissions: Permissions(
+            FilePermissions {
+                mode: 0o040755 (drwxr-xr-x),
+            },
+        ),
+        len: 96,
+        modified: SystemTime {
+            tv_sec: 1771436105,
+            tv_nsec: 544818594,
+        },
+        accessed: SystemTime {
+            tv_sec: 1771436144,
+            tv_nsec: 516502449,
+        },
+        created: SystemTime {
+            tv_sec: 1771436105,
+            tv_nsec: 544461136,
+        },
+        ..
+    },
+)
+
+
+"openclaw/.git/refs"
+refs
+Ok(
+    FileType {
+        is_file: false,
+        is_dir: true,
+        is_symlink: false,
+        ..
+    },
+)
+true
+Ok(
+    Metadata {
+        file_type: FileType {
+            is_file: false,
+            is_dir: true,
+            is_symlink: false,
+            ..
+        },
+        permissions: Permissions(
+            FilePermissions {
+                mode: 0o040755 (drwxr-xr-x),
+            },
+        ),
+        len: 160,
+        modified: SystemTime {
+            tv_sec: 1771436138,
+            tv_nsec: 720881127,
+        },
+        accessed: SystemTime {
+            tv_sec: 1771436142,
+            tv_nsec: 440345414,
+        },
+        created: SystemTime {
+            tv_sec: 1771436105,
+            tv_nsec: 544295595,
+        },
+        ..
+    },
+)
+
+
+"openclaw/.git/index"
+index
+Ok(
+    FileType {
+        is_file: true,
+        is_dir: false,
+        is_symlink: false,
+        ..
+    },
+)
+false
+Ok(
+    Metadata {
+        file_type: FileType {
+            is_file: true,
+            is_dir: false,
+            is_symlink: false,
+            ..
+        },
+        permissions: Permissions(
+            FilePermissions {
+                mode: 0o100644 (-rw-r--r--),
+            },
+        ),
+        len: 620544,
+        modified: SystemTime {
+            tv_sec: 1771436140,
+            tv_nsec: 477455990,
+        },
+        accessed: SystemTime {
+            tv_sec: 1771436140,
+            tv_nsec: 469790383,
+        },
+        created: SystemTime {
+            tv_sec: 1771436140,
+            tv_nsec: 469790383,
+        },
+        ..
+    },
+)
+
+
+"openclaw/.git/FETCH_HEAD"
+FETCH_HEAD
+Ok(
+    FileType {
+        is_file: true,
+        is_dir: false,
+        is_symlink: false,
+        ..
+    },
+)
+false
+Ok(
+    Metadata {
+        file_type: FileType {
+            is_file: true,
+            is_dir: false,
+            is_symlink: false,
+            ..
+        },
+        permissions: Permissions(
+            FilePermissions {
+                mode: 0o100644 (-rw-r--r--),
+            },
+        ),
+        len: 0,
+        modified: SystemTime {
+            tv_sec: 1771436138,
+            tv_nsec: 690620739,
+        },
+        accessed: SystemTime {
+            tv_sec: 1771436138,
+            tv_nsec: 690620739,
+        },
+        created: SystemTime {
+            tv_sec: 1771436138,
+            tv_nsec: 690620739,
+        },
+        ..
+    },
+)
+
+
