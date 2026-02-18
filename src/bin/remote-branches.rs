@@ -4,7 +4,7 @@
 //!
 //! [git2::Repository::branches]
 //!
-//! [git2::Repository::branches]
+//! [git2::Repository::branch]
 //!
 use git2::BranchType;
 use git2::Repository;
