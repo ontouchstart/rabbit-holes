@@ -1,2 +1,4 @@
-# Added by cargo
 /target
+git2-rs
+libgit2
+openclaw
