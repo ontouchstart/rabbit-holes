@@ -1,4 +1,4 @@
-Commit { id: 6a19654c4a88d9b726b8c260a0f9881fdec35e25, summary: "refactor(core): dedupe browser route signatures and cli watchdog schema" }
+Commit { id: 36996194cd0c0b41344f00c6ff120eb6bd18eabf, summary: "perf(test): remove timer waits in hooks and discord monitor tests" }
 Peter Steinberger
 steipete@gmail.com
-Time { raw: git_time { time: 1771424120, offset: 0, sign: 43 } }
+Time { raw: git_time { time: 1771433148, offset: 0, sign: 43 } }
