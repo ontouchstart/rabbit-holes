@@ -1,4 +1,4 @@
-Commit { id: 33f30367e1baba8fa347949cca84d82b27274192, summary: "fix(cli): include model and thinking fields in cron edit patch type" }
+Commit { id: 6a19654c4a88d9b726b8c260a0f9881fdec35e25, summary: "refactor(core): dedupe browser route signatures and cli watchdog schema" }
 Peter Steinberger
 steipete@gmail.com
-Time { raw: git_time { time: 1771421965, offset: 0, sign: 43 } }
+Time { raw: git_time { time: 1771424120, offset: 0, sign: 43 } }

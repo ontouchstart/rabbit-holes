@@ -1,0 +1,4 @@
+Commit { id: 6ee438e7ad013daa52de4f6f996b5643f91c7bbc, summary: "Merge pull request #1215 from rust-lang/dependabot/cargo/time-0.3.47" }
+Eric Huss
+eric@huss.org
+Time { raw: git_time { time: 1770321372, offset: 0, sign: 43 } }
