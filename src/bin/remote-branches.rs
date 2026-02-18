@@ -16,6 +16,6 @@ fn main() {
                 );
             }
         }
-        Err(e) => panic!("failed to clone: {}", e),
+        Err(e) => panic!("failed to open: {}", e),
     };
 }
