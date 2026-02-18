@@ -1,0 +1,107 @@
+rabbit-hole-openclaw v0.1.0 (/Users/sam/github/ontouchstart/rabbit-holes)
+└── git2 v0.20.4
+    ├── bitflags v2.11.0
+    ├── libc v0.2.182
+    ├── libgit2-sys v0.18.3+1.9.2
+    │   ├── libc v0.2.182
+    │   ├── libssh2-sys v0.3.1
+    │   │   ├── libc v0.2.182
+    │   │   ├── libz-sys v1.1.23
+    │   │   │   └── libc v0.2.182
+    │   │   │   [build-dependencies]
+    │   │   │   ├── cc v1.2.56
+    │   │   │   │   ├── find-msvc-tools v0.1.9
+    │   │   │   │   ├── jobserver v0.1.34
+    │   │   │   │   │   └── libc v0.2.182
+    │   │   │   │   ├── libc v0.2.182
+    │   │   │   │   └── shlex v1.3.0
+    │   │   │   ├── pkg-config v0.3.32
+    │   │   │   └── vcpkg v0.2.15
+    │   │   └── openssl-sys v0.9.111
+    │   │       └── libc v0.2.182
+    │   │       [build-dependencies]
+    │   │       ├── cc v1.2.56 (*)
+    │   │       ├── pkg-config v0.3.32
+    │   │       └── vcpkg v0.2.15
+    │   │   [build-dependencies]
+    │   │   ├── cc v1.2.56 (*)
+    │   │   └── pkg-config v0.3.32
+    │   ├── libz-sys v1.1.23 (*)
+    │   └── openssl-sys v0.9.111 (*)
+    │   [build-dependencies]
+    │   ├── cc v1.2.56 (*)
+    │   └── pkg-config v0.3.32
+    ├── log v0.4.29
+    └── url v2.5.8
+        ├── form_urlencoded v1.2.2
+        │   └── percent-encoding v2.3.2
+        ├── idna v1.1.0
+        │   ├── idna_adapter v1.2.1
+        │   │   ├── icu_normalizer v2.1.1
+        │   │   │   ├── icu_collections v2.1.1
+        │   │   │   │   ├── displaydoc v0.2.5 (proc-macro)
+        │   │   │   │   │   ├── proc-macro2 v1.0.106
+        │   │   │   │   │   │   └── unicode-ident v1.0.24
+        │   │   │   │   │   ├── quote v1.0.44
+        │   │   │   │   │   │   └── proc-macro2 v1.0.106 (*)
+        │   │   │   │   │   └── syn v2.0.116
+        │   │   │   │   │       ├── proc-macro2 v1.0.106 (*)
+        │   │   │   │   │       ├── quote v1.0.44 (*)
+        │   │   │   │   │       └── unicode-ident v1.0.24
+        │   │   │   │   ├── potential_utf v0.1.4
+        │   │   │   │   │   └── zerovec v0.11.5
+        │   │   │   │   │       ├── yoke v0.8.1
+        │   │   │   │   │       │   ├── stable_deref_trait v1.2.1
+        │   │   │   │   │       │   ├── yoke-derive v0.8.1 (proc-macro)
+        │   │   │   │   │       │   │   ├── proc-macro2 v1.0.106 (*)
+        │   │   │   │   │       │   │   ├── quote v1.0.44 (*)
+        │   │   │   │   │       │   │   ├── syn v2.0.116 (*)
+        │   │   │   │   │       │   │   └── synstructure v0.13.2
+        │   │   │   │   │       │   │       ├── proc-macro2 v1.0.106 (*)
+        │   │   │   │   │       │   │       ├── quote v1.0.44 (*)
+        │   │   │   │   │       │   │       └── syn v2.0.116 (*)
+        │   │   │   │   │       │   └── zerofrom v0.1.6
+        │   │   │   │   │       │       └── zerofrom-derive v0.1.6 (proc-macro)
+        │   │   │   │   │       │           ├── proc-macro2 v1.0.106 (*)
+        │   │   │   │   │       │           ├── quote v1.0.44 (*)
+        │   │   │   │   │       │           ├── syn v2.0.116 (*)
+        │   │   │   │   │       │           └── synstructure v0.13.2 (*)
+        │   │   │   │   │       ├── zerofrom v0.1.6 (*)
+        │   │   │   │   │       └── zerovec-derive v0.11.2 (proc-macro)
+        │   │   │   │   │           ├── proc-macro2 v1.0.106 (*)
+        │   │   │   │   │           ├── quote v1.0.44 (*)
+        │   │   │   │   │           └── syn v2.0.116 (*)
+        │   │   │   │   ├── yoke v0.8.1 (*)
+        │   │   │   │   ├── zerofrom v0.1.6 (*)
+        │   │   │   │   └── zerovec v0.11.5 (*)
+        │   │   │   ├── icu_normalizer_data v2.1.1
+        │   │   │   ├── icu_provider v2.1.1
+        │   │   │   │   ├── displaydoc v0.2.5 (proc-macro) (*)
+        │   │   │   │   ├── icu_locale_core v2.1.1
+        │   │   │   │   │   ├── displaydoc v0.2.5 (proc-macro) (*)
+        │   │   │   │   │   ├── litemap v0.8.1
+        │   │   │   │   │   ├── tinystr v0.8.2
+        │   │   │   │   │   │   ├── displaydoc v0.2.5 (proc-macro) (*)
+        │   │   │   │   │   │   └── zerovec v0.11.5 (*)
+        │   │   │   │   │   ├── writeable v0.6.2
+        │   │   │   │   │   └── zerovec v0.11.5 (*)
+        │   │   │   │   ├── writeable v0.6.2
+        │   │   │   │   ├── yoke v0.8.1 (*)
+        │   │   │   │   ├── zerofrom v0.1.6 (*)
+        │   │   │   │   ├── zerotrie v0.2.3
+        │   │   │   │   │   ├── displaydoc v0.2.5 (proc-macro) (*)
+        │   │   │   │   │   ├── yoke v0.8.1 (*)
+        │   │   │   │   │   └── zerofrom v0.1.6 (*)
+        │   │   │   │   └── zerovec v0.11.5 (*)
+        │   │   │   ├── smallvec v1.15.1
+        │   │   │   └── zerovec v0.11.5 (*)
+        │   │   └── icu_properties v2.1.2
+        │   │       ├── icu_collections v2.1.1 (*)
+        │   │       ├── icu_locale_core v2.1.1 (*)
+        │   │       ├── icu_properties_data v2.1.2
+        │   │       ├── icu_provider v2.1.1 (*)
+        │   │       ├── zerotrie v0.2.3 (*)
+        │   │       └── zerovec v0.11.5 (*)
+        │   ├── smallvec v1.15.1
+        │   └── utf8_iter v1.0.4
+        └── percent-encoding v2.3.2

@@ -1,4 +1,0 @@
-Commit { id: 37b5c9292845cb4439a1b830b7229ce0246fdbfe, summary: "test(signal): dedupe mention-gating handler setup" }
-Peter Steinberger
-steipete@gmail.com
-Time { raw: git_time { time: 1771418324, offset: 0, sign: 43 } }

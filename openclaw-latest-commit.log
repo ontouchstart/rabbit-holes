@@ -1,0 +1,4 @@
+Commit { id: 33f30367e1baba8fa347949cca84d82b27274192, summary: "fix(cli): include model and thinking fields in cron edit patch type" }
+Peter Steinberger
+steipete@gmail.com
+Time { raw: git_time { time: 1771421965, offset: 0, sign: 43 } }
