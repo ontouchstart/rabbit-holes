@@ -1,3 +1,11 @@
+//! [git2::Repository::open]
+//!
+//! [git2::BranchType]
+//!
+//! [git2::Repository::branches]
+//!
+//! [git2::Repository::branches]
+//!
 use git2::BranchType;
 use git2::Repository;
 

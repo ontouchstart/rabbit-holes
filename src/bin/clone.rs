@@ -1,3 +1,5 @@
+//! [git2::Repository::clone]
+//!
 use git2::Repository;
 
 fn main() {
