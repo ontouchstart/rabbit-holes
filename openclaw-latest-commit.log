@@ -1,4 +1,4 @@
-Commit { id: 84841aebe526f6e6c6608a5beda65d5e4d925e46, summary: "perf(test): replace telegram media flush sleeps" }
-Peter Steinberger
-steipete@gmail.com
-Time { raw: git_time { time: 1771438232, offset: 0, sign: 43 } }
+Commit { id: b62bd290cb4e7d1d37363e92a8fc41558f17eaa0, summary: "fix: remove hardcoded disableBlockStreaming to honor agent config for TUI (#19693)" }
+Xinhe Hu
+neitherportal@proton.me
+Time { raw: git_time { time: 1771449959, offset: 480, sign: 43 } }
