@@ -1,3 +1,5 @@
+//! Reference
+//!
 //! [git2::Repository::open]
 //!
 //! [git2::BranchType]

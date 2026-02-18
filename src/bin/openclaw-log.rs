@@ -1,4 +1,26 @@
+//! Reference
+//!
 //! [git2::Repository::open]
+//!
+//! [git2::Repository::revwalk]
+//!
+//! [git2::Revwalk]
+//!
+//! [git2::Revwalk::push_head]
+//!
+//! [git2::Repository::find_commit]
+//!
+//! [git2::Commit]
+//!
+//! [git2::Commit::author]
+//!
+//! [git2::Signature]
+//!
+//! [git2::Signature::name]
+//!
+//! [git2::Signature::email]
+//!
+//! [git2::Signature::when]
 //!
 use git2::Repository;
 

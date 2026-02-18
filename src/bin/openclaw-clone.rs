@@ -1,5 +1,8 @@
+//! Reference
+//!
 //! [git2::Repository::clone]
 //!
+//! [git2::Repository]
 use git2::Repository;
 
 fn main() {
