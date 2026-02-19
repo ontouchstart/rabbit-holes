@@ -1,8 +1,10 @@
+GIT=git -C ../../gitoxide
+
 all:
 
-log-p-gitoxide:
-	git -C ../../gitoxide log -p
+git-log-p:
+	$(GIT) log -p
 
-log-reverse-p-gitoxide:
-	git -C ../../gitoxide log --reverse -p
+git-log-reverse-p:
+	$(GIT) log --reverse -p
 

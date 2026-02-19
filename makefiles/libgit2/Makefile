@@ -1,8 +1,11 @@
+
+GIT=git -C ../../libgit2
+
 all:
 
-log-p-libgit2:
-	git -C ../../libgit2 log -p
+git-log-p:
+	$(GIT) log -p
 
-log-reverse-p-libgit2:
-	git -C ../../libgit2 log --reverse -p
+git-log-reverse-p:
+	$(GIT) log --reverse -p
 

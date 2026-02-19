@@ -5,11 +5,11 @@ all:	gitoxide libgit2 git2-rs openclaw
 	du -h git2-rs
 	du -h openclaw
 
-	-make -C makefiles/gitoxide log-p-gitoxide | head
-	-make -C makefiles/git2-rs log-p-git2-rs | head
-	-make -C makefiles/libgit2 log-p-libgit2 | head 
-	-make -C makefiles/git2-rs log-p-libgit2 | head
-	-make -C makefiles/openclaw log-p-openclaw | head
+	-make -C makefiles/gitoxide git-log-p | head
+	-make -C makefiles/git2-rs git-log-p | head
+	-make -C makefiles/git2-rs/libgit2 git-log-p |head
+	-make -C makefiles/libgit2 git-log-p | head 
+	-make -C makefiles/openclaw git-log-p | head
 
 gitoxide: # bootstrap, only use the clone feature of gix (gix clone)
 	git clone https://github.com/GitoxideLabs/gitoxide.git

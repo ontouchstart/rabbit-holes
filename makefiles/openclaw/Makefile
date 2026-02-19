@@ -1,8 +1,10 @@
+GIT=git -C ../../openclaw
+
 all:
 
-log-p-openclaw:
-	git -C ../../openclaw log -p
+git-log-p:
+	$(GIT) log -p
 
-log-reverse-p-openclaw:
-	git -C ../../openclaw log --reverse -p
+git-log-reverse-p:
+	$(GIT) log --reverse -p
 

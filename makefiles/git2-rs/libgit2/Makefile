@@ -1,4 +1,4 @@
-GIT=git -C ../../git2-rs
+GIT=git -C ../../../git2-rs/libgit2-sys/libgit2/
 
 all:
 
