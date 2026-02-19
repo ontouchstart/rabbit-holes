@@ -1,4 +1,4 @@
-Commit { id: b62bd290cb4e7d1d37363e92a8fc41558f17eaa0, summary: "fix: remove hardcoded disableBlockStreaming to honor agent config for TUI (#19693)" }
-Xinhe Hu
-neitherportal@proton.me
-Time { raw: git_time { time: 1771449959, offset: 480, sign: 43 } }
+Commit { id: 2c05cbb43e48ebad03626d3125746fb1b9a8520f, summary: "fix(ci): use versioned actionlint checksum asset" }
+Peter Steinberger
+steipete@gmail.com
+Time { raw: git_time { time: 1771517240, offset: 60, sign: 43 } }
