@@ -1,7 +1,6 @@
 //!
 //! # Output
 //! ```log
-#![doc = include_str!("../../fs-dir.log")]
 //! ```
 
 use std::fs;
