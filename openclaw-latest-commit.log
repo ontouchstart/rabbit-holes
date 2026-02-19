@@ -1,4 +1,0 @@
-Commit { id: 2c05cbb43e48ebad03626d3125746fb1b9a8520f, summary: "fix(ci): use versioned actionlint checksum asset" }
-Peter Steinberger
-steipete@gmail.com
-Time { raw: git_time { time: 1771517240, offset: 60, sign: 43 } }

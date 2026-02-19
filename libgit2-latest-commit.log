@@ -1,4 +1,0 @@
-Commit { id: 86c7738ca6f07c81e6b458c30cfaf16f53d33009, summary: "Merge pull request #7209 from libgit2/ethomson/ci" }
-Edward Thomson
-ethomson@edwardthomson.com
-Time { raw: git_time { time: 1769870408, offset: 0, sign: 43 } }

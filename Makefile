@@ -1,22 +1,30 @@
-all:	libgit2 git2-rs openclaw
+all:	gitoxide libgit2 git2-rs openclaw
 
+	du -h gitoxide
 	du -h libgit2
 	du -h git2-rs
 	du -h openclaw
 
+	-make -C makefiles/gitoxide log-p-gitoxide | head
 	-make -C makefiles/git2-rs log-p-git2-rs | head
 	-make -C makefiles/libgit2 log-p-libgit2 | head 
 	-make -C makefiles/git2-rs log-p-libgit2 | head
 	-make -C makefiles/openclaw log-p-openclaw | head
 
-libgit2:
-	cargo run --bin libgit2-clone
+gitoxide: # bootstrap, only use the clone feature of gix (gix clone)
+	git clone https://github.com/GitoxideLabs/gitoxide.git
 
-git2-rs:
-	cargo run --bin git2-rs-clone
+gitoxide/target/debug/gix: gitoxide
+	cd gitoxide && cargo build
 
-openclaw:
-	cargo run --bin openclaw-clone
+libgit2: gitoxide/target/debug/gix
+	./gitoxide/target/debug/gix clone https://github.com/libgit2/libgit2.git
+
+git2-rs: gitoxide/target/debug/gix
+	./gitoxide/target/debug/gix clone https://github.com/rust-lang/git2-rs.git
+
+openclaw: gitoxide/target/debug/gix
+	./gitoxide/target/debug/gix clone https://github.com/openclaw/openclaw.git
 
 clean:
-	rm -rf target libgit2 git2-rs openclaw
+	rm -rf target gitoxide libgit2 git2-rs openclaw
