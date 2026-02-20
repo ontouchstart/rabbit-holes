@@ -1,30 +1,11 @@
-all:	gitoxide libgit2 git2-rs openclaw
+all:  tree-sitter/target/debug/tree-sitter
+	tree-sitter/target/debug/tree-sitter --help
 
-	du -h gitoxide
-	du -h libgit2
-	du -h git2-rs
-	du -h openclaw
+tree-sitter:
+	git clone https://github.com/tree-sitter/tree-sitter.git
 
-	-make -C makefiles/gitoxide git-log-p | head
-	-make -C makefiles/git2-rs git-log-p | head
-	-make -C makefiles/git2-rs/libgit2 git-log-p |head
-	-make -C makefiles/libgit2 git-log-p | head 
-	-make -C makefiles/openclaw git-log-p | head
-
-gitoxide: # bootstrap, only use the clone feature of gix (gix clone)
-	git clone https://github.com/GitoxideLabs/gitoxide.git
-
-gitoxide/target/debug/gix: gitoxide
-	cd gitoxide && cargo build
-
-libgit2: gitoxide/target/debug/gix
-	./gitoxide/target/debug/gix clone https://github.com/libgit2/libgit2.git
-
-git2-rs: gitoxide/target/debug/gix
-	./gitoxide/target/debug/gix clone https://github.com/rust-lang/git2-rs.git
-
-openclaw: gitoxide/target/debug/gix
-	./gitoxide/target/debug/gix clone https://github.com/openclaw/openclaw.git
+tree-sitter/target/debug/tree-sitter: tree-sitter
+	cd tree-sitter && cargo tree && cargo build
 
 clean:
-	rm -rf target gitoxide libgit2 git2-rs openclaw
+	rm -rf tree-sitter
