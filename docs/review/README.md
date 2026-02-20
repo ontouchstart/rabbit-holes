@@ -9,5 +9,6 @@ How people review works by others.
 
 - <https://youtu.be/mjYac9SwIK0>
 - <https://youtu.be/p79IjNay4mY>
+- <https://lore.kernel.org/git/>
 
 Rabbit hole to [git](../git)
