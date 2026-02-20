@@ -4,6 +4,8 @@
 
 <https://git.kernel.org/pub/scm>
 
+<https://lore.kernel.org/git/>
+
 ## Other noises 
 
 <https://git-scm.com>
