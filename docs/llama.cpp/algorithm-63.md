@@ -62,7 +62,9 @@ end;
 
 But need to fix some variable names: original had `A[IL]`? That's maybe A[I] but mis OCR. Should be A[I] etc. We'll keep original.
 
-Let's output markdown code block.<<<reasoning_content_end>>>```algol
+Let's output markdown code block.<<<reasoning_content_end>>>
+
+```algol
 procedure partition(A, M, N, I, J);
 value M, N;
 array A;
