@@ -1,5 +1,4 @@
 /target
-/git2-rs
-/gitoxide
-/libgit2
+/llama.cpp
 /openclaw
+/tokei
