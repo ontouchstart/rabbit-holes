@@ -7,9 +7,12 @@ llama-versions:
 	llama.cpp/build/bin/llama-cli --version
 	llama.cpp/build/bin/llama-server --version
 
+server:
+	llama.cpp/build/bin/llama-server -hf ggml-org/gpt-oss-20b-GGUF --n-cpu-moe 12 -c 32768 --jinja --no-mmap
+
 windows-llama-versions:
-	llama.cpp/build/bin/llama-cli.exe --version
-	llama.cpp/build/bin/llama-server.exe --version
+	llama.cpp\build\bin\Release\llama-cli.exe --version
+	llama.cpp\build\bin\Release\llama-server.exe --version
 
 openclaw:
 	git clone https://github.com/openclaw/openclaw.git
