@@ -11,5 +11,6 @@ Every pothole has a rabbit hole underneath.
 ## [git](git)
 ## [turing](turing)
 ## [tree-sitter](tree-sitter)
+## [llama.cpp](llama.cpp)
 
 © 2026  [Sam Liu](https://github.com/ontouchstart)
