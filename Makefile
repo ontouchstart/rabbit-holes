@@ -1,7 +1,7 @@
-all:	ggml-org-llama.cpp stats
+all:	stats
 	cd ggml-org-llama.cpp && cmake -B build && cmake --build build --config Release -j 8
 
-stats:	XAMPPRocky-tokei/target/debug/tokei
+stats:	XAMPPRocky-tokei/target/debug/tokei ggml-org-llama.cpp
 	XAMPPRocky-tokei/target/debug/tokei ggml-org-llama.cpp 
 
 llama-versions:
