@@ -10,6 +10,9 @@ llama-versions:
 server:
 	llama.cpp/build/bin/llama-server -hf ggml-org/gpt-oss-20b-GGUF --n-cpu-moe 12 -c 32768 --jinja --no-mmap
 
+cli:
+	llama.cpp/build/bin/llama-cli -hf ggml-org/gpt-oss-20b-GGUF
+
 windows-llama-versions:
 	llama.cpp\build\bin\Release\llama-cli.exe --version
 	llama.cpp\build\bin\Release\llama-server.exe --version
