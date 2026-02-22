@@ -1,6 +1,6 @@
-all:	
-	env
-	which make
-	make --version
-	make --help
-	cat -n Makefile
+all:	EricLBuehler/mistral.rs
+	
+
+EricLBuehler/mistral.rs:
+	mkdir -p EricLBuehler 
+	git clone https://github.com/EricLBuehler/mistral.rs EricLBuehler/mistral.rs
