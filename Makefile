@@ -1,5 +1,6 @@
 all:	EricLBuehler/mistral.rs
 	cd EricLBuehler/mistral.rs && cargo tree && cargo build	
+	cargo build
 
 EricLBuehler/mistral.rs:
 	mkdir -p EricLBuehler 

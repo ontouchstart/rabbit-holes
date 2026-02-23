@@ -1,0 +1,993 @@
+\documentclass{article}
+
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2023
+
+
+% ready for submission
+\usepackage[preprint]{neurips_2023}
+
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+%     \usepackage[preprint]{neurips_2023}
+
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+%     \usepackage[final]{neurips_2023}
+
+
+% to avoid loading the natbib package, add option nonatbib:
+%    \usepackage[nonatbib]{neurips_2023}
+
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\input{math_commands.tex}
+
+
+\title{Mixture of Quantized Experts (MoQE):\\ Complementary Effect of \\ Low-bit Quantization and Robustness}
+
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+\author{%
+  Young Jin Kim\thanks{Equal contribution.} \\
+  % Department of Computer Science\\
+  Microsoft \\
+  % Pittsburgh, PA 15213 \\
+  \texttt{youki@microsoft.com} \\
+  \And
+  Raffy Fahim\footnotemark[1] \\
+  Microsoft \\
+  % Address \\
+  \texttt{raffybekheit@microsoft.com} \\
+  \AND
+  Hany Hassan Awadalla \\
+  Microsoft \\
+  % Address \\
+  \texttt{hanyh@microsoft.com} \\
+  % examples of more authors
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \AND
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+}
+
+
+% \author{%
+%   David S.~Hippocampus\thanks{Use footnote for providing further information
+%     about author (webpage, alternative address)---\emph{not} for acknowledging
+%     funding agencies.} \\
+%   Department of Computer Science\\
+%   Cranberry-Lemon University\\
+%   Pittsburgh, PA 15213 \\
+%   \texttt{hippo@cs.cranberry-lemon.edu} \\
+%   % examples of more authors
+%   % \And
+%   % Coauthor \\
+%   % Affiliation \\
+%   % Address \\
+%   % \texttt{email} \\
+%   % \AND
+%   % Coauthor \\
+%   % Affiliation \\
+%   % Address \\
+%   % \texttt{email} \\
+%   % \And
+%   % Coauthor \\
+%   % Affiliation \\
+%   % Address \\
+%   % \texttt{email} \\
+%   % \And
+%   % Coauthor \\
+%   % Affiliation \\
+%   % Address \\
+%   % \texttt{email} \\
+% }
+
+
+\begin{document}
+
+
+\maketitle
+
+
+\begin{abstract}
+Large Mixture of Experts (MoE) models could achieve state-of-the-art quality on various language tasks, including machine translation task, thanks to the efficient model scaling capability with \textit{expert parallelism} \citep{fedus2021switch}. However, it has brought a fundamental issue of larger memory consumption and increased memory bandwidth bottleneck at deployment time. In this paper, we propose \textit{Mixture of Quantized Experts (MoQE)} which is a simple \textit{weight-only} quantization method applying ultra low-bit down to 2-bit quantizations only to expert weights for mitigating the increased memory and latency issues of MoE models. We show that low-bit quantization together with the MoE architecture delivers a reliable model performance while reducing the memory size significantly even without any additional training in most cases. In particular, \texttt{expert} layers in MoE models are much more robust to the quantization than conventional feedforward networks (FFN) layers. In our comprehensive analysis, we show that MoE models with 2-bit expert weights can deliver better model performance than the dense model trained on the same dataset. As a result of low-bit quantization, we show the model size can be reduced by 79.6\% of the original half precision floating point (fp16) MoE model. Combined with an optimized GPU runtime implementation, it also achieves 1.24X speed-up on A100 GPUs.
+\end{abstract}
+
+
+\section{Introduction}
+The Mixture-of-Experts (MoE) architecture efficiently increase the number of model parameters, while maintaining a sub-linear increase in computational requirements by activating only a few small number of experts at a time \citep{lepikhin2020gshard, fedus2021switch, kim2021scalable, artetxe2021efficient}. As a result, MoE models could achieve higher quality compared to the dense models by increasing the size of the model dramatically. In a large scale distributed training setting, this can be efficiently scaled with expert parallelism\citep{fedus2021switch}. However, during inference scenarios, despite the sub-linear increase in computational load, there is a notable surge in memory bandwidth requirement. Table \ref{inference-speed-baseline} shows that how much memory bandwidth overhead is introduced, even when employing just 32 experts without a corresponding increase in theoretical FLOPs, as implemented with top-1 gating \citep{fedus2021switch} on an NVIDIA A100 GPU.
+
+\begin{table}[ht]
+\caption{Inference speed measurements and model sizes of dense and MoE models. Both models run with batch size of 24 and the throughput is measured with the number of sentences processed for one second.}
+\label{inference-speed-baseline}
+\begin{center}
+\begin{tabular}{l|r|r|r}
+\hline 
+\multirow{2}{*}{Model}  &{Throughput} & Model size & \% of MoE weights \\ 
+&{(sentences/second)} & (\textit{fp16}) in GB \\ 
+\hline
+Dense         & 14.02 & 1.18 & - \\
+MoE (32 experts)             & 5.37 & 9.91 & \textbf{92.8 \%}\\
+\hline
+Difference             & 0.38X & 8.38X &  - \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+In spite of the progress on the training of MoE models, there have been only a few handfuls of studies related to MoE model inference. \citet{Rajbhandari2022DeepSpeedMoEAM} designs a more efficient MoE architecture and distributed runtime. \citet{Kudugunta2021BeyondDT} uses task specific information to reduce the size of the model at deployment time by only loading task specific experts. \citet{kim2021scalable} prunes some experts at deployment time to reduce the model size by trading-off model performance. \citet{zoph2022designing} uses knowledge distillation technique to distill a large MoE model into a smaller dense model to reduce the memory consumption and improve the throughput. Even with all the proposed techniques, there has not been a solution to accelerate the inference of MoE models while maintaining the accuracy.
+
+To effectively solve the problem, we empirically show that expert weights are highly robust to the quantization, therefore they can be quantized to 3-bit without additional training or calibration data and to 2-bit with Quantization Aware Training (QAT) which results in 79.6\% reduction in memory size. Also with a runtime optimization, we show that the method boosts the inference speed more than 1.24X faster on A100 GPUs.
+% We leverage the memory bounded characteristic of auto-regressive decoders, so reduced memory bottleneck improves the overall efficiency even with additional dequantization steps in our procedure.
+% Quantization is a type of model acceleration and compression techniques by estimating a floating point number into a smaller precision number. There are various studies that show quantization is effective to accelerate neural network model inference \citep{rodriguez2018lower, stock2019and, Choukroun2019LowbitQO, Gholami2022ASO}. Especially, it has been known to be very effective in natural language generation such as machine translation (\citep{kim2019research, Aji2020CompressingNM, Fan2021TrainingWQ}) and natural language understanding \citep{kim2020fastformers} tasks. However, there has not been an in-depth study about how quantization works with large MoE models.
+
+% Recently, \citet{Dettmers2022LLMint88M, Yao2022ZeroQuantEA} have studied how quantization works on large scale language models. \citet{Dettmers2022LLMint88M} looks at outlier features in the activations of large language models, and proposes to decompose them while performing matrix multiplications. In our quantization method, this is not needed because it is a weight-only quantization and outliers in activations cannot affect the performance. And, the weights are dequantized back to fp16 while matrix multiplication is done. This also makes our approach not require a special low-bit instructions. And, we show that this can be applied to lower bits than 8-bit for large MoE models. ZeroQuant \citep{Yao2022ZeroQuantEA} presents a series of techniques including knowledge distillation \citep{kim2016sequence} for achieving a higher quality quantization. Our focus is to exploit the intrinsic characteristics of MoE layers based on our investigation, and we show that a simple quantization algorithm can achieve significantly higher efficiency and maintain the quality at the same time.
+% As another popular neural network compression method, neural network pruning approach have been studied since \citet{frankle2018lottery} showed a competitive capability of sparse neural network models. \citet{gale2019state, hoefler2021sparsity} present various different pruning approaches to make neural networks sparser. Especially, the pruning technique has shown its effectiveness on the transformer architecture. \citet{behnke2020losing, kim2020fastformers} present that some of the attention heads can be pruned. Also, \citet{gale2019state, kim2020fastformers, sanh2020movement} show that FFN connection or FFN neuron level pruning can be applied to the transformer layers.
+
+% In this paper, we present our study on low-bit quantization of a large MoE model with 5.3B parameters and propose a simple and effective method to compress and speed-up MoE models. 
+% Our contributions in this paper are as below.
+% \begin{itemize}
+    % \item We present extensive studies about how applying low-bit (down to 2-bits) quantization to different layers of MoE transformer models
+    % % and higher bits up to 8-bit quantization 
+    % affects the model accuracy together with comparisons to the corresponding dense model with the same embedding size.
+    % \item We show that expert weights are highly robust to the quantization, therefore they can be quantized to 3-bit without additional training or calibration data and to 2-bit with Quantization Aware Training (QAT) which results in 79.6\% reduction in memory size. Combined with a runtime optimization, we show that the method boosts the inference speed significantly more than 2.7X faster. We leverage the memory bounded characteristic of auto-regressive decoders, so reduced memory bottleneck improves the overall efficiency even with additional dequantization steps in our procedure.
+    % Based on the observations, we propose a new framework named \textit{Mixture of Quantized Experts (MoQE)} which is a simple \textit{weight-only} quantization method only applied to MoE expert weights.
+    % Our quantization approach is only quantizing the weights of models, and they are dequantized at every time the weight is used. 
+    % So, there is no special low precision instruction sets are required in the target hardware. 
+    % This still gives faster inference due the the memory bandwidth bounded characteristic of auto-regressive decoders.
+    % \item Finally, we show an emerging sparsity of more than 80\% in the expert weights to be zero from 2-bit quantization. The expert weight matrices are \textbf{sparse and very low-precision at the same time}, while still outperforming the dense counterpart trained on the same dataset.
+% \end{itemize}
+%by quantizing expert weights all the way down to ternary bits. With various extensive experiments, we show that MoE models are robust to the quantization and we can achieve a lossless compression down to 3-bit without any additional model training. We also show how we make 1-2 bit models can recover the competitive accuracy by using quantization aware fine-tuning. With 1-bit and ternary quantizations, we observe the expert weights becoming extremely sparse up to 99\%. We also analyze how different components of the model behave differently on the quantization and show MoE weights are much more robust than the dense weights to quantization.
+%We also compare with a dense model regarding the robustness on the quantization. 
+
+% \section{Background - Challenges of deploying MoE models}
+% In the widely used MoE architecture, even with a constant or only sub-linearly higher theoretical FLOPs by using top-1 or top-2 gating, the increased model size with additional experts has a serious negative impact on the inference performance in various aspects.
+
+% \subsection{Increased memory footprint}
+% % \textbf{}
+% First of all, due to the increased model size, the model requires much more accelerator memory. With modern accelerators like GPUs, the accelerator memory size is limited. So, more accelerators are required to handle 1 model which causes communication problem described next. Also, the model takes up more memory, so the batch size is limited to be small which prevents the optimal utilization of processing cores.
+
+% \subsection{Slower inference speed}
+% \textbf{Increased communication overhead.}
+% In the distributed training and inference set-up for large scale models, it is natural to use many GPUs or accelerators for a single model. The model weights can be distributed across different accelerators with various techniques \citep{Ren2021ZeROOffloadDB} and expert parallelism \citep{fedus2021switch}. However, in \citet{liu2022gating}, it is shown that the communication overhead with expert parallelism at training time could take up to more than half of the entire end-to-end time depending on the number of GPUs and clusters. This could affect inference efficiency even more severely because inference usually needs fewer FLOPs numbers than training, and communication bottleneck will stand out more.
+% % Due to the higher FLOPs requirements during model training, the impact of communication overheads is relatively smaller than during inference.
+% %Also, to accommodate the optimizer states, it is usually not avoidable. 
+% % However, during inference time, this communication overhead affects model performance significantly whenever adding more accelerators for a single inference. 
+% Therefore, it is desirable to use as few numbers of accelerators as possible to avoid this overhead.
+% %However, the models get bigger with a much faster speed especially with MoE models.
+
+% \textbf{Memory bandwidth bottleneck with MoE layers.}
+% The increase in the model size not only causes communication overhead, but also brings a significant inference speed impact on the modern processor architectures. While performing beam search decoding, the size of activation (an individual token) is relatively small and the decoding operation is memory bandwidth bounded. This means transferring model weight matrices in a memory hierarchy is a huge bottleneck. With the increased number of experts, the burden of memory transfer increases even more, and directly impacts the inference speed.
+% % (TODO cite something?) Modern process architectures usually use cache hierarchy together with high degree of parallelism with parallel instructions. Dense models can usually exploit this architecture optimally by loading a weight matrix once and processing many inputs at the same time using high parallelism. This is not the case for the MoE models. Different expert weights need to be loaded multiple times in the cache, and execute only a subset of inputs which cannot fully utilize the capacity of parallel processing units. This is even more serious on the decoder transformer architecture where only one position of input is processed.
+
+% \textbf{Inference speed measurement.}
+% Table \ref{inference-speed-baseline} shows an actual speed difference measured with dense and MoE models on an NVIDIA's V100 GPU. Two models are encoder and decoder based on the transformer architecture \citep{Vaswani2017AttentionIA}, and have exactly the same model settings except for the number of experts. The speed measurements are done on the translation task from German to English using auto-regressive beam search with beam size of five. Both models are evaluated on the same \texttt{PyTorch}~\footnote{https://github.com/pytorch/pytorch} with half-precision floating point (fp16). The MoE model uses top-1 gating which assigns only one expert for a given input token which provides the same theoretical FLOPs as the corresponding dense model (with the same embedding size). Due to the excessive memory transfer caused by the increased number of experts, the actual inference speed decreases by 60\% of the original dense model's speed as shown in the table.
+% % as can be seen in the Table \ref{inference-speed-baseline} which is measured with \texttt{PyTorch}~\footnote{https://github.com/pytorch/pytorch}. %even with the same theoretical FLOPs.
+
+% To overcome these challenges, we focus on reducing the model size utilizing quantization. Especially, increased model size and latency are mostly from the expert FFN weights which contribute 92.8 \% of all weights in this specific model setting, so the FFN weights are our main target for the optimization. With an emerged sparsity in expert weights from the low-bit quantization, we also explore a further sparsification opportunity with a simple magnitude pruning technique.
+% % Combined with the latest advancement with the GPU runtime based on NVIDIA's \texttt{FasterTransformer}~\footnote{https://github.com/NVIDIA/FasterTransformer} which enables faster weight-only quantization operation, it could achieve a significant speed-up for 8-bit and 4-bit quantization. Furthermore, we present a possibility to further accelerate the model with sparse expert weights naturally emerged from very low-bit quantization and pruning techniques. The runtime for the sparse weight matrices is out of this paper's scope. 
+% % and especially present MoE models consist of highly sparse expert weights using very low-bit quantization. It is shown that a highly optimized inference runtime for down to 4-bit weight matrices could be achieved. We believe that sparse experts could even accelerate the inference speed further, but the runtime for the sparse weight matrices is out of this paper's scope.
+% % \subsection{Domain adaptation?} - can we provide enough material in this paper?
+
+\section{Quantization robustness of MoE layers}
+\label{sec:quant_methods}
+% There are multiple design choices to quantize model weights. In this section, we analyze the numerical characteristics of different layers in a large MoE model, and describe the decisions we have made to most effectively quantize the MoE layers.
+% have been various algorithms for quantizing neural network models to effectively approximate the original model. In this section, we describe different quantization approaches we have been applying and analyze how they are impacting the quality of the model.
+
+\subsection{Numerical distribution of model weights}
+% In order to decide the best quantization strategy, we first need to understand the distribution of each individual layer. 
+While quantizing matrices, outliers usually skew the range to be quantized and scaling factors get too large and result in poor quantization quality. We investigate if outliers exist in MoE and other layers.
+
+Figure \ref{fig:weight-distribution-layer} shows weight distribution box plots of linear layers in the MoE model's FFN blocks. We use a normal two layer FFN block from the Transformer paper \citep{Vaswani2017AttentionIA}. Following the widely used practice, an MoE layer is in every other layer \citep{lepikhin2020gshard,fedus2021switch,kim2021scalable}. Even number layers $\{0, 2, ...\}$ are expert FFN layers and odd number layers $\{1, 3, ...\}$ are normal dense FFN layers. From the plot, dense FFN layers have a much larger range than MoE FFN layers. This indicates that dense FFN layers have more outliers than MoE FFN layers. This phenomenon is more prevalent in the second linear layers sometimes reaching down to $-8.0$ which is shown in Figure \ref{fig:fc2-layer-stats}.
+% Figure~\ref{fig:weight-distribution} shows example histograms of an expert FFN weight and a dense FFN weight. As can be seen in Figure \ref{fig:encoder-fc2-layer-7-weights}, the example dense FFN layer suffers from outliers seriously. However, expert FFN weights in Figure \ref{fig:encoder-expert-15-layer-6-fc2-weights} show smooth distribution without any major outliers. We observe the similar pattern all across different layers and different experts. In Appendix \ref{app:skew}, we additionally include the statistics of overall layers. This statistical observation indicates that MoE FFN layers would be well suited for the quantization.
+% This gives a hint for the choices of quantization methods.
+
+% Based on the observation, the FFN weights are following a normal distribution with a mean value near zero. Therefore, we use symmetric quantization without needing to shift the zero point. Even for the dense FFN layers, the means and the standard deviations are around zero except for the outliers which can be seen in the box plot of Figure \ref{fig:weight-distribution-layer}. This symmetric quantization also gives an advantage to quantize many weight values near center to zero which could result in a sparse model weight.
+
+% TODO ffn, mha, experts and etc. \\
+% We can put the distribution of weights - how ffn and MoE are different
+% some equations
+% @Raffy we may want to have below
+% 1. MoE experts - layer 0, layer 22 (by any chance, have you looked at the decoder. I assumed it's similar)
+% 2. MoE ffn - layer 1, layer 23
+% 3. dense ffn layer 0, layer23
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{iclr_images/together_fc1_distribution_stat.pdf}
+        \vskip -0.1in
+        \caption{\centering FFN linear 1 weight distribution across layers}
+        % \caption{encoder expert 15 layer 6 fc2 weights}
+        \label{fig:fc1-layer-stats}
+        \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{iclr_images/together_fc2_distribution_stat.pdf}
+        \vskip -0.1in
+        \caption{\centering FFN linear 2 weight distribution across layers}
+        % \caption{encoder fc2 layer 7 weights}
+        \label{fig:fc2-layer-stats}
+    \end{subfigure}
+    \caption{FFN weight distribution across layers. Even number layers $\{0, 2, ...\}$ are expert FFN layers and odd number layers $\{1, 3, ...\}$ are normal dense FFN layers. (a) shows the first linear layer in FFN and (b) shows the second linear layer in FFN.}
+    \label{fig:weight-distribution-layer}
+\end{figure}
+
+
+
+% \begin{figure}[h]
+%     \centering
+%     \begin{subfigure}[b]{0.495\textwidth}
+%         \centering
+%         \includegraphics[width=1.0\textwidth]{iclr_images/encoder_expert_15_layer_6_fc2_w.png}
+%         \vskip -0.1in
+%         \caption{\centering Example expert weight distribution\hspace{\textwidth}(layer 6, FFN 2, expert 15)}
+%         % \caption{encoder expert 15 layer 6 fc2 weights}
+%         \label{fig:encoder-expert-15-layer-6-fc2-weights}
+%         \end{subfigure}
+%     \begin{subfigure}[b]{0.495\textwidth}
+%         \centering
+%         \includegraphics[width=1.0\textwidth]{iclr_images/encoder_fc_2_layer_7.png}
+%         \vskip -0.1in
+%         \caption{\centering Example FFN weight distribution\hspace{\textwidth}(layer 7, FFN 2)}
+%         % \caption{encoder fc2 layer 7 weights}
+%         \label{fig:encoder-fc2-layer-7-weights}
+%     \end{subfigure}
+%     \caption{A comparison of example weight distributions from MoE and dense FFN layers.}
+%     \label{fig:weight-distribution}
+% \end{figure}
+
+
+
+%TODO mention opt S equation?
+
+% \subsubsection{}
+
+% %make the mentioned 2 figures side by side
+% \textbf{Comparison of quantization techniques.}
+% Figure \ref{fig:linear-log} shows the comparison between two quantization techniques with low bits applied on expert FFN layers and dense FFN layers. For dense FFN layers, log-scale quantization performs slightly better, but both do not work well on 2-bit resulting in almost zero evaluation scores. For expert FFN layers, both techniques work similarly for 3 and 4 bits, but log-scale quantization loses the accuracy seriously with 2-bit. This is because there are only 4 bins for the integer values to quantize with 2-bit quantization and one of them is zero. Log-scale tries to split values near zero in a more fine-grained way, but this actually hurts the performance compared to having enough zeros with linear quantization. Based on this experiment, we use linear quantization for compressing MoE FFN layers.
+
+% Observing the weights distribution for different neural network parts in Figure \ref{fig:encoder-expert-15-layer-6-fc2-weights} and \ref{fig:encoder-fc2-layer-7-weights}, we see that expert layers follow a smooth normal distribution while non-expert FFN layers have more skewed distributions which can explain why a log scale is better for non-expert FFN layers.
+
+\subsubsection{Robustness of expert layers to quantization}
+\label{sec:sensitivity}
+To better understand how applying quantization on different parts of an MoE model affects the accuracy, we conduct a set of experiments with various quantization bits. We divide an MoE model into four parts: (i) expert FFNs, (ii) dense FFN layers, (iii) self-attention layers and (iv) cross-attention layers. Based on the observation that linear quantization works better with lower bits, we use it for this set of experiments. 
+% Applying these 2 techniques on these different parts, we notice that linear quantization gives better scores than log for bits lower than 4 as shown in Figure \ref{fig:expert FFNs log_opt_s vs linear} except for non-expert FFNs where log quantization performes better as shown in Figure \ref{fig:non expert FFNs log_opt_s vs linear}.
+
+Figure \ref{fig:different NN parts quant} shows evaluation BLEU~\footnote{https://github.com/mjpost/sacrebleu} scores which is one of the quality metrics for machine translation when quantizing different parts of the MoE model. We observe that quantizing expert FFN layers to 2-bit does not seriously impact the overall model quality. However, quantizing other parts of the model into 2-bit hurts the output quality significantly. Quantized cross-attention and self-attention blocks still can maintain the quality with 3-bit quantization, but their performance gets impacted with 2-bit quantization. On the other hand, dense FFN layers get significant impact with lower bit quantization of 2-bit and 3-bit. With 3-bit quantization, the model score drops 23 \% of original score, and 2-bit quantization on dense FFN layers gives almost zero score. We also include the same study on a dense model in Appendix \ref{app:dense-layers}, the similar pattern with 2 and 3 bit quantization is observed.
+%TODO remove numerical erros part?
+% When we go to lower bits, quantizing layers gives significant regressions especially with 2 bits. However, expert FFN layers are robust to ultra-low bits quantization with only $\sim$ 1.5 regression in 2 bits while quantizing non-expert FFN layers with 2 bits results $\sim$ 0.0 BLEU score.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{iclr_images/quant-parts.pdf}
+    \vskip -0.1in
+    \caption{Quantization impact on different MoE model parts (channel-wise linear quantiztation without any additional training).}
+    \label{fig:different NN parts quant}
+\end{figure}
+
+
+% \textbf{Special quantization for binary and ternary bits.}
+
+% \textbf{}
+
+% We tried two quantization algorithms: linear and log-scale quantization. For each we tried channel-wise and tensor-wise quantization and picked the best setup for each technique.
+
+
+% \subsection{MoE weight can use linear symmetric quant}
+
+% \subsection{Quantization aware fine tuning.}
+% \label{sec:qat-ste}
+
+% For 2 to 3 bits experts quantization, it is helpful to have a round of quantization aware fine-tuninging to recover the degradation of accuracy with quantization. We use straight through estimator based on \citep{wu2020integer,bengio2013estimating} which compute forward pass with quantization and update the weight based on the gradient acquired with quantized forward computation. 
+% order to recover the regressions in BLEU scores, we used quantization aware fine-tuning where gradients are calculated using quantized weights with which the original weights are updated. After training, the resulting checkpoint is quantized and performance is recovered. %all setups?
+%finetuning final results table
+
+% \section{Mixture of Sparse Experts (MoSE) framework}
+% \subsection{Mixture of Quantized Experts (MoQE)}
+% Based on the experiments from the previous parts of this section, we propose a very simple, highly effective and accurate quantization recipe for MoE models.
+% \begin{itemize}
+%     \item Apply \textbf{weight-only quantization} while keeping activations in fp16.
+%     \item Quantize \textbf{expert FFN layers only}.
+%     \item Use \textbf{channel-wise and symmetric quantization}.
+%     \item Choose one of either two quantization methods depending on the quantization precision
+%     \begin{enumerate}
+%         \item (3-bit or higher bit): Directly quatize trained MoE models without additional calibration.
+%         \item (2-bit): Fine-tune the model with Quantization Aware Training (QAT) which the describtion follows.
+%     \end{enumerate}
+%     % \item Use \textbf{post-training quantization} without calibration down to 3-bit.
+%     % \item Use \textbf{QAT} for 2-bit quantization.
+% \end{itemize}
+% two ways of best utilizing quantization for MoE models. In both cases, 
+% Figure \ref{fig:moqe-framework} illustrates the proposed methods.
+% process of getting high quality and efficient models with those two approaches. Higher quality models acquired from MoE training can use one of either direct post-training quantization or quantization aware fine-tuning with very low-bit quantization.
+% All of our methods quantize the model weights only, therefore the accuracy loss is purely from the precision of the weights. And, the computations are done in fp16.
+
+% \textbf{Simple post-training quantization}
+% A simple post-training quantization with absolute maximum range on expert weights can deliver competitive model performance while does not require any additional training. This is simply relying on the well distributed property of expert weight matrices and their robustness, therefore it does not require additional calibration data as well sometimes needed to acquire more accurate quantization \citep{wu2020integer}. This approach  
+% Furthermore, using an optimized matrix multiplication of 4-bit weight matrices, this could utilize an end-to-end accelerated inference solution. This results in four times smaller expert weights compared to fp16 which is widely used for inference. We show that this can be done down to 3-bits without any significant quality drop for the expert weights.
+
+% \textbf{Sparse experts with quantization aware training}
+% QAT is a well-known method used to recover the accuracy loss from the quantization \citep{Gholami2022ASO}. In our case, to quantize to 2-bit precision, we can continue training the model with the original training data while applying quantization only on the forward pass computation as presented in \citep{wu2020integer,bengio2013estimating} for recovering the accuracy loss. As we use symmetric quantization with 2-bit, zero numerical value is always included. Due to the normal distribution of expert weights centered around zero, many weight values naturally turn into zeros. This procedure results in sparse expert matrices. \\
+% TODO we need a better story here. \\
+% TODO where to put the QAT training/validation loss curve? we may want to move QAT training curves here. And, we can include both training loss and validation loss.
+
+
+% \begin{figure}[ht]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{iclr_images/MoSE-framework.png}
+%     \vskip -0.1in
+%     \caption{Diagram of the Mixture of Quantized Experts (MoQE) framework.}
+%     \label{fig:moqe-framework}
+% \end{figure}
+
+% \subsection{Simple post-training quantization}
+
+% \subsection{Sparse experts with full QAT loop}
+
+\section{Experiments}
+Given the observations from the previous section, we aggressively apply low-bit quantization on MoE weights only which result in MoQE (Mixture-of-Quantized-Experts). We use multilingual machine translation task for our experiments. The details of the datasets, quality metrics and model architectures are described in Appendix \ref{app:setup}
+
+\subsection{MoQE performance results}
+We apply MoQE quantization recipe to an MoE model and compare the performance with the baseline MoE model in Table \ref{tab:mose-result}. For a reference, a dense model is also trained on the same dataset as the MoE model. For the MoE model, various quantization settings ranging from 8-bit to 2-bit are measured together with the original fp16 performance. For 2-bit quantization, additional QAT is applied.
+% Finally, we applied magnitude based pruning approach to the 2-bit quantized model to acquire a sparser model.
+
+First of all, the MoE model achieves 2.87\% improvement on the BLEU score while increasing the model size to 8.38X of the original dense model. When 4-bit post-training quantization is applied, it still maintains 2.11\% higher BLEU score than the original dense model. This reduces the memory consumption by 68\% and while speeding up inference 1.24X faster than fp16 MoE model. With 2-bit QAT, the MoE model can still maintain 1.88\% higher quality than the original dense model, but the model size is now only 1.71X of the original dense model. 
+% Also, the matrices are sparse up to 79.1\% of the values are zeros.
+%If we apply further magnitude pruning based on a threshold value of 0.1, the sparsity can go up to 82.8\%.
+
+% Figure \ref{fig:sparsity-2-bit} shows the sparsity distribution of different layers. The second linear layers after the non-linear activation layers show higher sparsity compared to the first linear layers. Some layers could reach up to 85\% sparsity. We include a further investigation of sparsity with magnitude based pruning approach in Appendix \ref{app:pruning}.
+
+\begin{table}[t]
+\caption{The model performance comparison. All the models are trained on same data up to the convergence with 200,000 update steps. The baseline is the FLOPs equivalent dense model's BLEU score and speed.}
+\label{tab:mose-result}
+\begin{center}
+% % \begin{footnotesize}
+\begin{tabular}{c|ccccccccccc}
+\hline
+\multirow{2}{*}{\bf Model type} & \multirow{2}{*}{\bf Precision} & {\bf Average BLEU} & {\bf Throughput}   & {\bf Size}   \\
+& &  (difference \%) & (X times) & (X times)  \\
+\hline
+Dense & fp16 & 45.06 (0) & - & - \\
+% \hline
+% \multirow{2}{*}{Dense} & int8  & 45.04 (-0.02) & Not optimized & 0.88X & 1.28 \\\cline{2-6}
+% % \hline
+% & int4 & 44.84 (-0.47) & Not optimized & 0.82X & 21.31 \\
+% \hline
+\hline
+% \multirow{9}{*}{MoE 5.3B (32 experts)} & \multirow{2}{*}{fp16}  & \multirow{2}{*}{\bf 46.35 (+2.87)} & 0.38X & \multirow{2}{*}{8.38X} & \multirow{2}{*}{3.8e-5} \\
+% &  & & 7.03X (FT) & & \\\cline{2-6}
+ MoE Baseline & fp16  & {\bf 46.35 (+2.87)} & 1.00X & 1.00X  \\
+% &  & & 7.03X (FT) & & \\\cline{2-6}
+\hline
+\multirow{3}{*}{MoE 5.3B (32 experts)} & int8  & {\bf 46.34 (+2.85)} & 1.16X & 0.54X  \\\cline{2-6}
+% \hline
+& int4  & 46.18 (+2.49) & {\bf 1.24X} & 0.32X  \\\cline{2-6}
+% \hline
+MoQE & int3  & 46.01 (+2.11) & Not optimized & 0.26X  \\\cline{2-6}
+% \hline
+& int2  & \multirow{2}{*}{45.90 (+1.88)} & \multirow{2}{*}{Not optimized} & \multirow{2}{*}{0.20X}  \\
+& QAT  & &  &  &  \\
+% \cline{2-6}
+% & int2   & \multirow{2}{*}{45.23 (+0.39)} & \multirow{2}{*}{-} & \multirow{2}{*}{1.71X} & \multirow{2}{*}{\bf 82.80} \\
+% & QAT - pruning & & & & \\
+\hline
+\hline
+\end{tabular}
+% \end{footnotesize}
+\end{center}
+\end{table}
+
+
+
+% \begin{table}[t]
+% \caption{The model performance comparison. All the models are trained on same data up to the convergence with 200,000 update steps. The baseline is the original dense model's BLEU scroes and speed.}
+% \label{tab:mose-result}
+% \begin{center}
+% \begin{small}
+% \begin{tabular}{c|ccccccccccc}
+% \hline
+% \multirow{2}{*}{\bf Model type} & \multirow{2}{*}{\bf Precision} & {\bf Average} & {\bf BLEU}   & {\bf Size}  & \multirow{2}{*}{\bf Sparsity \%} \\
+% & &  BLEU & {difference \%} & (X times) & \\
+% \hline
+% Dense (baseline) & fp16 & 45.06 & 0 & 1X & 3.8e-5\\
+% \hline
+% \multirow{2}{*}{Dense} & int8  & 45.04 & -0.02 & 0.88X & 1.28 \\
+% % \hline
+% & int4 & 44.84 & -0.47 & 0.82X & 21.31 \\
+% \hline
+% \hline
+% \multirow{8}{*}{MoE 5.3B (32 experts)} & fp16  & 46.35 & +2.87 & 8.38X & 3.8e-5 \\\cline{2-6}
+% % \hline
+% & int8  & 46.34 & +2.85 & 5.56X & 1.24 \\\cline{2-6}
+% % \hline
+% & int4  & 46.18 & +2.49 & 3.25X & 20.68 \\\cline{2-6}
+% % \hline
+% & int3  & 46.01 & +2.11 & 2.67X & 42.15 \\\cline{2-6}
+% % \hline
+% & int2  & \multirow{2}{*}{45.90} & \multirow{2}{*}{+1.88} & \multirow{2}{*}{2.09X} & \multirow{2}{*}{79.10} \\
+% & fine-tuning  & &  &  &  \\\cline{2-6}
+% & int2   & \multirow{2}{*}{45.23} & \multirow{2}{*}{+0.39} & \multirow{2}{*}{2.09X} & \multirow{2}{*}{\bf 82.80} \\
+% & fine-tuning - pruning & & & & \\
+% \hline
+% % \multirow{2}{*}{3-bit} & Dense  & -6.36 & -2.51 & -4.24 & -5.93 \\
+% % & MoE & -0.92 & 0.26 & -0.26 & -1.26\\
+% % \hline
+% % \multirow{2}{*}{2-bit} & Dense  & -95.44 & -94.42 & -95.51 & -95.10  \\
+% % & MoE  & -4.35 & -1.00 & -2.64 & -7.01 \\
+% %  Baseline & $129$k &$24.60$  & $250$k & $74.24$k \\
+% %  Hash-Layer & $135$k & $23.06$ & - & -\\
+% %  aaa& $143$k & $25.06$  &$147$k & $48.64$k \\
+% % bbb & \bm{ $150$}{\bf k} & \bm{$25.12$} & \bm{$104$}{\bf k} & \bm{$35.84$}{\bf k}\\
+% % \hline
+% \hline
+%  % &  & \multicolumn{1}{c}{\bf en-de}& \multicolumn{1}{c}{\bf en-es}& \multicolumn{1}{c}{\bf en-fr} & \multicolumn{1}{c}{\bf en-it}&\multicolumn{1}{c}{\bf en-nl} &\multicolumn{1}{c}{\bf Average (English-xx)}    \\
+% % \hline
+% % \multirow{2}{*}{8-bit} & Dense   & -0.04 & -0.07 & 0.02 & -0.05  \\
+% % & MoE   & 0.05 & -0.01 & -0.03 & 0.00  \\
+% % \hline
+% % \multirow{2}{*}{4-bit} & Dense  & -0.76 & -1.11 & -0.29 & -0.70 \\
+% % & MoE   & 0.31 & -0.90 & -0.74 & -0.45 \\
+% % \hline
+% % \multirow{2}{*}{3-bit} & Dense  & -5.82 & -4.79 & -3.96 & -5.41  \\
+% % & MoE & -0.21 & -2.12 & -1.41 & -0.87  \\
+% % \hline
+% % \multirow{2}{*}{2-bit} & Dense   & -97.28 & -96.16 & -95.52 & -96.68 \\
+% % & MoE  & -5.24 & -6.19 & -5.19 & -5.30  \\
+% % \hline
+% \end{tabular}
+% \end{small}
+% \end{center}
+% \end{table}
+
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=0.65\textwidth]{iclr_images/sparsity-2-bit.png}
+%     \vskip 0.2in
+%     \caption{Sparsity distribution of 2-bit quantized MoE layers.}
+%     \label{fig:sparsity-2-bit}
+% \end{figure}
+
+
+\subsection{Robustness comparison between MoE and dense models}
+% Based on the experiments in Section \ref{sec:sensitivity}, we focus on quantizing expert weights for MoE models to achieve the smallest model size and the best quality. 
+We compare robustness against low-bit quantization between MoE and dense models using the post-training quantization without any QAT. For the dense model, quantization with different bits is applied to the even numbered FFN layers. Appendix \ref{app:dense-layers} shows this is the best layer selection for the dense model. We use two different datasets to verify the proposed quantization method works in different model settings.
+% For a fair comparison, 
+% we also experimented best layers to quantize. Similar to MoE models, feedforward layers are more robust to the quantization. Because MoE layers appear only in every other layers, we also quantize every even number layers in dense models which is the best setting. In the Appendix \ref{app:dense-layers}, we include how quantizing different layers in dense models impact the model quality. \\
+% TODO - Add comparison between MoE vs. Dense
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{iclr_images/moevsdense.pdf}
+    \vskip -0.1in
+    \caption{Quantization performance comparison between MoE and dense models. 10 different language pair scores are averaged.}
+    \label{fig:dense-moe-euro}
+\end{figure}
+
+Figure \ref{fig:dense-moe-euro} presents the experiment with the model trained with 20 direction multilingual translation dataset. It shows the average BLEU scores with different quantization precision for both MoE and dense models. The MoE model can maintain accuracy within -0.3 down to 3-bit and -1.82 for 2-bit. On the other hand, the dense model can preserve the accuracy only down to 4-bit, but starts to lose significant accuracy more than 2 BLEU scores when it goes down to 3-bits. In case of 2-bits, dense model loses most of capability by -42.96 BLEU scores. Table \ref{tab:moe-dense} in Appendix shows the score differences by quantization for both MoE and dense models on 10 different language pairs translations.
+
+% Figure \ref{fig:dense-moe-wmt10} presents the experiment with the model trained with the smaller dataset. In this setting, each individual expert is smaller, but there are 4 times more experts in one MoE layer. And, they are trained with smaller dataset, so they do not have equivalent knowledge as the previous model trained on the larger dataset. As can be seen in the Figure, the quantization performance shows a similar pattern. The MoE model preserves accuracy even when it is quantized to 2 or 3 bits. However, dense model quickly loses the performance when it is quantized down to lower than 4-bit. Again, the MoE model is much more robust to quantization than the dense model.
+% It shows the average BLEU scores with different quantization precision for both MoE and dense models. The MoE model can maintain accuracy within -0.3 down to 3-bit and -1.82 for 2-bit. On the other, the dense model can preserve the accuracy only down to 4-bit, but starts to lose significant accuracy more than 2 BLEU scores when it goes down to 3-bits. In case of 2-bits, dense model lose most of capability by -42.96 BLEU scores. Table \ref{tab:moe-dense} shows the score differences by quantization for both MoE and dense models on 10 different language pairs translations.
+
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=0.5\textwidth]{iclr_images/moevsdensewmt.pdf}
+%     \vskip -0.1in
+%     \caption{Quantization performance comparison between MoE and dense models. 20 different WMT language pairs are averaged.}
+%     \label{fig:dense-moe-wmt10}
+% \end{figure}
+
+% @TODO need to update with \%
+%%%%%%%%%%%%%%%%
+
+
+\section{Conclusions and limitations}
+This paper shows how much MoE models are robust to the low-bit quantization with various experiments. By analyzing component-wise sensitivity and various quantization design choices, we present an efficient and effective way to reduce the model size which results in 4.9X model size reduction. With an optimized runtime, 4-bit quantized model can run 1.24X faster than the fp16 model.
+
+Even with the interesting findings, the study has a few limitations. First of all, there does not exist an optimized implementation for lower than 4-bit quantization, yet. This is a good potential future research direction. Secondly, 2-bit quantization still requires QAT while 3-bit or higher bit quantization does not. Lastly, there could be a hybrid approach to mix different quantization precisions between MoE layers and the other layers which can result in more optimal model performance.
+% We also show 2-bit quantization could achieve more than 79\% sparsity in the expert weights. The results naturally bring interesting future research directions. The discovered robustness of expert layers can guide a better way to train MoE models. If we can better control the splitting of latent space, better MoE models can be acquired. Analyzing the interactions between expert FFN layers and the other common layers in the model could guide a way to build a composable model. 
+% It will be helpful for designing better MoE models to study why experts weights highly robust to the compression while maintaining the accuracy. 
+% Especially, as presented in Appendix \ref{sec:general}, we observe that quantization sometimes improves the accuracy on tasks in a specific situation. Another important direction will be studying how to accelerate sparse expert computation on modern hardware with software/hardware co-design. This will eventually make MoE models much more efficient in both training and inference.
+
+\clearpage
+
+% A number of width problems arise when LaTeX cannot properly hyphenate a
+% line. Please give LaTeX hyphenation hints using the \verb+\-+ command.
+
+% \subsubsection*{Author Contributions}
+% If you'd like to, you may include  a section for author contributions as is done
+% in many journals. This is optional and at the discretion of the authors.
+
+% \subsubsection*{Acknowledgments}
+% Use unnumbered third level headings for the acknowledgments. All
+% acknowledgments, including those to funding agencies, go at the end of the paper.
+
+
+\bibliography{iclr2023_conference}
+\bibliographystyle{iclr2023_conference}
+
+\clearpage
+
+\appendix
+
+\section{Quantization algorithms}
+
+% We can divide the quantization methods into 3 main axes: the technique, used bits count (precision) and whether the scaling factors are chosen channel-wise or tensor-wise.
+
+\subsection{Quantization techniques}
+We try two quantization techniques, they are (i) linear quantization which is mapping quantized integer values and the original float value uniformly and (ii) log-based quantization from \citet{Aji2020CompressingNM} which maps integer and float ranges in a log scale. In both cases, we choose channel-wise quantization over matrix-wise quantization based on the experiment in Appendix \ref{app:chan-mat}.
+% \textbf{Symmetric vs. non-symmetric.}
+
+\textbf{Linear quantization with absolute maximum.}
+The first technique is linear quantization which, given a matrix $\mA$ and b bits, it encodes $\mA$ as follows: 
+\begin{center} \label{eq1:linquant}
+$\displaystyle \vs_{j} = \frac{2 \times \max(|\mA_{:,j}|)}{2^{b}-1}$ \\
+$\displaystyle \mQ_{:,j}= \integer(\frac{\mA_{:,j}}{\vs_{j}})$ \\
+
+\end{center}
+where $s$ is the scaling factor which can be chosen per channel as shown or per the whole tensor. At inference time, the quantized $\mQ$ is dequantized back to $\mA^{'}$ with the scaling factor $\vs$ as follows:% and $\mA^{'}$ is the dequantized matrix. 
+
+\begin{center}
+$\displaystyle \mA^{'}_{:,j}=\mQ_{:,j} \times \vs_{j}$ \\
+\end{center}
+
+\textbf{Log-scale quantization.}
+The second technique is log-scale quantization where $1$ bit is kept for the sign and (${b-1}$) bits are used to encode the log-scaled values. Given a matrix $\mA$, the quantization formula is as follows:
+\begin{center}
+% $sign = sign({A_i_j})$ \\
+$\displaystyle \mP = sign({\mA})$ \\
+$\displaystyle \mT =clip(\frac{|\mA|}{s}, 1, 2^{1-2^{b-1})}$ \\
+$\displaystyle \mQ = \lceil log_2(\frac{2}{3}\mT) \rceil$  \\
+\end{center}
+ %TODO make equations larger
+where $s$ can be chosen in two ways, either (i) the absolute maximum or (ii) the optimal value to minimize the mean squared error (MSE) between the quantized and original values which is described in \citet{Aji2020CompressingNM}. We use the second algorithm which we observe a better accuracy with the quantization. At inference time, the quantized weight values are dequantized based on the formula as follows:
+%We used the latter as it yields better results.
+\begin{center}
+$\displaystyle \mA^{'}= \mP\times s \times 2^\mQ$ \\
+\end{center}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{iclr_images/expert-linear-log-8bit.pdf}
+        \vskip -0.1in
+        \caption{\centering Expert FFNs}
+        \label{fig:expert FFNs log_opt_s vs linear}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{iclr_images/ffn-linear-log-8bit.pdf}
+        \vskip -0.1in
+        \caption{\centering Dense FFNs}
+        \label{fig:non expert FFNs log_opt_s vs linear}
+    \end{subfigure}
+    \caption{Linear quantization vs log-scale with optimal $\vs$ quantization.}
+    \label{fig:linear-log}
+\end{figure}
+
+\section{Experimental setup}
+\label{app:setup}
+\textbf{Task.}
+We use multilingual machine translation task for our experiments with two different dataset which are 20 language directions and 10 language directions respectively. We use sacrebleu~\footnote{https://github.com/mjpost/sacrebleu} on the detokenized output to measure the accuracy of the models. A single NVIDIA A100 running inside a docker container running Ubuntu 20.04 and CUDA 11.6 is used for all experiments, and all code is compiled with nvcc and gcc/g++ 9.3. We measure end-to-end runtime of the inference for the evaluation dataset.
+%As we are more interested in the quality differences
+
+\textbf{Datasets.}
+We use two different datasets described below.
+% \begin{itemize}
+    % \item We collected 50 different languages including English-centric parallel data and monolingual data for 50 languages from web and CCNet~\cite{wenzek2019ccnet} in total 336 billion tokens. We use a vocabulary consists of 250,000 sub-words built with sentencepiece\footnote{https://github.com/google/sentencepiece} library. 
+    For the larger dataset setting, we use internally collected dataset consists of 6 different languages which are German (de), French (fr), Italian (it), Spanish (es), Dutch (nl) and English (en). They are crawled from web, and each language pair has at least several hundred million sentences. We use 128,000 sub-words vocabulary built with sentencepiece\footnote{https://github.com/google/sentencepiece} library. The number of training sentences is included in Appendix \ref{app:datastat}. \\
+    For the smaller dataset setting, we use WMT-10 benchmark dataset widely used for public benchmarks \citep{wang2020multi, kim2021scalable}. There are 32.5 million sentence pairs for English-centric 20 language pairs including French (fr), Czech(cs), German (de), Finnish (fi), Latvian (lt), Estonian (et), Romanian (ro), Hindi (hi), Turkish(tr) and Gujarati (gu).
+    % \item Evaluation is done on the held out validation dataset for above mentioned 6 languages.
+    % Therefore, the model trained with 50 languages are evaluated only on the smaller subset language translations.
+% \end{itemize}
+
+% \begin{itemize}
+%     % \item We collected 50 different languages including English-centric parallel data and monolingual data for 50 languages from web and CCNet~\cite{wenzek2019ccnet} in total 336 billion tokens. We use a vocabulary consists of 250,000 sub-words built with sentencepiece\footnote{https://github.com/google/sentencepiece} library. 
+%     \item For the larger dataset setting, we use internally collected dataset consists of 6 different languages which are German (de), French (fr), Italian (it), Spanish (es), Dutch (nl) and English (en). They are crawled from web, and each language pair has at least several hundred million sentences. We use 128,000 sub-words vocabulary built with sentencepiece\footnote{https://github.com/google/sentencepiece} library. The number of training sentences is included in Appendix \ref{app:datastat}. 
+%     \item For the smaller dataset setting, we use WMT-10 benchmark dataset widely used for public benchmarks \citep{wang2020multi, kim2021scalable}. There are 32.5 million sentence pairs for English-centric 20 language pairs including French (fr), Czech(cs), German (de), Finnish (fi), Latvian (lt), Estonian (et), Romanian (ro), Hindi (hi), Turkish(tr) and Gujarati (gu).
+%     % \item Evaluation is done on the held out validation dataset for above mentioned 6 languages.
+%     % Therefore, the model trained with 50 languages are evaluated only on the smaller subset language translations.
+% \end{itemize}
+
+\textbf{Model architecture.}
+For all the experiments with large dataset, we use 24 transformer \citep{Vaswani2017AttentionIA} encoder layers and 12 transformer decoder layers following the deeper encoder and shallower decoder practice \citep{kim2019research, Kasai2021DeepES} to be more efficient at auto-regressive decoding. The embedding dimension is $1,024$ and FFN hidden dimension is $4,096$. For the positional information encoding to the hidden state, we use Transformer with Untied Positional Encoding (TUPE) proposed in \citet{Ke2021RethinkingPE} instead of the conventional sinusoidal positional embedding. Another design choice is the location of layer normalization. For the training stability, we use pre-layer normalization proposed in \cite{Xiong2020OnLN} instead of the original post-layer normalization from \citep{Vaswani2017AttentionIA}. We train MoE and dense models for the comparison. The model architecture choices mentioned here are common for both models. The only difference between dense and MoE models is the number of experts. We use 32 experts for the MoE model trained with the larger web data. We use beam search decoding with beam size of 5. For the experiments with smaller dataset, we use 12 transformer encoder layers and 6 transformer decoder layers. The embedding dimension is $768$ and FFN hidden dimension is $3,072$. In this setting, we use MoE layers with 128 experts at every other layer.
+
+\textbf{MoE architecture.}
+For the MoE model specific settings, we use top-1 learned gating from \cite{fedus2021switch} and use an MoE layer at every other layer which are even numbered layers \citep{lepikhin2020gshard, fedus2021switch, kim2021scalable}. During the training of MoE models, we use jittering noise and balancing loss (ratio of $0.01$) suggested in \cite{lepikhin2020gshard, fedus2021switch} to more uniformly distribute expert utilization. To prevent overfitting and better regularize the model, we use gating dropout ($0.2$) \citep{liu2022gating} as well.
+
+\section{Channel-wise vs matrix-wise quantization}
+\label{app:chan-mat}
+% For each weight tensor we had to pick a scaling factor either per channel or per tensor. For linear quantization we picked channel-wise which gives better results with still a small number of elements kept in floating point precision.
+Scaling factors are calculated by the quantization algorithm and stored in half precision floating-point (fp16) numbers to dequantize the matrices with. These factors can be chosen on the channel scale or the whole matrix scale. As shown in figure \ref{fig:linear_channel_vs_tensor_expert_ffns}, channel-wise quantization gives quite higher scores than tensor-wise especially for low precision. Additional parameters to store channel-wise scaling factors is small, because only one value is needed for a channel and less than 1\% of total parameters in a matrix. Therefore, we use channel-wise quantization for all the quantization experiments.
+%This difference in scores comes with keeping more parameters but these parameters are one dimensional so still huge memory is saved.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{iclr_images/channelmatrix.pdf}
+    \vskip -0.1in
+    \caption{Linear quantization of expert FFNs with channel-wise and matrix-wise scaling factors.}
+    \label{fig:linear_channel_vs_tensor_expert_ffns}
+\end{figure}
+
+
+\section{Quantization of different layers in a dense model}
+\label{app:dense-layers}
+In the paper, we compare a dense model and an MoE model in terms of quantization robustness. To make a fair comparison, we consider quantizing only half of the dense transformer blocks' FFNs, because we quantize expert weights only which exist only in every other block (even numbered). We compare three different configurations - (1) quantizing even numbered blocks' FFNs only, (2) quantizing odd numbered blocks' FFNs only and (3) quantizing all FFN layers. As can be seen in Figure \ref{app:dense-layers}, quantizing even numbered blocks' FFNs affects the accuracy the least, and quantizing all FFN layers give the worst result. Based on this experiment, we quantize only even numbered transformer blocks' FFNs for the dense model in all the experiments and comparisons.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{iclr_images/dense-layers.pdf}
+    \vskip -0.1in
+    \caption{Quantization impact of different layers in a dense model.}
+    \label{fig:dense-layers}
+\end{figure}
+
+\section{Skewness of weight matrices in MoE and dense models}
+\label{app:skew}
+In the analysis of model weight distribution in Section \ref{sec:quant_methods}, we observe that dense models' FFN layers tend to have more outliers than MoEs' expert FFN layers. We measure the skewness of weight distribution of those in Table \ref{tab:skewness}.
+
+\begin{table}[ht]
+\caption{Expert vs non-expert FFN layers parameters distribution skewness}
+\label{tab:skewness}
+\begin{center}
+\begin{small}
+\begin{tabular}{cccccccccccc}
+\hline
+\multicolumn{1}{c}{\bf Parameter} & \multicolumn{1}{c}{\bf skew} \\
+
+\hline
+encoder expert 15 FFN fc1 layer 0 & -0.002 \\
+\hline
+encoder expert 15 FFN fc2 layer 0 &	-0.190 \\ 
+\hline
+encoder expert 15 FFN fc1 layer 6 & -0.002 \\
+\hline
+encoder expert 15 FFN fc2 layer 6 &	-0.002 \\
+\hline
+encoder non-expert FFN fc1 layer 1 & -0.019 \\ 
+\hline
+encoder non-expert FFN fc2 layer 1	& -10.729 \\ 
+\hline
+encoder non-expert FFN fc1 layer 7 & 0.003 \\ 
+\hline
+encoder non-expert FFN fc2 layer 7 & -1.574 \\
+\hline
+\hline
+
+        encoder expert FFN fc1 mean & 0.00  \\ \hline
+        encoder expert FFN fc2 mean & -0.63  \\ \hline
+        decoder expert FFN fc1 mean & 0.00  \\ \hline
+        decoder expert FFN fc2 mean & 0.48  \\ \hline
+        encoder non-expert FFN fc1 mean & 0.00  \\ \hline
+        encoder non-expert FFN fc2 mean & -1.84  \\ \hline
+        decoder non-expert FFN fc1 mean & 0.00  \\ \hline
+        decoder non-expert FFN fc2 mean & -0.09  \\ \hline
+        % encoder self attention k\_proj mean & 0.00  \\ \hline
+        % decoder encoder attention k\_proj mean & 0.00  \\ \hline
+        % encoder self attention q\_proj mean & 0.00  \\ \hline
+        % decoder encoder attention q\_proj mean & 0.00  \\ \hline
+        % encoder self attention v\_proj mean & 0.00  \\ \hline
+        % decoder encoder attention v\_proj mean & 0.00  \\ \hline
+\end{tabular}
+\end{small}
+\end{center}
+\end{table}
+
+% \section{Abstractive summarization task performance}
+% \label{app:abssum}
+% To validate the quantization performs well on a different task and a model, we evaluate a 10.1 B MoE (64 experts) model's quantization performance on an abstractive summarization task called \textbf{XSUM} \citep{narayan2018don}. Table \ref{tab:xsum} shows that the MoE model performs well with low-bit quantizations such as 2-bits and 3-bits.
+
+% \begin{table}[ht]
+% \caption{The ROUGE score differences in percentage (\%) after applying post-training quantization on XSUM evaluation.}
+% \label{tab:xsum}
+% \begin{center}
+% \begin{small}
+% \begin{tabular}{ccccccccc}
+% \hline
+% \multicolumn{1}{c}{\bf Quantization Bits} & \multicolumn{1}{c}{\bf R1} & \multicolumn{1}{c}{\bf R2}&\multicolumn{1}{c}{\bf RL}      \\
+% \hline
+% 8-bit & +0.17 & +0.13 & +0.26 \\
+% 4-bit & -0.10 & -0.26 & -0.34 \\
+% 3-bit & -0.21 & -0.82 & -0.28 \\
+% 2-bit & -1.61 & -5.94 & -2.37 \\
+% % 1-bit & -31.32 & +0.13 & +0.26 \\
+% \hline
+% \end{tabular}
+% \end{small}
+% \end{center}
+% \end{table}
+
+% \section{Better generalization with expert quantization}
+% \label{sec:general}
+% We observe an interesting phenomenon that quantization actually improves the score of evaluation on a different domain dataset. We trained an MoE model with 64 experts (10.1B) on 50 different language translations (98 English-centric language pairs). When we evaluate this model on a different domain subset 6 languages (German, Spanish, French, Italian, Dutch, English), the evaluation BLEU score increases until we quantize the experts down to 3-bits without any additional QAT or calibrations. With 3-bit quantization, the score increases more than 6.42\% on non-English to English and 6.96\% on English to the others. Especially, from English to Italian and from Italian to English scores increase more than 10\% which quite significant. The results are summarized in Table \ref{tab:moe-dense-general}. We are analyzing what could be the reason for this phenomenon, but we think this is related to how MoE models learn representations. MoE layers might learn very specific knowledge with its increased capacity, but the shared layers learn more generic knowledge. By blurring the representation from the MoE layers, the model becomes more general task capable. This is one of our future research areas.
+
+% \begin{table}[t]
+% \caption{The BLEU score differences in percentage (\%) after quantization on different language pairs.}
+% \label{tab:moe-dense-general}
+% \begin{center}
+% \begin{small}
+% \begin{tabular}{cccccccccccc}
+% \hline
+% \multicolumn{1}{c}{\bf Quantization Bits}  & \multicolumn{1}{c}{\bf de-en}&\multicolumn{1}{c}{\bf es-en}   & \multicolumn{1}{c}{\bf fr-en} & \multicolumn{1}{c}{\bf it-en}&\multicolumn{1}{c}{\bf nl-en} &\multicolumn{1}{c}{\bf Average (xx-English)}     \\
+% \hline
+% \multirow{1}{*}{fp16} & 40.43 & 47.83 & 46.46 &  39.67 & 43.13 & 43.50 \\ \hline
+% \multirow{1}{*}{8-bit} & \textbf{-0.01} & -0.08 & +0.17 & +0.25 & +0.06 & +0.08 \\
+% \hline
+% \multirow{1}{*}{4-bit}   & -0.04 & +5.60 & +2.83 & +7.72 & +5.39 &  +4.30 \\
+% \hline
+% \multirow{1}{*}{3-bit}   & -0.47 & \textbf{+9.22} & \textbf{+4.02} & \textbf{+11.97} & \textbf{+7.38} & \textbf{+6.42} \\
+% \hline
+% \multirow{1}{*}{2-bit}  & -7.59 & -0.30 & -7.52 & -4.45 & -4.34 & -4.84 \\
+% %  Baseline & $129$k &$24.60$  & $250$k & $74.24$k \\
+% %  Hash-Layer & $135$k & $23.06$ & - & -\\
+% %  aaa& $143$k & $25.06$  &$147$k & $48.64$k \\
+% % bbb & \bm{ $150$}{\bf k} & \bm{$25.12$} & \bm{$104$}{\bf k} & \bm{$35.84$}{\bf k}\\
+% \hline
+% \hline
+%  &  \multicolumn{1}{c}{\bf en-de}& \multicolumn{1}{c}{\bf en-es}& \multicolumn{1}{c}{\bf en-fr} & \multicolumn{1}{c}{\bf en-it}&\multicolumn{1}{c}{\bf en-nl} &\multicolumn{1}{c}{\bf Average (English-xx)}    \\
+% \hline
+% \multirow{1}{*}{fp16} & 36.74 & 40.98 & 45.99 & 29.13 & 38.72 & 38.31 & \\ \hline
+% \multirow{1}{*}{8-bit}    & -0.03 & +0.13 & -0.19 & +0.06 & +0.29 & +0.05 \\
+% \hline
+% \multirow{1}{*}{4-bit} & \textbf{+0.88} & +6.86 & +3.55 & +6.52 & +2.59 & +4.08 \\
+% \hline
+% \multirow{1}{*}{\bf 3-bit}   & +0.25 & \textbf{+9.65} & \textbf{+5.24} & \textbf{+16.09} & \textbf{+3.57} & \textbf{+6.96} \\
+% \hline
+% \multirow{1}{*}{2-bit}  & -19.58 & -9.11 & -6.99 & -2.22 & -14.68 & -10.52 \\
+% \hline
+% \end{tabular}
+% \end{small}
+% \end{center}
+% \end{table}
+
+
+% \section{Additional sparsity distribution}
+% We include sparsity distribution across different layers in a dense model quantized with 4-bit. As can be seen in Figure \ref{fig:sparsity-distribution-dense}, the sparsity is overall low. Second linear layers in FFN show slightly higher sparsity, but all of them are smaller than 30\%.
+
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{iclr_images/sparsity-4-bit.png}
+%     \vskip -0.1in
+%     \caption{Sparsity distribution of 4-bit quantized dense layers.}
+%     \label{fig:sparsity-distribution-dense}
+% \end{figure}
+
+\section{Machine translation dataset summary}
+\label{app:datastat}
+Table \ref{tab:datastat} shows the number of parallel sentences used to train dense and MoE models. All languages have at least 300 million sentences and the differences in the number among languages are less than two times.
+
+\begin{table}[ht]
+\caption{The number of parallel sentences including backtranslation data.}
+\label{tab:datastat}
+\begin{center}
+\begin{small}
+\begin{tabular}{ccccccccc}
+\hline
+\multirow{2}{*}{\bf Language} & \multicolumn{2}{c}{\bf Number of parallel sentences (million)}        \\
+ & \multicolumn{1}{c}{\bf xx $\rightarrow$ English} & \multicolumn{1}{c}{\bf English $\rightarrow$ xx}   \\
+\hline
+DE (German) & 505 & 411 \\
+ES (Spanish) & 448 & 407  \\
+FR (French) & 448 & 376  \\
+IT (Italian) & 447 & 303  \\
+NL (Dutch) & 302 & 378 \\
+\hline
+\end{tabular}
+\end{small}
+\end{center}
+\end{table}
+
+
+% \section{Magnitude pruning experiments}
+% \label{app:pruning}
+% Inspired by the emerged sparsity in expert layers, we apply a simple magnitude based pruning to the MoE model we experiment with. We apply different threshold values from 0.00001 to 0.5. We make all the weight values less than the threshold to be zero. We apply 2 to 8 bit quantization together. Figure \ref{fig:sparsity-range-bleu} shows how model performance varies with the achieved sparsity. Even with sparsity level of 90\%, the model preserves a certain level of task capability. Compared to \citet{gale2019state}, this shows much higher performance with the same sparsity. This could be another example showing the robustness of expert weights.
+
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{iclr_images/sparsity-bleu.pdf}
+%     \vskip -0.1in
+%     \caption{Sparsity of MoE layers vs. BLEU scores with magnitude pruning.}
+%     \label{fig:sparsity-range-bleu}
+% \end{figure}
+
+\section{Detailed BLEU score differences with quantization applied to the model trained on public WMT dataset}
+\label{app:wmt}
+Table \ref{tab:moe-dense-trained-on-wmt10} shows individual BLEU score changes with various quantization bits for MoE and dense models trained on public WMT dataset.
+
+\begin{table}[t]
+\caption{The BLEU score differences in percentage (\%) after quantization on different language pairs in WMT dataset. The rows with fp16 show the baseline BLEU scores.}
+\label{tab:moe-dense-trained-on-wmt10}
+\begin{center}
+\begin{scriptsize}
+\begin{tabular}{cccccccccccccc}
+\hline
+\multicolumn{1}{c}{\bf Bits}  & \multicolumn{1}{c}{\bf Model} & \multicolumn{1}{c}{\bf en-cs} & \multicolumn{1}{c}{\bf en-de} & \multicolumn{1}{c}{\bf en-et} & 
+\multicolumn{1}{c}{\bf en-fi} & \multicolumn{1}{c}{\bf en-fr} & \multicolumn{1}{c}{\bf en-gu} & \multicolumn{1}{c}{\bf en-hi} & \multicolumn{1}{c}{\bf en-lv} & \multicolumn{1}{c}{\bf en-ro} & \multicolumn{1}{c}{\bf en-tr} & \multicolumn{1}{c}{\bf Avg.(en-xx)} \\ \hline
+fp16 & Dense & 23.89 & 31.46 & 17.80 & 18.75 & 28.54 & 10.34 & 11.98 & 22.29 & 27.22 & 15.81 & 20.81 &\\ 
+(BLEU) & MoE & 26.09 & 34.36 & 18.27 & 22.17 & 31.34 & 13.04 & 12.16 & 23.26 & 27.95 & 16.89 & 22.55
+ \\ \hline
+
+\multirow{2}{*}{8-bit} & Dense & -0.39 & -0.09 & -0.32 & 0.60 & 0.01 & -0.80 & 0.61 & -0.26 & 0.17 & -0.09 & -0.05  &\\
+~ & MoE & 0.01   & -0.15   & 0.64   & -0.33   & 0.19   & 0.86   & 0.02   & -0.04   & -0.15   & -0.03  & 0.05 \\ \hline
+
+\hline
+
+\multirow{2}{*}{4-bit} & Dense  & -1.11 & -1.91 & -3.15 & -1.50 & 1.03 & -7.08 & -4.44 & -2.38 & -1.65 & -1.89  & -1.90
+ \\ 
+~ & MoE & -0.30 & -0.62 & 0.30 & -0.62 & -0.13 & -0.97 & 1.53 & -0.81 & -0.82 & -0.22  & -0.36 \\ \hline
+
+\hline
+\multirow{2}{*}{3-bit}  & Dense  & -10.87 & -7.86 & -12.87 & -11.70 & -3.96 & -32.03 & -24.76 & -11.16 & -7.05 & -12.74 & -11.24  & \\
+~ & MoE & -0.84 & -1.06 & -1.79 & -1.97 & 0.35 & -2.80 & -0.70 & -1.98   & -1.05 & -1.64 & -1.21 \\ \hline
+\multirow{2}{*}{2-bit} & Dense  & -97.44 & -86.29 & -91.79 & -91.02 & -85.75 & -98.26 & -96.48 & -94.14 & -87.30 & -95.02  & -91.21 & \\ 
+& MoE & -8.84 & -9.15 & -17.06 & -13.24 & -5.62 & -25.24 & -16.38 & -16.11 & -11.04 & -14.48 & -12.34
+\\ \hline
+    \hline
+\multicolumn{1}{c}{\bf Bits}  & \multicolumn{1}{c}{\bf Model} & \multicolumn{1}{c}{\bf cs-en} & \multicolumn{1}{c}{\bf de-en} & \multicolumn{1}{c}{\bf et-en} & \multicolumn{1}{c}{\bf fi-en} & \multicolumn{1}{c}{\bf fr-en} & \multicolumn{1}{c}{\bf gu-en} & \multicolumn{1}{c}{\bf hi-en} & \multicolumn{1}{c}{\bf lv-en} & \multicolumn{1}{c}{\bf ro-en} & \multicolumn{1}{c}{\bf tr-en} & \multicolumn{1}{c}{\bf Avg.(xx-en)}\\ \hline
+
+fp16 & Dense & 29.48 & 35.62 & 23.43 & 23.91 & 31.89 & 16.54 & 14.97 & 26.25 & 35.68 & 18.52 & 25.63 & \\ 
+(BLEU)& MoE & 31.25 & 38.21 & 23.67 & 25.64 & 32.59 & 19.55 & 15.89 & 25.22 & 34.80 & 20.27 & 26.71
+\\ \hline
+
+\multirow{2}{*}{8-bit} & Dense & 0.02   & -0.02   & 0.10   & -0.33   & -0.15   & -0.37   & -0.40   & 0.33   & -0.34   & 0.14   & -0.09  & \\ 
+& MoE & 0.07   & 0.12   & 0.08   & 0.06   & -0.10   & 0.14   & -0.49   & -0.03   & 0.05   & -0.17   & 0.00   \\ \hline
+
+\multirow{2}{*}{4-bit} & Dense & -0.24   & -0.78   & -3.74   & -1.72   & -1.69   & -4.58   & -0.56   & -1.97   & -0.15   & -1.84   & -1.53 &  \\ 
+& MoE & 0.44   & 0.01   & -1.00   & 0.25   & -0.03   & 0.07   & 1.06   & -0.98   & 0.67   & -0.56   & 0.01   \\ \hline
+
+\multirow{2}{*}{3-bit} & Dense & -7.25   & -7.11   & -10.44   & -10.36   & -6.44   & -18.67   & -16.68   & -11.52   & -7.39   & -10.39   & -9.68 &  \\ 
+& MoE & -0.86   & -0.14   & -2.04   & -1.10   & 1.02   & -2.55   & 1.11   & -2.11   & -1.45   & -2.91   & -1.01   \\ \hline 
+
+\multirow{2}{*}{2-bit} & Dense & -81.78   & -74.17   & -83.08   & -85.13   & -72.44   & -94.23   & -89.54   & -81.50   & -80.54   & -85.70   & -81.33  & \\ 
+& MoE & -6.12   & -7.69   & -16.78   & -11.29   & -2.16   & -20.14   & -16.42   & -15.82   & -12.34   & -17.61 & -11.54 \\ \hline\hline
+\end{tabular}
+\end{scriptsize}
+\end{center}
+\end{table}
+
+\section{Detailed BLEU score differences with quantization applied to 5.3B model.}
+Table \ref{tab:moe-dense} shows individual BLEU score changes with various quantization bits for MoE and dense models measured with the internal validation dataset. Table \ref{tab:moe-dense-wmt10} shows the same model's evaluation performance on two WMT public dataset.
+
+\begin{table}[t]
+\caption{The BLEU score differences in percentage (\%) after quantization on different language pairs. The rows with fp16 show the baseline BLEU scores.}
+\label{tab:moe-dense}
+\begin{center}
+\begin{small}
+\begin{tabular}{cccccccccccc}
+\hline
+\multicolumn{1}{c}{\bf Quantization Bits} & \multicolumn{1}{c}{\bf Model} & \multicolumn{1}{c}{\bf de-en}&\multicolumn{1}{c}{\bf es-en}   & \multicolumn{1}{c}{\bf fr-en} & \multicolumn{1}{c}{\bf it-en}&\multicolumn{1}{c}{\bf nl-en} &\multicolumn{1}{c}{\bf Avg. (xx-English)}     \\
+\hline
+fp16 & Dense & 40.31 & 53.09 & 49.13 & 44.03 & 46.23 & 46.56 & \\ 
+(Baseline BLEU)& MoE & 41.49 & 53.79 & 50.26 & 46.97 & 47.53 & 48.01\\ \hline
+\hline
+% \hline
+8-bit & Dense & -0.03 & -0.08 & -0.02 & 0.01 & -0.05 & -0.04\\
+(\% difference)& MoE  & -0.10 & -0.06 & 0.00 & -0.02 & 0.03 & -0.03 \\
+\hline
+4-bit & Dense  & -0.78 & 0.29 & -0.23 & -0.93 & -0.20 &  -0.37\\
+(\% difference)& MoE & -0.50 & -0.11 & -0.10 & -0.39 & -0.02 & -0.22\\
+\hline
+3-bit & Dense  & -6.36 & -2.51 & -4.24 & -5.93 & -2.67 & -4.34\\
+(\% difference)& MoE & -0.92 & 0.26 & -0.26 & -1.26 & 0.29 & -0.38\\
+\hline
+2-bit & Dense  & -95.44 & -94.42 & -95.51 & -95.10 & -93.31 & -94.76 \\
+(\% difference)& MoE  & -4.35 & -1.00 & -2.64 & -7.01 & -0.70 &  -3.14\\
+%  Baseline & $129$k &$24.60$  & $250$k & $74.24$k \\
+%  Hash-Layer & $135$k & $23.06$ & - & -\\
+%  aaa& $143$k & $25.06$  &$147$k & $48.64$k \\
+% bbb & \bm{ $150$}{\bf k} & \bm{$25.12$} & \bm{$104$}{\bf k} & \bm{$35.84$}{\bf k}\\
+\hline
+\hline
+ &  & \multicolumn{1}{c}{\bf en-de}& \multicolumn{1}{c}{\bf en-es}& \multicolumn{1}{c}{\bf en-fr} & \multicolumn{1}{c}{\bf en-it}&\multicolumn{1}{c}{\bf en-nl} &\multicolumn{1}{c}{\bf Avg. (English-xx)}    \\
+\hline
+fp16& Dense & 38.74 & 46.44 & 50.82 & 40.09 & 41.69 & 43.55 & \\
+(Baseline BLEU)& MoE & 39.90 & 47.47 & 52.45  & 41.25 & 42.36 & 44.69 \\ \hline
+\hline
+8-bit & Dense   & -0.04 & -0.07 & 0.02 & -0.05 & 0.09 & -0.01 \\
+(\% difference)& MoE   & 0.05 & -0.01 & -0.03 & 0.00 & 0.00 & 0.00 \\
+\hline
+4-bit & Dense  & -0.76 & -1.11 & -0.29 & -0.70 & -0.26 & -0.62\\
+(\% difference)& MoE   & 0.31 & -0.90 & -0.74 & -0.45 & -0.68 & -0.49\\
+\hline
+3-bit & Dense  & -5.82 & -4.79 & -3.96 & -5.41 & -4.54 & -4.91 \\
+(\% difference)& MoE & -0.21 & -2.12 & -1.41 & -0.87 & -0.89 & -1.10 \\
+\hline
+2-bit & Dense   & -97.28 & -96.16 & -95.52 & -96.68 & -94.83 & -96.09 \\
+(\% difference)& MoE  & -5.24 & -6.19 & -5.19 & -5.30 & -4.48 & -5.28 \\
+\hline
+\end{tabular}
+\end{small}
+\end{center}
+\end{table}
+
+% \section{Public benchmark dataset performance}
+
+\begin{table}[t]
+\caption{The BLEU score differences in percentage (\%)  of 5.3B MoE model after quantization on different language pairs on WMT datasets. The rows with fp16 show the baseline BLEU scores.}
+\label{tab:moe-dense-wmt10}
+\begin{center}
+\begin{small}
+\begin{tabular}{ccccccc}
+\hline
+\multicolumn{1}{c}{\bf Quantization Bits} & \multicolumn{1}{c}{\bf Model} & \multicolumn{1}{c}{\bf de-en}&\multicolumn{1}{c}{\bf fr-en} &\multicolumn{1}{c}{\bf Avg. (xx-English)}     \\
+\hline
+fp16 & Dense & 50.11 & 42.98 & 46.54 & \\
+(Baseline BLEU) & MoE & 52.73 & 44.04 & 48.39 & \\ \hline
+8-bit & Dense & 0.04 & 0.11  & 0.07   & \\
+(\% difference)& MoE & 0.09 & -0.04 & 0.03 & \\
+\hline
+4-bit & Dense & -0.59 & -1.27  & -0.91 &\\
+(\% difference)& MoE & -0.47 & -0.36 & -0.42 & \\
+\hline
+3-bit & Dense  & -5.75 & -6.17  & -5.94 & \\
+(\% difference)& MoE & -1.15 & -0.90 & -1.03 &\\
+\hline
+2-bit & Dense  & -96.88 & -95.59  & -96.28 & \\
+(\% difference)& MoE & -5.37 & -3.68 & -4.60 &\\
+\hline
+\hline
+\multicolumn{1}{c}{\bf} & \multicolumn{1}{c}{\bf } & \multicolumn{1}{c}{\bf en-de}&\multicolumn{1}{c}{\bf en-fr} &\multicolumn{1}{c}{\bf Avg. (English-xx)}     \\
+\hline
+fp16 & Dense & 50.90 &	44.47 & 47.68 & \\
+(Baseline BLEU)& MoE & 52.90 & 45.51 & 49.21 & \\ \hline
+8-bit & Dense & 0.00 & 0.02  & 0.01 & \\
+(\% difference)& MoE & -0.05 & 0.23 & 0.08 & \\
+\hline
+4-bit & Dense & 0.24 & -1.31 & -0.48
+& \\
+(\% difference)& MoE  & -0.93 & 0.25 & -0.39 &\\
+\hline
+3-bit & Dense & -5.86 & -7.53  & -6.64 & \\
+(\% difference)& MoE  &  -1.41 & -0.69 & -1.08 &\\
+\hline
+2-bit & Dense & -97.77 & -96.22  & -97.05 & \\
+(\% difference)& MoE  &  -6.34 & -6.15 & -6.25 &\\
+\hline
+\end{tabular}
+\end{small}
+\end{center}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

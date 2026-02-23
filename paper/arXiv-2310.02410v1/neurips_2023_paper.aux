@@ -1,0 +1,105 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{fedus2021switch}
+\citation{lepikhin2020gshard,fedus2021switch,kim2021scalable,artetxe2021efficient}
+\citation{fedus2021switch}
+\citation{fedus2021switch}
+\citation{Rajbhandari2022DeepSpeedMoEAM}
+\citation{Kudugunta2021BeyondDT}
+\citation{kim2021scalable}
+\citation{zoph2022designing}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\citation{Vaswani2017AttentionIA}
+\citation{lepikhin2020gshard,fedus2021switch,kim2021scalable}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Inference speed measurements and model sizes of dense and MoE models. Both models run with batch size of 24 and the throughput is measured with the number of sentences processed for one second.}}{2}{table.caption.2}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{inference-speed-baseline}{{1}{2}{Inference speed measurements and model sizes of dense and MoE models. Both models run with batch size of 24 and the throughput is measured with the number of sentences processed for one second}{table.caption.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Quantization robustness of MoE layers}{2}{section.2}\protected@file@percent }
+\newlabel{sec:quant_methods}{{2}{2}{Quantization robustness of MoE layers}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Numerical distribution of model weights}{2}{subsection.2.1}\protected@file@percent }
+\newlabel{fig:fc1-layer-stats}{{1a}{2}{\centering FFN linear 1 weight distribution across layers}{figure.caption.3}{}}
+\newlabel{sub@fig:fc1-layer-stats}{{a}{2}{\centering FFN linear 1 weight distribution across layers}{figure.caption.3}{}}
+\newlabel{fig:fc2-layer-stats}{{1b}{2}{\centering FFN linear 2 weight distribution across layers}{figure.caption.3}{}}
+\newlabel{sub@fig:fc2-layer-stats}{{b}{2}{\centering FFN linear 2 weight distribution across layers}{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces FFN weight distribution across layers. Even number layers $\{0, 2, ...\}$ are expert FFN layers and odd number layers $\{1, 3, ...\}$ are normal dense FFN layers. (a) shows the first linear layer in FFN and (b) shows the second linear layer in FFN.}}{2}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:weight-distribution-layer}{{1}{2}{FFN weight distribution across layers. Even number layers $\{0, 2, ...\}$ are expert FFN layers and odd number layers $\{1, 3, ...\}$ are normal dense FFN layers. (a) shows the first linear layer in FFN and (b) shows the second linear layer in FFN}{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.1}Robustness of expert layers to quantization}{3}{subsubsection.2.1.1}\protected@file@percent }
+\newlabel{sec:sensitivity}{{2.1.1}{3}{Robustness of expert layers to quantization}{subsubsection.2.1.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Quantization impact on different MoE model parts (channel-wise linear quantiztation without any additional training).}}{3}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:different NN parts quant}{{2}{3}{Quantization impact on different MoE model parts (channel-wise linear quantiztation without any additional training)}{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Experiments}{3}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}MoQE performance results}{3}{subsection.3.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces The model performance comparison. All the models are trained on same data up to the convergence with 200,000 update steps. The baseline is the FLOPs equivalent dense model's BLEU score and speed.}}{4}{table.caption.5}\protected@file@percent }
+\newlabel{tab:mose-result}{{2}{4}{The model performance comparison. All the models are trained on same data up to the convergence with 200,000 update steps. The baseline is the FLOPs equivalent dense model's BLEU score and speed}{table.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Robustness comparison between MoE and dense models}{4}{subsection.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Quantization performance comparison between MoE and dense models. 10 different language pair scores are averaged.}}{4}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:dense-moe-euro}{{3}{4}{Quantization performance comparison between MoE and dense models. 10 different language pair scores are averaged}{figure.caption.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Conclusions and limitations}{4}{section.4}\protected@file@percent }
+\bibdata{iclr2023_conference}
+\bibcite{Aji2020CompressingNM}{{1}{2020}{{Aji \& Heafield}}{{Aji and Heafield}}}
+\bibcite{artetxe2021efficient}{{2}{2021}{{Artetxe et~al.}}{{Artetxe, Bhosale, Goyal, Mihaylov, Ott, Shleifer, Lin, Du, Iyer, Pasunuru, et~al.}}}
+\bibcite{fedus2021switch}{{3}{2021}{{Fedus et~al.}}{{Fedus, Zoph, and Shazeer}}}
+\bibcite{Kasai2021DeepES}{{4}{2021}{{Kasai et~al.}}{{Kasai, Pappas, Peng, Cross, and Smith}}}
+\bibcite{Ke2021RethinkingPE}{{5}{2021}{{Ke et~al.}}{{Ke, He, and Liu}}}
+\bibcite{kim2019research}{{6}{2019}{{Kim et~al.}}{{Kim, Junczys-Dowmunt, Hassan, Aji, Heafield, Grundkiewicz, and Bogoychev}}}
+\bibcite{kim2021scalable}{{7}{2021}{{Kim et~al.}}{{Kim, Awan, Muzio, Salinas, Lu, Hendy, Rajbhandari, He, and Awadalla}}}
+\bibcite{Kudugunta2021BeyondDT}{{8}{2021}{{Kudugunta et~al.}}{{Kudugunta, Huang, Bapna, Krikun, Lepikhin, Luong, and Firat}}}
+\bibcite{lepikhin2020gshard}{{9}{2020}{{Lepikhin et~al.}}{{Lepikhin, Lee, Xu, Chen, Firat, Huang, Krikun, Shazeer, and Chen}}}
+\bibcite{liu2022gating}{{10}{2022}{{Liu et~al.}}{{Liu, Kim, Muzio, and Hassan}}}
+\bibcite{Rajbhandari2022DeepSpeedMoEAM}{{11}{2022}{{Rajbhandari et~al.}}{{Rajbhandari, Li, Yao, Zhang, Aminabadi, Awan, Rasley, and He}}}
+\bibcite{Vaswani2017AttentionIA}{{12}{2017}{{Vaswani et~al.}}{{Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, and Polosukhin}}}
+\bibcite{wang2020multi}{{13}{2020}{{Wang et~al.}}{{Wang, Zhai, and Awadalla}}}
+\bibcite{Xiong2020OnLN}{{14}{2020}{{Xiong et~al.}}{{Xiong, Yang, He, Zheng, Zheng, Xing, Zhang, Lan, Wang, and Liu}}}
+\bibcite{zoph2022designing}{{15}{2022}{{Zoph et~al.}}{{Zoph, Bello, Kumar, Du, Huang, Dean, Shazeer, and Fedus}}}
+\bibstyle{iclr2023_conference}
+\citation{Aji2020CompressingNM}
+\citation{Aji2020CompressingNM}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Quantization algorithms}{6}{appendix.A}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Quantization techniques}{6}{subsection.A.1}\protected@file@percent }
+\newlabel{eq1:linquant}{{A.1}{6}{Quantization techniques}{subsection.A.1}{}}
+\newlabel{fig:expert FFNs log_opt_s vs linear}{{4a}{6}{\centering Expert FFNs}{figure.caption.8}{}}
+\newlabel{sub@fig:expert FFNs log_opt_s vs linear}{{a}{6}{\centering Expert FFNs}{figure.caption.8}{}}
+\newlabel{fig:non expert FFNs log_opt_s vs linear}{{4b}{6}{\centering Dense FFNs}{figure.caption.8}{}}
+\newlabel{sub@fig:non expert FFNs log_opt_s vs linear}{{b}{6}{\centering Dense FFNs}{figure.caption.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Linear quantization vs log-scale with optimal ${\bm  {s}}$ quantization.}}{6}{figure.caption.8}\protected@file@percent }
+\newlabel{fig:linear-log}{{4}{6}{Linear quantization vs log-scale with optimal $\vs $ quantization}{figure.caption.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}Experimental setup}{6}{appendix.B}\protected@file@percent }
+\newlabel{app:setup}{{B}{6}{Experimental setup}{appendix.B}{}}
+\citation{wang2020multi,kim2021scalable}
+\citation{Vaswani2017AttentionIA}
+\citation{kim2019research,Kasai2021DeepES}
+\citation{Ke2021RethinkingPE}
+\citation{Xiong2020OnLN}
+\citation{Vaswani2017AttentionIA}
+\citation{fedus2021switch}
+\citation{lepikhin2020gshard,fedus2021switch,kim2021scalable}
+\citation{lepikhin2020gshard,fedus2021switch}
+\citation{liu2022gating}
+\@writefile{toc}{\contentsline {section}{\numberline {C}Channel-wise vs matrix-wise quantization}{7}{appendix.C}\protected@file@percent }
+\newlabel{app:chan-mat}{{C}{7}{Channel-wise vs matrix-wise quantization}{appendix.C}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {D}Quantization of different layers in a dense model}{7}{appendix.D}\protected@file@percent }
+\newlabel{app:dense-layers}{{D}{7}{Quantization of different layers in a dense model}{appendix.D}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Linear quantization of expert FFNs with channel-wise and matrix-wise scaling factors.}}{8}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:linear_channel_vs_tensor_expert_ffns}{{5}{8}{Linear quantization of expert FFNs with channel-wise and matrix-wise scaling factors}{figure.caption.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Quantization impact of different layers in a dense model.}}{8}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:dense-layers}{{6}{8}{Quantization impact of different layers in a dense model}{figure.caption.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {E}Skewness of weight matrices in MoE and dense models}{8}{appendix.E}\protected@file@percent }
+\newlabel{app:skew}{{E}{8}{Skewness of weight matrices in MoE and dense models}{appendix.E}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Expert vs non-expert FFN layers parameters distribution skewness}}{8}{table.caption.11}\protected@file@percent }
+\newlabel{tab:skewness}{{3}{8}{Expert vs non-expert FFN layers parameters distribution skewness}{table.caption.11}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {F}Machine translation dataset summary}{9}{appendix.F}\protected@file@percent }
+\newlabel{app:datastat}{{F}{9}{Machine translation dataset summary}{appendix.F}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces The number of parallel sentences including backtranslation data.}}{9}{table.caption.12}\protected@file@percent }
+\newlabel{tab:datastat}{{4}{9}{The number of parallel sentences including backtranslation data}{table.caption.12}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {G}Detailed BLEU score differences with quantization applied to the model trained on public WMT dataset}{9}{appendix.G}\protected@file@percent }
+\newlabel{app:wmt}{{G}{9}{Detailed BLEU score differences with quantization applied to the model trained on public WMT dataset}{appendix.G}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {H}Detailed BLEU score differences with quantization applied to 5.3B model.}{9}{appendix.H}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces The BLEU score differences in percentage (\%) after quantization on different language pairs in WMT dataset. The rows with fp16 show the baseline BLEU scores.}}{10}{table.caption.13}\protected@file@percent }
+\newlabel{tab:moe-dense-trained-on-wmt10}{{5}{10}{The BLEU score differences in percentage (\%) after quantization on different language pairs in WMT dataset. The rows with fp16 show the baseline BLEU scores}{table.caption.13}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces The BLEU score differences in percentage (\%) after quantization on different language pairs. The rows with fp16 show the baseline BLEU scores.}}{10}{table.caption.14}\protected@file@percent }
+\newlabel{tab:moe-dense}{{6}{10}{The BLEU score differences in percentage (\%) after quantization on different language pairs. The rows with fp16 show the baseline BLEU scores}{table.caption.14}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces The BLEU score differences in percentage (\%) of 5.3B MoE model after quantization on different language pairs on WMT datasets. The rows with fp16 show the baseline BLEU scores.}}{11}{table.caption.15}\protected@file@percent }
+\newlabel{tab:moe-dense-wmt10}{{7}{11}{The BLEU score differences in percentage (\%) of 5.3B MoE model after quantization on different language pairs on WMT datasets. The rows with fp16 show the baseline BLEU scores}{table.caption.15}{}}
+\gdef \@abspage@last{11}

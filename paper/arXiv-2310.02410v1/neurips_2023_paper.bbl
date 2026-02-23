@@ -1,0 +1,83 @@
+\begin{thebibliography}{15}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Aji \& Heafield(2020)Aji and Heafield]{Aji2020CompressingNM}
+Alham~Fikri Aji and Kenneth Heafield.
+\newblock Compressing neural machine translation models with 4-bit precision.
+\newblock In \emph{NGT}, 2020.
+
+\bibitem[Artetxe et~al.(2021)Artetxe, Bhosale, Goyal, Mihaylov, Ott, Shleifer, Lin, Du, Iyer, Pasunuru, et~al.]{artetxe2021efficient}
+Mikel Artetxe, Shruti Bhosale, Naman Goyal, Todor Mihaylov, Myle Ott, Sam Shleifer, Xi~Victoria Lin, Jingfei Du, Srinivasan Iyer, Ramakanth Pasunuru, et~al.
+\newblock Efficient large scale language modeling with mixtures of experts.
+\newblock \emph{arXiv preprint arXiv:2112.10684}, 2021.
+
+\bibitem[Fedus et~al.(2021)Fedus, Zoph, and Shazeer]{fedus2021switch}
+William Fedus, Barret Zoph, and Noam Shazeer.
+\newblock Switch transformers: Scaling to trillion parameter models with simple and efficient sparsity.
+\newblock \emph{arXiv preprint arXiv:2101.03961}, 2021.
+
+\bibitem[Kasai et~al.(2021)Kasai, Pappas, Peng, Cross, and Smith]{Kasai2021DeepES}
+Jungo Kasai, Nikolaos Pappas, Hao Peng, James Cross, and Noah~A. Smith.
+\newblock Deep encoder, shallow decoder: Reevaluating non-autoregressive machine translation.
+\newblock In \emph{ICLR}, 2021.
+
+\bibitem[Ke et~al.(2021)Ke, He, and Liu]{Ke2021RethinkingPE}
+Guolin Ke, Di~He, and Tie-Yan Liu.
+\newblock Rethinking positional encoding in language pre-training.
+\newblock \emph{ArXiv}, abs/2006.15595, 2021.
+
+\bibitem[Kim et~al.(2019)Kim, Junczys-Dowmunt, Hassan, Aji, Heafield, Grundkiewicz, and Bogoychev]{kim2019research}
+Young~Jin Kim, Marcin Junczys-Dowmunt, Hany Hassan, Alham~Fikri Aji, Kenneth Heafield, Roman Grundkiewicz, and Nikolay Bogoychev.
+\newblock From research to production and back: Ludicrously fast neural machine translation.
+\newblock In \emph{Proceedings of the 3rd Workshop on Neural Generation and Translation}, pp.\  280--288, 2019.
+
+\bibitem[Kim et~al.(2021)Kim, Awan, Muzio, Salinas, Lu, Hendy, Rajbhandari, He, and Awadalla]{kim2021scalable}
+Young~Jin Kim, Ammar~Ahmad Awan, Alexandre Muzio, Andres Felipe~Cruz Salinas, Liyang Lu, Amr Hendy, Samyam Rajbhandari, Yuxiong He, and Hany~Hassan Awadalla.
+\newblock Scalable and efficient moe training for multitask multilingual models.
+\newblock \emph{arXiv preprint arXiv:2109.10465}, 2021.
+
+\bibitem[Kudugunta et~al.(2021)Kudugunta, Huang, Bapna, Krikun, Lepikhin, Luong, and Firat]{Kudugunta2021BeyondDT}
+Sneha Kudugunta, Yanping Huang, Ankur Bapna, Maxim Krikun, Dmitry Lepikhin, Minh-Thang Luong, and Orhan Firat.
+\newblock Beyond distillation: Task-level mixture-of-experts for efficient inference.
+\newblock In \emph{EMNLP}, 2021.
+
+\bibitem[Lepikhin et~al.(2020)Lepikhin, Lee, Xu, Chen, Firat, Huang, Krikun, Shazeer, and Chen]{lepikhin2020gshard}
+Dmitry Lepikhin, HyoukJoong Lee, Yuanzhong Xu, Dehao Chen, Orhan Firat, Yanping Huang, Maxim Krikun, Noam Shazeer, and Zhifeng Chen.
+\newblock Gshard: Scaling giant models with conditional computation and automatic sharding.
+\newblock \emph{arXiv preprint arXiv:2006.16668}, 2020.
+
+\bibitem[Liu et~al.(2022)Liu, Kim, Muzio, and Hassan]{liu2022gating}
+Rui Liu, Young~Jin Kim, Alexandre Muzio, and Hany Hassan.
+\newblock Gating dropout: Communication-efficient regularization for sparsely activated transformers.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  13782--13792. PMLR, 2022.
+
+\bibitem[Rajbhandari et~al.(2022)Rajbhandari, Li, Yao, Zhang, Aminabadi, Awan, Rasley, and He]{Rajbhandari2022DeepSpeedMoEAM}
+Samyam Rajbhandari, Conglong Li, Zhewei Yao, Minjia Zhang, Reza~Yazdani Aminabadi, Ammar~Ahmad Awan, Jeff Rasley, and Yuxiong He.
+\newblock Deepspeed-moe: Advancing mixture-of-experts inference and training to power next-generation ai scale.
+\newblock In \emph{ICML}, 2022.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, and Polosukhin]{Vaswani2017AttentionIA}
+Ashish Vaswani, Noam~M. Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan~N. Gomez, Lukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock In \emph{NIPS}, 2017.
+
+\bibitem[Wang et~al.(2020)Wang, Zhai, and Awadalla]{wang2020multi}
+Yiren Wang, ChengXiang Zhai, and Hany~Hassan Awadalla.
+\newblock Multi-task learning for multilingual neural machine translation.
+\newblock \emph{arXiv preprint arXiv:2010.02523}, 2020.
+
+\bibitem[Xiong et~al.(2020)Xiong, Yang, He, Zheng, Zheng, Xing, Zhang, Lan, Wang, and Liu]{Xiong2020OnLN}
+Ruibin Xiong, Yunchang Yang, Di~He, Kai Zheng, Shuxin Zheng, Chen Xing, Huishuai Zhang, Yanyan Lan, Liwei Wang, and Tie-Yan Liu.
+\newblock On layer normalization in the transformer architecture.
+\newblock In \emph{ICML}, 2020.
+
+\bibitem[Zoph et~al.(2022)Zoph, Bello, Kumar, Du, Huang, Dean, Shazeer, and Fedus]{zoph2022designing}
+Barret Zoph, Irwan Bello, Sameer Kumar, Nan Du, Yanping Huang, Jeff Dean, Noam Shazeer, and William Fedus.
+\newblock Designing effective sparse expert models.
+\newblock \emph{arXiv preprint arXiv:2202.08906}, 2022.
+
+\end{thebibliography}
