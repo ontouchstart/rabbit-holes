@@ -13,11 +13,9 @@
 //! ```
 //! We can implement the above with rust [std::process::Command]
 //!
-//! ```makefile
-//! not-found:
-//!	rustfmt not-found.rs
-//!	rustc not-found.rs
-//!	-./not-found 1> not-found.stdout 2> not-found.stderr
+//! ```sh
+//! rustc not-found.rs
+//! ./not-found 1> not-found.stdout 2> not-found.stderr
 //! ```
 //! `not-found.stdout` (should be empty)
 //! ```text
@@ -35,4 +33,3 @@ fn main() {
         .output()
         .expect("Missing: command not found");
 }
-
