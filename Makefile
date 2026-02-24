@@ -2,7 +2,7 @@ all:
 	cmake --version
 	make --version
 	cmake -B build -G "Unix Makefiles"
-	ls build
+	ls build && cat -n build/Makefile
 	make -C build 
 	make -C build test
 	./build/hello
