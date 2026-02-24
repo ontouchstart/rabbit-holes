@@ -7,14 +7,14 @@ doc:
 	rustdoc fmt-wrap.rs -o ../docs
 	rustdoc get-env.rs -o ../docs
 
+get-env:
+	rustfmt get-env.rs
+	rustc get-env.rs
+
 not-found:
 	rustfmt not-found.rs
 	rustc not-found.rs
 	-./not-found 1> not-found.stdout 2> not-found.stderr
 
-get-env:
-	rustfmt get-env.rs
-	rustc get-env.rs
-
 clean:
-	rm -f env
+	rm -f get-env not-found
