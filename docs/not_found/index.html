@@ -7,6 +7,12 @@ For more details, please visit https://support.apple.com/kb/HT208050.
 bash-3.2$ Missing Semester
 bash: Missing: command not found</code></pre></div>
 <p>We can implement the above with rust <a href="https://doc.rust-lang.org/1.93.1/std/process/struct.Command.html" title="struct std::process::Command">std::process::Command</a></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>std::process::Command::new(<span class="string">"Missing"</span>)
+       .arg(<span class="string">"Semester"</span>)
+       .output()
+       .expect(<span class="string">"Missing: command not found"</span>);</code></pre><a class="test-arrow" target="_blank" title="Run code" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0A++++std::process::Command::new(%22Missing%22)%0A+++++++++++.arg(%22Semester%22)%0A+++++++++++.output()%0A+++++++++++.expect(%22Missing:+command+not+found%22);%0A%7D&amp;edition=2015"></a></div>
+<p>Compile and run <code>not-found.rs</code></p>
 <div class="example-wrap"><pre class="language-sh"><code>rustc not-found.rs
 ./not-found 1&gt; not-found.stdout 2&gt; not-found.stderr</code></pre></div>
 <p><code>not-found.stdout</code> (should be empty)</p>
@@ -14,8 +20,4 @@ bash: Missing: command not found</code></pre></div>
 <p><code>not-found.stderr</code> (should be non-empty)</p>
 <div class="example-wrap"><pre class="language-text"><code>thread &#39;main&#39; (49996) panicked at not-found.rs:40:10:
 Missing: command not found: Os { code: 2, kind: NotFound, message: &quot;No such file or directory&quot; }
-note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace</code></pre></div>
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code>std::process::Command::new(<span class="string">"Missing"</span>)
-       .arg(<span class="string">"Semester"</span>)
-       .output()
-       .expect(<span class="string">"Missing: command not found"</span>);</code></pre><a class="test-arrow" target="_blank" title="Run code" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0A++++std::process::Command::new(%22Missing%22)%0A+++++++++++.arg(%22Semester%22)%0A+++++++++++.output()%0A+++++++++++.expect(%22Missing:+command+not+found%22);%0A%7D&amp;edition=2015"></a></div></div></details></section></div></main></body></html>
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace</code></pre></div></div></details></section></div></main></body></html>
