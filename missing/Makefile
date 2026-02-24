@@ -1,11 +1,13 @@
+RUSTDOC = rustdoc --edition 2024 -o ../docs
 all:	doc not-found
 
 doc:
-	rustdoc missing.rs -o ../docs
-	rustdoc not-found.rs -o ../docs
-	rustdoc vi-wrap.rs -o ../docs
-	rustdoc fmt-wrap.rs -o ../docs
-	rustdoc get-env.rs -o ../docs
+	$(RUSTDOC) missing.rs
+	$(RUSTDOC) not-found.rs
+	$(RUSTDOC) vi-wrap.rs
+	$(RUSTDOC) fmt-wrap.rs
+	$(RUSTDOC) get-env.rs
+	$(RUSTDOC) get-uname.rs
 
 get-env:
 	rustfmt get-env.rs
@@ -16,5 +18,9 @@ not-found:
 	rustc not-found.rs
 	-./not-found 1> not-found.stdout 2> not-found.stderr
 
+get-uname:
+	rustfmt get-uname.rs
+	rustc get-uname.rs
+
 clean:
-	rm -f get-env not-found
+	rm -f get-env not-found get-uname
