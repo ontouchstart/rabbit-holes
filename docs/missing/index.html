@@ -13,17 +13,17 @@ doc:
 	rustdoc fmt-wrap.rs -o ../docs
 	rustdoc get-env.rs -o ../docs
 
+get-env:
+	rustfmt get-env.rs
+	rustc get-env.rs
+
 not-found:
 	rustfmt not-found.rs
 	rustc not-found.rs
 	-./not-found 1&gt; not-found.stdout 2&gt; not-found.stderr
 
-get-env:
-	rustfmt get-env.rs
-	rustc get-env.rs
-
 clean:
-	rm -f env</code></pre></div>
+	rm -f get-env not-found</code></pre></div>
 <p>You can run following shell command from the root level</p>
 <div class="example-wrap"><pre class="language-sh"><code>make -C missing</code></pre></div>
 <p>RTFM:</p>
