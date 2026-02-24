@@ -1,0 +1,45 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Local inference is good enough for me to replace search engine."><title>vi_wrap - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-ca0dd0c4.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="vi_wrap" data-themes="" data-resource-suffix="" data-rustdoc-version="1.93.1 (01f6ddf75 2026-02-11)" data-channel="1.93.1" data-search-js="search-9e2438ea.js" data-stringdex-js="stringdex-a3946164.js" data-settings-js="settings-c38705f0.js" ><script src="../static.files/storage-e2aeef58.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-a410ff4d.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-263c88ec.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate vi_wrap</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../vi_wrap/index.html">vi_wrap</a></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content"><div class="main-heading"><h1>Crate <span>vi_wrap</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/vi_wrap/vi-wrap.rs.html#1-3">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p><a href="../llama.cpp">Local inference</a> is good enough for me to replace search engine.</p>
+<div class="example-wrap"><pre class="language-text"><code>▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b8146-418dea39c
+model      : ggml-org/gpt-oss-20b-GGUF
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read               add a text file
+
+
+&gt; What is the command to wrap the current line to 78 characters in vi?
+
+[Start thinking]
+We need to answer: In vi, to wrap current line to 78 characters. The user likely wants to use a command: `gq` to format text, and set textwidth to 78. So you can do `:set textwidth=78` and then `gqap` or `gqq`. But the question: &quot;What is the command to wrap the current line to 78 characters in vi?&quot; So answer: `:set textwidth=78` then `gqq`. Or you could use `:set tw=78 | normal gq`. But perhaps a one-liner: `:set tw=78 | normal gqq`. But maybe the specific command: `:set tw=78` then `gqj`? Actually `gq` on a line: `gq` with a motion. For current line, use `gqj` or `gqq`. `gqq` formats current paragraph. But for just the current line: `gq$`? Actually to reformat current line: `gq` followed by a motion that covers the line. `gq` with `j` would format current and next line. For just current line: `gq` followed by `k` or `j`? Actually you can use `gq` with a line number: `gq` then `:`. Wait: In normal mode, you can type `gq` then `j` to format current and next line; `gq` then `k` to format previous and current. To just format the current line, use `gq` then `j` and then `k`? No. Actually there is `gq` with a motion: e.g., `gq$` will format from cursor to end of line. But to format entire line, `gq` then `j`? Hmm.
+
+But typical answer: set textwidth and then `gq` on the line. So I&#39;d answer: `:set textwidth=78 | normal! gq`. But more straightforward: `:set tw=78` and then `gq` on the line. So answer: `:set tw=78` then `gqq` (or `gq` with motion). The question probably expects: `:set textwidth=78 | normal gq`. But simpler: `:set tw=78` and then `gq`. But the command: `:set tw=78 | normal gq` or `:set tw=78 | normal gqq`? Actually `gq` needs a motion; `gqq` formats the current paragraph. If just line, use `gq` with `$` or `j`. So `gq$`? But that might format from cursor to end of line; if cursor at start, it&#39;s entire line. So answer: `:set tw=78` then `gq$`. But the question: &quot;What is the command to wrap the current line to 78 characters in vi?&quot; Likely answer: `:set tw=78 | normal gq`. But maybe the answer: `:set tw=78 | gq`. But you need motion. So the easiest: `:set tw=78` then `gqq` will reformat current paragraph. But if you only want current line, you can do `gq$` or `gqj`.
+
+I&#39;ll answer: Set textwidth and use gq:
+</code></pre></div><div class="example-wrap"><pre class="language-text"><code>:set tw=78
+gq$</code></pre></div>
+<p>Or single-line: <code>:set tw=78 | normal gq$</code>. Also mention <code>gqq</code> if you want paragraph. So answer accordingly.
+[End thinking]</p>
+<p>In Vim/vi you need to tell the formatter what width to use, and then run the <strong><code>gq</code></strong> command on the line.<br />
+A quick one‑liner is:</p>
+<div class="example-wrap"><pre class="language-vim"><code>:set tw=78 | normal! gq$</code></pre></div>
+<p>Explanation</p>
+<ul>
+<li><code>:set tw=78</code> – sets the <em>textwidth</em> (the column at which lines should wrap) to 78.</li>
+<li><code>normal! gq$</code> – in normal mode, <code>gq</code> is the “reformat” command; the <code>$</code> motion tells it to re‑format from the cursor to the end of the line (so if your cursor is at the start of the line it will re‑format the whole line).</li>
+</ul>
+<p>If you prefer a two‑step approach:</p>
+<div class="example-wrap"><pre class="language-vim"><code>:set tw=78      &quot; set the width
+gq$             &quot; re‑format the current line</code></pre></div>
+<p>(If you’d like to re‑format the whole paragraph instead of just one line, you could use <code>gqq</code> instead of <code>gq$</code>.)</p>
+<div class="example-wrap"><pre class="language-text"><code>[ Prompt: 260.0 t/s | Generation: 29.8 t/s ]</code></pre></div></div></details></section></div></main></body></html>

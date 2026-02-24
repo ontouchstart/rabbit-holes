@@ -3,6 +3,7 @@ all:	doc not-found
 doc:
 	rustdoc missing.rs -o ../docs
 	rustdoc not-found.rs -o ../docs
+	rustdoc vi-wrap.rs -o ../docs
 
 not-found:
 	rustfmt not-found.rs

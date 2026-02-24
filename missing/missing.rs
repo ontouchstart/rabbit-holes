@@ -17,3 +17,4 @@
 //!  -C DIRECTORY, --directory=DIRECTORY
 //!                              Change to DIRECTORY before doing anything.
 //! ```
+#![doc = include_str!("why.md")]
