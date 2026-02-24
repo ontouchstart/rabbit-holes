@@ -5,7 +5,8 @@
 <h2 id="how-this-doc-is-generated"><a class="doc-anchor" href="#how-this-doc-is-generated">§</a>How this doc is generated</h2>
 <p><code>missing/Makefile</code></p>
 <div class="example-wrap"><pre class="language-makefile"><code>all:
-	rustdoc missing.rs -o ../docs</code></pre></div>
+	rustdoc missing.rs -o ../docs
+	rustdoc not-found.rs -o ../docs</code></pre></div>
 <p>You can run following shell command from the root level</p>
 <div class="example-wrap"><pre class="language-sh"><code>make -C missing</code></pre></div>
 <p>RTFM:</p>
