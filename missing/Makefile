@@ -4,6 +4,7 @@ doc:
 	rustdoc missing.rs -o ../docs
 	rustdoc not-found.rs -o ../docs
 	rustdoc vi-wrap.rs -o ../docs
+	rustdoc fmt-wrap.rs -o ../docs
 
 not-found:
 	rustfmt not-found.rs

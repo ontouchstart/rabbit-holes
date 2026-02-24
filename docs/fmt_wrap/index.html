@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Local inference is good enough for me to replace search engine."><title>fmt_wrap - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-ca0dd0c4.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="fmt_wrap" data-themes="" data-resource-suffix="" data-rustdoc-version="1.93.1 (01f6ddf75 2026-02-11)" data-channel="1.93.1" data-search-js="search-9e2438ea.js" data-stringdex-js="stringdex-a3946164.js" data-settings-js="settings-c38705f0.js" ><script src="../static.files/storage-e2aeef58.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-a410ff4d.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-263c88ec.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate fmt_wrap</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../fmt_wrap/index.html">fmt_<wbr>wrap</a></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#1-fmt" title="1. `fmt`">1. <code>fmt</code></a><ul><li><a href="#example" title="Example">Example</a></li></ul></li><li><a href="#2-fold" title="2. `fold`">2. <code>fold</code></a><ul><li><a href="#example-1" title="Example">Example</a></li></ul></li><li><a href="#3-optional-par" title="3. (Optional) `par`">3. (Optional) <code>par</code></a><ul><li><a href="#quick-oneliner" title="Quick one‑liner">Quick one‑liner</a></li></ul></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content"><div class="main-heading"><h1>Crate <span>fmt_<wbr>wrap</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/fmt_wrap/fmt-wrap.rs.html#1-3">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p><a href="../llama.cpp">Local inference</a> is good enough for me to replace search
+engine.</p>
+<div class="example-wrap"><pre class="language-text"><code>▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b8146-418dea39c
+model      : ggml-org/gpt-oss-20b-GGUF
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read               add a text file
+
+
+&gt; What unix program can I use to wrap a text file with 78 characters?
+
+[Start thinking]
+We need to answer: Which Unix program can wrap a text file to 78 characters. Likely &#39;fmt&#39; or &#39;fold&#39; or &#39;pr&#39; or &#39;wrap&#39; etc. The classic is &#39;fmt -w 78 file&#39; or &#39;fold -w 78 file&#39;. The question: &quot;What unix program can I use to wrap a text file with 78 characters?&quot; Probably answer: use &#39;fmt&#39; or &#39;fold&#39; or &#39;pr&#39;. Provide usage examples.
+
+Let&#39;s craft answer: Use &#39;fmt -w 78 file&#39; or &#39;fold -s -w 78 file&#39;. Or &#39;par&#39; program. Provide explanation. Also mention &#39;fmt&#39; is more suitable for paragraphs; &#39;fold&#39; just folds lines. Provide sample.
+[End thinking]
+
+Use one of the standard line‑wrapping utilities that come with almost every Unix/Linux system.  
+The two most common choices are **`fmt`** (for paragraph‑aware reformatting) and **`fold`** (for a straight “break‑at‑78” folding).  
+</code></pre></div>
+<hr />
+<h3 id="1-fmt"><a class="doc-anchor" href="#1-fmt">§</a>1. <code>fmt</code></h3><div class="example-wrap"><pre class="language-bash"><code>fmt -w 78 myfile.txt &gt; wrapped.txt</code></pre></div>
+<ul>
+<li><code>-w 78</code> – set the target width to 78 columns.</li>
+<li><code>fmt</code> will re‑flow paragraph text (it joins lines, then breaks them at the width).</li>
+<li>If you want to overwrite the original file, use <code>sed -i</code> or a temporary file.</li>
+</ul>
+<h4 id="example"><a class="doc-anchor" href="#example">§</a>Example</h4><div class="example-wrap"><pre class="language-bash"><code>$ cat &lt;&lt;&#39;EOF&#39; &gt;sample.txt
+This is a long sentence that will be wrapped by fmt to 78 characters per line. It should not break words in the middle.
+EOF
+
+$ fmt -w 78 sample.txt
+This is a long sentence that will be wrapped by fmt to 78 characters per line. It should not break words in the middle.</code></pre></div>
+<hr />
+<h3 id="2-fold"><a class="doc-anchor" href="#2-fold">§</a>2. <code>fold</code></h3><div class="example-wrap"><pre class="language-bash"><code>fold -s -w 78 myfile.txt &gt; wrapped.txt</code></pre></div>
+<ul>
+<li><code>-s</code> – break only at word boundaries (soft wrap).</li>
+<li><code>-w 78</code> – target width.</li>
+<li><code>fold</code> simply folds the existing lines; it doesn’t join or merge paragraphs.</li>
+</ul>
+<h4 id="example-1"><a class="doc-anchor" href="#example-1">§</a>Example</h4><div class="example-wrap"><pre class="language-bash"><code>$ cat &lt;&lt;&#39;EOF&#39; &gt;sample.txt
+Line 1: This is a single line that will be wrapped at 78 columns. It contains enough text to cross the boundary.
+Line 2: Another long line that will also be wrapped correctly.
+EOF
+
+$ fold -s -w 78 sample.txt
+Line 1: This is a single line that will be wrapped at 78 columns. It contains enough text
+to cross the boundary.
+Line 2: Another long line that will also be wrapped correctly.</code></pre></div>
+<hr />
+<h3 id="3-optional-par"><a class="doc-anchor" href="#3-optional-par">§</a>3. (Optional) <code>par</code></h3>
+<p>If you need more advanced paragraph formatting, the <code>par</code> utility is a great choice:</p>
+<div class="example-wrap"><pre class="language-bash"><code>par -s -w 78 myfile.txt &gt; wrapped.txt</code></pre></div>
+<ul>
+<li><code>-s</code> – strip leading spaces.</li>
+<li><code>-w 78</code> – set width.</li>
+</ul>
+<p><code>par</code> is especially handy for re‑wrapping prose that has been edited or for restoring original spacing.</p>
+<hr />
+<h4 id="quick-oneliner"><a class="doc-anchor" href="#quick-oneliner">§</a>Quick one‑liner</h4>
+<p>If you just want to wrap the current file in place:</p>
+<div class="example-wrap"><pre class="language-bash"><code>fmt -w 78 file.txt &gt; tmp &amp;&amp; mv tmp file.txt
+# or
+fold -s -w 78 file.txt &gt; tmp &amp;&amp; mv tmp file.txt</code></pre></div>
+<p>Pick the one that best matches your workflow:</p>
+<ul>
+<li>Use <strong><code>fmt</code></strong> when you want paragraph‑aware re‑formatting (the default in many editors).</li>
+<li>Use <strong><code>fold</code></strong> when you just want a hard line break at 78 columns.</li>
+<li>Use <strong><code>par</code></strong> for more advanced formatting needs.</li>
+</ul>
+<p>[ Prompt: 317.5 t/s | Generation: 29.7 t/s ]</p>
+</div></details></section></div></main></body></html>
