@@ -1,4 +1,4 @@
-# 6 bit or 8 bit?
+# When and how we transitioned from scientific computing to business computing
 
 ![](6.png)
 
