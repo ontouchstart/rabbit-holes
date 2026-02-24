@@ -13,5 +13,6 @@ Every pothole has a rabbit hole underneath.
 ## [tree-sitter](tree-sitter)
 ## [llama.cpp](llama.cpp)
 ## [mistral.rs](mistral.rs)
+## [missing](missing)
 
 © 2026  [Sam Liu](https://github.com/ontouchstart)
