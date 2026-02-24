@@ -1,3 +1,4 @@
+#![doc(html_playground_url = "https://play.rust-lang.org/")]
 //! ```zsh
 //! % Missing Semester
 //! zsh: command not found: Missing
@@ -26,6 +27,12 @@
 #![doc = include_str!("not-found.stderr")]
 //! ```
 //!
+//! ```
+//! std::process::Command::new("Missing")
+//!        .arg("Semester")
+//!        .output()
+//!        .expect("Missing: command not found");
+//! ```
 use std::process::Command;
 fn main() {
     Command::new("Missing")
