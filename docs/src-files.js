@@ -1,2 +1,2 @@
-createSrcSidebar('[["fmt_wrap",["",[],["fmt-wrap.rs"]]],["missing",["",[],["missing.rs"]]],["not_found",["",[],["not-found.rs"]]],["vi_wrap",["",[],["vi-wrap.rs"]]]]');
-//{"start":19,"fragment_lengths":[36,35,39,35]}
+createSrcSidebar('[["env",["",[],["env.rs"]]],["fmt_wrap",["",[],["fmt-wrap.rs"]]],["get_env",["",[],["get-env.rs"]]],["missing",["",[],["missing.rs"]]],["not_found",["",[],["not-found.rs"]]],["vi_wrap",["",[],["vi-wrap.rs"]]]]');
+//{"start":19,"fragment_lengths":[26,37,35,35,39,35]}

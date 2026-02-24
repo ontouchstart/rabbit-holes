@@ -5,11 +5,16 @@ doc:
 	rustdoc not-found.rs -o ../docs
 	rustdoc vi-wrap.rs -o ../docs
 	rustdoc fmt-wrap.rs -o ../docs
+	rustdoc get-env.rs -o ../docs
 
 not-found:
 	rustfmt not-found.rs
 	rustc not-found.rs
 	-./not-found 1> not-found.stdout 2> not-found.stderr
 
+get-env:
+	rustfmt get-env.rs
+	rustc get-env.rs
+
 clean:
-	rm -f not-found
+	rm -f env
