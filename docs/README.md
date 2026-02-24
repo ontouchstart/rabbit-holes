@@ -14,5 +14,6 @@ Every pothole has a rabbit hole underneath.
 ## [llama.cpp](llama.cpp)
 ## [mistral.rs](mistral.rs)
 ## [missing](missing)
+## [6 or 8](6-or-8)
 
 © 2026  [Sam Liu](https://github.com/ontouchstart)
