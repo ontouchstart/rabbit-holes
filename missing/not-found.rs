@@ -11,3 +11,28 @@
 //! bash-3.2$ Missing Semester
 //! bash: Missing: command not found
 //! ```
+//! We can implement the above with rust [std::process::Command]
+//!
+//! ```makefile
+//! not-found:
+//!	rustfmt not-found.rs
+//!	rustc not-found.rs
+//!	-./not-found 1> not-found.stdout 2> not-found.stderr
+//! ```
+//! `not-found.stdout` (should be empty)
+//! ```text
+#![doc = include_str!("not-found.stdout")]
+//! ```
+//! `not-found.stderr` (should be non-empty)
+//! ```text
+#![doc = include_str!("not-found.stderr")]
+//! ```
+//!
+use std::process::Command;
+fn main() {
+    Command::new("Missing")
+        .arg("Semester")
+        .output()
+        .expect("Missing: command not found");
+}
+

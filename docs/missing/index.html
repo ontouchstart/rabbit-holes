@@ -4,9 +4,19 @@
 <p><a href="https://news.ycombinator.com/item?id=47124171">https://news.ycombinator.com/item?id=47124171</a></p>
 <h2 id="how-this-doc-is-generated"><a class="doc-anchor" href="#how-this-doc-is-generated">§</a>How this doc is generated</h2>
 <p><code>missing/Makefile</code></p>
-<div class="example-wrap"><pre class="language-makefile"><code>all:
+<div class="example-wrap"><pre class="language-makefile"><code>all:	doc not-found
+
+doc:
 	rustdoc missing.rs -o ../docs
-	rustdoc not-found.rs -o ../docs</code></pre></div>
+	rustdoc not-found.rs -o ../docs
+
+not-found:
+	rustfmt not-found.rs
+	rustc not-found.rs
+	-./not-found 1&gt; not-found.stdout 2&gt; not-found.stderr
+
+clean:
+	rm -f not-found</code></pre></div>
 <p>You can run following shell command from the root level</p>
 <div class="example-wrap"><pre class="language-sh"><code>make -C missing</code></pre></div>
 <p>RTFM:</p>
