@@ -2,9 +2,10 @@ RUSTDOC = rustdoc --edition 2024 -o ../docs
 all:	doc not-found
 
 doc:
+	rm -f ../docs/crates.js
 	$(RUSTDOC) missing.rs
-	$(RUSTDOC) cat.rs
-	$(RUSTDOC) echo.rs
+	$(RUSTDOC) man-cat.rs
+	$(RUSTDOC) man-echo.rs
 	$(RUSTDOC) how.rs
 	$(RUSTDOC) not-found.rs
 	$(RUSTDOC) vi-wrap.rs
