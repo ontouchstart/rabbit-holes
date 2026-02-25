@@ -3,11 +3,13 @@ all:	doc not-found
 
 doc:
 	$(RUSTDOC) missing.rs
+	$(RUSTDOC) how.rs
 	$(RUSTDOC) not-found.rs
 	$(RUSTDOC) vi-wrap.rs
 	$(RUSTDOC) fmt-wrap.rs
 	$(RUSTDOC) get-env.rs
 	$(RUSTDOC) get-uname.rs
+	$(RUSTDOC) why.rs
 
 get-env:
 	rustfmt get-env.rs
