@@ -16,11 +16,3 @@ Rust in non conventional ways.
 
 I am going to follow this lecture series and “port” them to
 [rustdoc](https://doc.rust-lang.org/rustdoc/) and see how it goes.
-
-## What was missing then
-
-// TODO
-
-## What is missing now
-
-// TODO
