@@ -10,11 +10,12 @@ question.)
 Later I got my own IBM 386 and installed Linux on it and started to program in
 Perl …
 
-I am a big fan of [Jon’s YouTube videos](https://www.youtube.com/@jonhoo/videos) on Rust and I started to use Rust in
-non conventional ways.
+I am a big fan of [Jon’s YouTube
+videos](https://www.youtube.com/@jonhoo/videos) on Rust and I started to use
+Rust in non conventional ways.
 
-I am going to follow this lecture series and “port” them to rustdoc and see
-how it goes.
+I am going to follow this lecture series and “port” them to
+[rustdoc](https://doc.rust-lang.org/rustdoc/) and see how it goes.
 
 ## What was missing then
 
