@@ -7,6 +7,7 @@ doc:
 	$(RUSTDOC) man-cat.rs
 	$(RUSTDOC) man-echo.rs
 	$(RUSTDOC) man-ed.rs
+	$(RUSTDOC) man-printf.rs
 	$(RUSTDOC) not-found.rs
 	$(RUSTDOC) vi-wrap.rs
 	$(RUSTDOC) fmt-wrap.rs
