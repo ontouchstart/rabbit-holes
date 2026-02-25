@@ -24,3 +24,5 @@
 //! [-> man_cat](../man_cat/index.html)
 //! 
 //! [-> man_echo](../man_echo/index.html)
+//!
+//! [-> man_ed](../man_ed/index.html)
