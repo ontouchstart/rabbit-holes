@@ -6,3 +6,5 @@
 #![doc = include_str!("missing-then.md")]
 
 #![doc = include_str!("missing-now.md")]
+
+#![doc = include_str!("interactive-computing-is-not-wysiwyg.md")]
