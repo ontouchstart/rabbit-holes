@@ -26,3 +26,5 @@
 //! [-> man_echo](../man_echo/index.html)
 //!
 //! [-> man_ed](../man_ed/index.html)
+//!
+//! [-> man_printf](../man_printf/index.html)
