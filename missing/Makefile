@@ -3,6 +3,7 @@ all:	doc not-found
 
 doc:
 	$(RUSTDOC) missing.rs
+	$(RUSTDOC) cat.rs
 	$(RUSTDOC) how.rs
 	$(RUSTDOC) not-found.rs
 	$(RUSTDOC) vi-wrap.rs
