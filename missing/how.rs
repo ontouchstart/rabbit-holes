@@ -21,6 +21,8 @@
 //! ```
 //! ---
 //!
+//! A lot of file editing can be achieved via following tools
+//!
 //! [-> man_cat](../man_cat/index.html)
 //! 
 //! [-> man_echo](../man_echo/index.html)
