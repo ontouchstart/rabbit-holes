@@ -6,14 +6,14 @@ doc:
 	$(RUSTDOC) missing.rs
 	$(RUSTDOC) man-cat.rs
 	$(RUSTDOC) man-echo.rs
-	$(RUSTDOC) how.rs
+	$(RUSTDOC) man-ed.rs
 	$(RUSTDOC) not-found.rs
 	$(RUSTDOC) vi-wrap.rs
 	$(RUSTDOC) fmt-wrap.rs
 	$(RUSTDOC) get-env.rs
 	$(RUSTDOC) get-uname.rs
+	$(RUSTDOC) how.rs
 	$(RUSTDOC) why.rs
-
 get-env:
 	rustfmt get-env.rs
 	rustc get-env.rs
@@ -29,3 +29,4 @@ get-uname:
 
 clean:
 	rm -f get-env not-found get-uname
+
