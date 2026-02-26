@@ -13,6 +13,7 @@ doc:
 	$(RUSTDOC) fmt-wrap.rs
 	$(RUSTDOC) get-env.rs
 	$(RUSTDOC) playground-uname.rs
+	$(RUSTDOC) playground-cat-security_notice.rs
 	$(RUSTDOC) how.rs
 	$(RUSTDOC) why.rs
 get-env:
