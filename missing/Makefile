@@ -4,3 +4,4 @@ all:
 	$(RUSTDOC) missing-how.rs
 	$(RUSTDOC) missing-why.rs
 	$(RUSTDOC) missing-not-found.rs
+	cp APL.png ../docs/missing_why/

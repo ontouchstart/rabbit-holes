@@ -7,3 +7,9 @@ Somehow along the way, this interactivity was replaced by the concept of WYSIWYG
 
 We moved from Typewriters to Word Processors.
 Editor as a profession becomes editor as a machine, just like Computer as a profession becomes computer as a machine.
+
+## APL demonstration 1975
+
+Here is an example of non-WYSIWIG interactive computer with [typewriter terminal](https://aplwiki.com/wiki/Typewriter_terminal).
+
+[![APL.png](APL.png)](https://www.youtube.com/watch?v=_DTpQ4Kk2wA)
