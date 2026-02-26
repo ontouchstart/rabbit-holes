@@ -2,11 +2,15 @@
 //! This will show the output of `uname -a` in the playground.
 //!
 //! ```
-//!     println!("{}", String::from_utf8(
-//!         std::process::Command::new("uname")
+//! println!(
+//!      "{}",
+//!      String::from_utf8(
+//!          std::process::Command::new("uname")
 //!              .arg("-a")
 //!              .output()
 //!              .unwrap()
-//!              .stdout).unwrap());
+//!              .stdout
+//!      )
+//!      .unwrap()
+//! );
 //! ```
-//!
