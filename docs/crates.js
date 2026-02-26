@@ -1,2 +1,2 @@
-window.ALL_CRATES = ["llama_cpp_fmt_wrap","llama_cpp_vi_wrap","man_cat","man_echo","man_ed","man_printf","missing","missing_how","missing_not_found","missing_why","playground_cat_security_notice","playground_free_h","playground_read_security_notice","playground_uname"];
-//{"start":21,"fragment_lengths":[20,20,10,11,9,13,10,14,20,14,33,20,34,19]}
+window.ALL_CRATES = ["llama_cpp_fmt_wrap","llama_cpp_make","llama_cpp_vi_wrap","man_cat","man_echo","man_ed","man_printf","missing","missing_how","missing_not_found","missing_why","playground_cat_security_notice","playground_free_h","playground_read_security_notice","playground_uname"];
+//{"start":21,"fragment_lengths":[20,17,20,10,11,9,13,10,14,20,14,33,20,34,19]}
