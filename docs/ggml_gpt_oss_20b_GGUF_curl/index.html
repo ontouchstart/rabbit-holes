@@ -1,0 +1,607 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="The chat session (see the Makefile)"><title>ggml_gpt_oss_20b_GGUF_curl - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-ca0dd0c4.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="ggml_gpt_oss_20b_GGUF_curl" data-themes="" data-resource-suffix="" data-rustdoc-version="1.93.1 (01f6ddf75 2026-02-11)" data-channel="1.93.1" data-search-js="search-9e2438ea.js" data-stringdex-js="stringdex-a3946164.js" data-settings-js="settings-c38705f0.js" ><script src="../static.files/storage-e2aeef58.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-a410ff4d.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-263c88ec.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate ggml_gpt_oss_20b_GGUF_curl</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../ggml_gpt_oss_20b_GGUF_curl/index.html">ggml_<wbr>gpt_<wbr>oss_<wbr>20b_<wbr>GGUF_<wbr>curl</a></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#the-chat-session-see-the-makefile" title="The chat session (see the Makefile)">The chat session (see the Makefile)</a><ul><li><a href="#how-to-build-and-run" title="How to build and run">How to build and run</a></li><li><a href="#what-this-program-does" title="What this program does">What this program does</a></li></ul></li><li><a href="#run-the-code" title="Run the code">Run the code</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content"><div class="main-heading"><h1>Crate <span>ggml_<wbr>gpt_<wbr>oss_<wbr>20b_<wbr>GGUF_<wbr>curl</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/ggml_gpt_oss_20b_GGUF_curl/ggml-gpt-oss-20b-GGUF-curl.rs.html#1-35">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="the-chat-session-see-the-makefile"><a class="doc-anchor" href="#the-chat-session-see-the-makefile">§</a>The chat session (see the <a href="../ggml_gpt_oss_20b_GGUF_make/index.html">Makefile</a>)</h2>
+<p><code>make cli</code></p>
+<div class="example-wrap"><pre class="language-sh"><code>./llama-cpp/ggml-org/llama.cpp/build/bin/llama-completion -hf ggml-org/gpt-oss-20b-GGUF -sys &quot;You will help me write rust programs without Cargo&quot;               
+
+ggml_metal_device_init: testing tensor API for f16 support
+ggml_metal_library_compile_pipeline: compiling pipeline: base = &#39;dummy_kernel&#39;, name = &#39;dummy_kernel&#39;
+ggml_metal_library_compile_pipeline: loaded dummy_kernel                                  0x1056cdc00 | th_max = 1024 | th_width =   32
+ggml_metal_device_init: testing tensor API for bfloat support
+ggml_metal_library_compile_pipeline: compiling pipeline: base = &#39;dummy_kernel&#39;, name = &#39;dummy_kernel&#39;
+ggml_metal_library_compile_pipeline: loaded dummy_kernel                                  0x1056cd6a0 | th_max = 1024 | th_width =   32
+ggml_metal_library_init: using embedded metal library
+ggml_metal_library_init: loaded in 0.009 sec
+ggml_metal_rsets_init: creating a residency set collection (keep_alive = 180 s)
+ggml_metal_device_init: GPU name:   MTL0
+ggml_metal_device_init: GPU family: MTLGPUFamilyApple10  (1010)
+ggml_metal_device_init: GPU family: MTLGPUFamilyCommon3 (3003)
+ggml_metal_device_init: GPU family: MTLGPUFamilyMetal4  (5002)
+ggml_metal_device_init: simdgroup reduction   = true
+ggml_metal_device_init: simdgroup matrix mul. = true
+ggml_metal_device_init: has unified memory    = true
+ggml_metal_device_init: has bfloat            = true
+ggml_metal_device_init: has tensor            = true
+ggml_metal_device_init: use residency sets    = true
+ggml_metal_device_init: use shared buffers    = true
+ggml_metal_device_init: recommendedMaxWorkingSetSize  = 19069.67 MB
+common_download_file_single_online: no previous model file found /Users/sam/Library/Caches/llama.cpp/ggml-org_gpt-oss-20b-GGUF_preset.ini
+common_download_file_single_online: HEAD failed, status: 404
+no remote preset found, skipping
+common_download_file_single_online: using cached file (same etag): /Users/sam/Library/Caches/llama.cpp/ggml-org_gpt-oss-20b-GGUF_gpt-oss-20b-mxfp4.gguf
+build: 8164 (b68d75165) with AppleClang 17.0.0.17000404 for Darwin arm64
+main: llama backend init
+main: load the model and apply lora adapter, if any
+common_init_result: fitting params to device memory, for bugs during this step try to reproduce them with -fit off, or provide --verbose logs if the bug only occurs with -fit on
+llama_params_fit_impl: projected to use 14459 MiB of device memory vs. 18185 MiB of free device memory
+llama_params_fit_impl: will leave 3726 &gt;= 1024 MiB of free device memory, no changes needed
+llama_params_fit: successfully fit params to free device memory
+llama_params_fit: fitting params to free memory took 0.38 seconds
+llama_model_load_from_file_impl: using device MTL0 (Apple M5) (unknown id) - 18185 MiB free
+llama_model_loader: loaded meta data with 35 key-value pairs and 459 tensors from /Users/sam/Library/Caches/llama.cpp/ggml-org_gpt-oss-20b-GGUF_gpt-oss-20b-mxfp4.gguf (version GGUF V3 (latest))
+llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
+llama_model_loader: - kv   0:                       general.architecture str              = gpt-oss
+llama_model_loader: - kv   1:                               general.type str              = model
+llama_model_loader: - kv   2:                               general.name str              = Gpt Oss 20b
+llama_model_loader: - kv   3:                           general.basename str              = gpt-oss
+llama_model_loader: - kv   4:                         general.size_label str              = 20B
+llama_model_loader: - kv   5:                            general.license str              = apache-2.0
+llama_model_loader: - kv   6:                               general.tags arr[str,2]       = [&quot;vllm&quot;, &quot;text-generation&quot;]
+llama_model_loader: - kv   7:                        gpt-oss.block_count u32              = 24
+llama_model_loader: - kv   8:                     gpt-oss.context_length u32              = 131072
+llama_model_loader: - kv   9:                   gpt-oss.embedding_length u32              = 2880
+llama_model_loader: - kv  10:                gpt-oss.feed_forward_length u32              = 2880
+llama_model_loader: - kv  11:               gpt-oss.attention.head_count u32              = 64
+llama_model_loader: - kv  12:            gpt-oss.attention.head_count_kv u32              = 8
+llama_model_loader: - kv  13:                     gpt-oss.rope.freq_base f32              = 150000.000000
+llama_model_loader: - kv  14:   gpt-oss.attention.layer_norm_rms_epsilon f32              = 0.000010
+llama_model_loader: - kv  15:                       gpt-oss.expert_count u32              = 32
+llama_model_loader: - kv  16:                  gpt-oss.expert_used_count u32              = 4
+llama_model_loader: - kv  17:               gpt-oss.attention.key_length u32              = 64
+llama_model_loader: - kv  18:             gpt-oss.attention.value_length u32              = 64
+llama_model_loader: - kv  19:           gpt-oss.attention.sliding_window u32              = 128
+llama_model_loader: - kv  20:         gpt-oss.expert_feed_forward_length u32              = 2880
+llama_model_loader: - kv  21:                  gpt-oss.rope.scaling.type str              = yarn
+llama_model_loader: - kv  22:                gpt-oss.rope.scaling.factor f32              = 32.000000
+llama_model_loader: - kv  23: gpt-oss.rope.scaling.original_context_length u32              = 4096
+llama_model_loader: - kv  24:                       tokenizer.ggml.model str              = gpt2
+llama_model_loader: - kv  25:                         tokenizer.ggml.pre str              = gpt-4o
+llama_model_loader: - kv  26:                      tokenizer.ggml.tokens arr[str,201088]  = [&quot;!&quot;, &quot;\&quot;&quot;, &quot;#&quot;, &quot;$&quot;, &quot;%&quot;, &quot;&amp;&quot;, &quot;&#39;&quot;, ...
+llama_model_loader: - kv  27:                  tokenizer.ggml.token_type arr[i32,201088]  = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+llama_model_loader: - kv  28:                      tokenizer.ggml.merges arr[str,446189]  = [&quot;Ġ Ġ&quot;, &quot;Ġ ĠĠĠ&quot;, &quot;ĠĠ ĠĠ&quot;, &quot;...
+llama_model_loader: - kv  29:                tokenizer.ggml.bos_token_id u32              = 199998
+llama_model_loader: - kv  30:                tokenizer.ggml.eos_token_id u32              = 200002
+llama_model_loader: - kv  31:            tokenizer.ggml.padding_token_id u32              = 199999
+llama_model_loader: - kv  32:                    tokenizer.chat_template str              = {#-\n  In addition to the normal input...
+llama_model_loader: - kv  33:               general.quantization_version u32              = 2
+llama_model_loader: - kv  34:                          general.file_type u32              = 38
+llama_model_loader: - type  f32:  289 tensors
+llama_model_loader: - type q8_0:   98 tensors
+llama_model_loader: - type mxfp4:   72 tensors
+print_info: file format = GGUF V3 (latest)
+print_info: file type   = MXFP4 MoE
+print_info: file size   = 11.27 GiB (4.63 BPW) 
+load: 0 unused tokens
+load: setting token &#39;&lt;|message|&gt;&#39; (200008) attribute to USER_DEFINED (16), old attributes: 8
+load: setting token &#39;&lt;|constrain|&gt;&#39; (200003) attribute to USER_DEFINED (16), old attributes: 8
+load: setting token &#39;&lt;|channel|&gt;&#39; (200005) attribute to USER_DEFINED (16), old attributes: 8
+load: setting token &#39;&lt;|start|&gt;&#39; (200006) attribute to USER_DEFINED (16), old attributes: 8
+load: printing all EOG tokens:
+load:   - 199999 (&#39;&lt;|endoftext|&gt;&#39;)
+load:   - 200002 (&#39;&lt;|return|&gt;&#39;)
+load:   - 200007 (&#39;&lt;|end|&gt;&#39;)
+load:   - 200012 (&#39;&lt;|call|&gt;&#39;)
+load: special_eog_ids contains both &#39;&lt;|return|&gt;&#39; and &#39;&lt;|call|&gt;&#39;, or &#39;&lt;|calls|&gt;&#39; and &#39;&lt;|flush|&gt;&#39; tokens, removing &#39;&lt;|end|&gt;&#39; token from EOG list
+load: special tokens cache size = 21
+load: token to piece cache size = 1.3332 MB
+print_info: arch                  = gpt-oss
+print_info: vocab_only            = 0
+print_info: no_alloc              = 0
+print_info: n_ctx_train           = 131072
+print_info: n_embd                = 2880
+print_info: n_embd_inp            = 2880
+print_info: n_layer               = 24
+print_info: n_head                = 64
+print_info: n_head_kv             = 8
+print_info: n_rot                 = 64
+print_info: n_swa                 = 128
+print_info: is_swa_any            = 1
+print_info: n_embd_head_k         = 64
+print_info: n_embd_head_v         = 64
+print_info: n_gqa                 = 8
+print_info: n_embd_k_gqa          = 512
+print_info: n_embd_v_gqa          = 512
+print_info: f_norm_eps            = 0.0e+00
+print_info: f_norm_rms_eps        = 1.0e-05
+print_info: f_clamp_kqv           = 0.0e+00
+print_info: f_max_alibi_bias      = 0.0e+00
+print_info: f_logit_scale         = 0.0e+00
+print_info: f_attn_scale          = 0.0e+00
+print_info: n_ff                  = 2880
+print_info: n_expert              = 32
+print_info: n_expert_used         = 4
+print_info: n_expert_groups       = 0
+print_info: n_group_used          = 0
+print_info: causal attn           = 1
+print_info: pooling type          = 0
+print_info: rope type             = 2
+print_info: rope scaling          = yarn
+print_info: freq_base_train       = 150000.0
+print_info: freq_scale_train      = 0.03125
+print_info: freq_base_swa         = 150000.0
+print_info: freq_scale_swa        = 0.03125
+print_info: n_ctx_orig_yarn       = 4096
+print_info: rope_yarn_log_mul     = 0.0000
+print_info: rope_finetuned        = unknown
+print_info: model type            = 20B
+print_info: model params          = 20.91 B
+print_info: general.name          = Gpt Oss 20b
+print_info: n_ff_exp              = 2880
+print_info: vocab type            = BPE
+print_info: n_vocab               = 201088
+print_info: n_merges              = 446189
+print_info: BOS token             = 199998 &#39;&lt;|startoftext|&gt;&#39;
+print_info: EOS token             = 200002 &#39;&lt;|return|&gt;&#39;
+print_info: EOT token             = 200007 &#39;&lt;|end|&gt;&#39;
+print_info: PAD token             = 199999 &#39;&lt;|endoftext|&gt;&#39;
+print_info: LF token              = 198 &#39;Ċ&#39;
+print_info: EOG token             = 199999 &#39;&lt;|endoftext|&gt;&#39;
+print_info: EOG token             = 200002 &#39;&lt;|return|&gt;&#39;
+print_info: EOG token             = 200012 &#39;&lt;|call|&gt;&#39;
+print_info: max token length      = 256
+load_tensors: loading model tensors, this can take a while... (mmap = true, direct_io = false)
+load_tensors: offloading output layer to GPU
+load_tensors: offloading 23 repeating layers to GPU
+load_tensors: offloaded 25/25 layers to GPU
+load_tensors:   CPU_Mapped model buffer size =   586.82 MiB
+load_tensors:  MTL0_Mapped model buffer size = 11536.18 MiB
+.................................................................................
+common_init_result: added &lt;|endoftext|&gt; logit bias = -inf
+common_init_result: added &lt;|return|&gt; logit bias = -inf
+common_init_result: added &lt;|call|&gt; logit bias = -inf
+llama_context: constructing llama_context
+llama_context: n_seq_max     = 1
+llama_context: n_ctx         = 131072
+llama_context: n_ctx_seq     = 131072
+llama_context: n_batch       = 2048
+llama_context: n_ubatch      = 512
+llama_context: causal_attn   = 1
+llama_context: flash_attn    = auto
+llama_context: kv_unified    = false
+llama_context: freq_base     = 150000.0
+llama_context: freq_scale    = 0.03125
+ggml_metal_init: allocating
+ggml_metal_init: found device: Apple M5
+ggml_metal_init: picking default device: Apple M5
+ggml_metal_init: use fusion         = true
+ggml_metal_init: use concurrency    = true
+ggml_metal_init: use graph optimize = true
+llama_context:        CPU  output buffer size =     0.77 MiB
+llama_kv_cache_iswa: creating non-SWA KV cache, size = 131072 cells
+llama_kv_cache:       MTL0 KV buffer size =  3072.00 MiB
+llama_kv_cache: size = 3072.00 MiB (131072 cells,  12 layers,  1/1 seqs), K (f16): 1536.00 MiB, V (f16): 1536.00 MiB
+llama_kv_cache_iswa: creating     SWA KV cache, size = 768 cells
+llama_kv_cache:       MTL0 KV buffer size =    18.00 MiB
+llama_kv_cache: size =   18.00 MiB (   768 cells,  12 layers,  1/1 seqs), K (f16):    9.00 MiB, V (f16):    9.00 MiB
+sched_reserve: reserving ...
+sched_reserve: Flash Attention was auto, set to enabled
+sched_reserve:       MTL0 compute buffer size =   420.08 MiB
+sched_reserve:        CPU compute buffer size =   268.77 MiB
+sched_reserve: graph nodes  = 1352
+sched_reserve: graph splits = 2
+sched_reserve: reserve took 17.41 ms, sched copies = 1
+common_init_from_params: warming up the model with an empty run - please wait ... (--no-warmup to disable)
+main: llama threadpool init, n_threads = 4
+main: chat template is available, enabling conversation mode (disable it with -no-cnv)
+main: chat template example:
+&lt;|start|&gt;system&lt;|message|&gt;You are a helpful assistant&lt;|end|&gt;&lt;|start|&gt;user&lt;|message|&gt;Hello&lt;|end|&gt;&lt;|start|&gt;assistant&lt;|message|&gt;Hi there&lt;|return|&gt;&lt;|start|&gt;user&lt;|message|&gt;How are you?&lt;|end|&gt;&lt;|start|&gt;assistant
+
+system_info: n_threads = 4 (n_threads_batch = 4) / 10 | MTL : EMBED_LIBRARY = 1 | CPU : NEON = 1 | ARM_FMA = 1 | FP16_VA = 1 | MATMUL_INT8 = 1 | DOTPROD = 1 | SME = 1 | ACCELERATE = 1 | REPACK = 1 | 
+
+main: interactive mode on.
+sampler seed: 1454059397
+sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.000, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = -1
+	top_k = 40, top_p = 0.950, min_p = 0.050, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.800
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+sampler chain: logits -&gt; ?penalties -&gt; ?dry -&gt; ?top-n-sigma -&gt; top-k -&gt; ?typical -&gt; top-p -&gt; min-p -&gt; ?xtc -&gt; temp-ext -&gt; dist 
+generate: n_ctx = 131072, n_batch = 2048, n_predict = -1, n_keep = 0
+
+== Running in interactive mode. ==
+ - Press Ctrl+C to interject at any time.
+ - Press Return to return control to the AI.
+ - To return control without starting a new line, end your input with &#39;/&#39;.
+ - If you want to submit another line, end your input with &#39;\&#39;.
+
+&lt;|start|&gt;system&lt;|message|&gt;You will help me write rust programs without Cargo&lt;|end|&gt;
+&gt; Write a program to use system curl to visist https://curl.se  
+&lt;|channel|&gt;analysis&lt;|message|&gt;We need to write a rust program that uses system curl to visit https://curl.se. The requirement: &quot;Write a program to use system curl to visit https://curl.se&quot; maybe means we should spawn a child process that runs &#39;curl https://curl.se&#39;. We can write a Rust program that uses std::process::Command to call curl. Since no Cargo, we just write a single file main.rs or program.rs that can be compiled with rustc. The code will spawn curl, capture output, maybe print it. Could also use output to display to console.
+
+We can also do error handling: check if curl is available. Use Command::new(&quot;curl&quot;)...
+
+Let&#39;s produce a Rust program. Provide code snippet. Also note that the user might want to compile with rustc main.rs. Provide explanation. Ensure it&#39;s simple.
+
+Also, we might need to mention that the program will use the system&#39;s curl binary. It will need to have curl installed.
+
+We&#39;ll produce code:
+
+use std::process::Command;
+use std::io::{self, Write};
+
+fn main() {
+    // Execute curl
+    let output = Command::new(&quot;curl&quot;)
+        .arg(&quot;--silent&quot;)
+        .arg(&quot;https://curl.se&quot;)
+        .output()
+        .expect(&quot;Failed to execute curl&quot;);
+
+    if !output.status.success() {
+        eprintln!(&quot;curl exited with error&quot;);
+        std::process::exit(1);
+    }
+
+    // Print the output
+    io::stdout()
+        .write_all(&amp;output.stdout)
+        .expect(&quot;Failed to write to stdout&quot;);
+}
+
+Could also use .status() and .stdout.
+
+Add explanation. Provide code. Provide instructions: compile with rustc main.rs and run.
+
+We can also optionally handle errors: if curl not found, output error.
+
+We&#39;ll produce final answer accordingly.&lt;|end|&gt;&lt;|start|&gt;assistant&lt;|channel|&gt;final&lt;|message|&gt;Below is a minimal *stand‑alone* Rust program that simply invokes the **system** `curl` binary to fetch the page at &lt;https://curl.se&gt; and prints the HTML to stdout.
+
+use std::io::{self, Write};
+use std::process::Command;
+
+/// A tiny program that runs the system&#39;s `curl` executable
+/// and prints the response body.
+fn main() {
+    // Run `curl https://curl.se` (the `--silent` flag removes progress output)
+    let output = Command::new(&quot;curl&quot;)
+        .arg(&quot;--silent&quot;)
+        .arg(&quot;https://curl.se&quot;)
+        .output()
+        .expect(&quot;Failed to run `curl`. Is it installed and in your PATH?&quot;);
+
+    // Check that the command succeeded
+    if !output.status.success() {
+        eprintln!(
+            &quot;`curl` exited with status {}&quot;,
+            output.status.code().unwrap_or(-1)
+        );
+        std::process::exit(1);
+    }
+
+    // Write the captured stdout to the program&#39;s stdout
+    io::stdout()
+        .write_all(&amp;output.stdout)
+        .expect(&quot;Failed to write curl output to stdout&quot;);
+}</code></pre></div><h4 id="how-to-build-and-run"><a class="doc-anchor" href="#how-to-build-and-run">§</a>How to build and run</h4>
+<ol>
+<li>
+<p><strong>Save</strong> the file as <code>main.rs</code> (or any name you like).</p>
+</li>
+<li>
+<p><strong>Compile</strong> with the Rust compiler:</p>
+<div class="example-wrap"><pre class="language-bash"><code>rustc main.rs</code></pre></div>
+<p>(No Cargo needed – this is a single‑file program.)</p>
+</li>
+<li>
+<p><strong>Run</strong> the compiled binary:</p>
+<div class="example-wrap"><pre class="language-bash"><code>./main</code></pre></div>
+<p>You should see the HTML of <code>https://curl.se</code> printed to your terminal.</p>
+</li>
+</ol>
+<h4 id="what-this-program-does"><a class="doc-anchor" href="#what-this-program-does">§</a>What this program does</h4>
+<ul>
+<li>It uses <code>std::process::Command</code> to spawn a child process that executes the <strong>system</strong> <code>curl</code> command.</li>
+<li>The <code>--silent</code> flag suppresses curl’s progress meter; only the response body is captured.</li>
+<li>The program checks the exit status of <code>curl</code>. If it fails, an error message is printed.</li>
+<li>Finally, it writes the captured <code>stdout</code> from <code>curl</code> to the program’s own stdout so you can see the fetched page.</li>
+</ul>
+<p><strong>Prerequisites</strong> – The system must have <code>curl</code> installed and available in the PATH. If you see a “Failed to run <code>curl</code>” error, install curl first (<code>apt install curl</code>, <code>brew install curl</code>, etc.).</p>
+<h2 id="run-the-code"><a class="doc-anchor" href="#run-the-code">§</a>Run the code</h2>
+<p><code>make run</code></p>
+<div class="example-wrap"><pre class="language-sh"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;title&gt;curl&lt;/title&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;meta content=&quot;text/html; charset=UTF-8&quot; http-equiv=&quot;Content-Type&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/curl.css&quot;&gt;
+&lt;link rel=&quot;shortcut icon&quot; href=&quot;/favicon.ico&quot;&gt;
+&lt;link rel=&quot;icon&quot; href=&quot;/logo/curl-symbol.svg&quot; type=&quot;image/svg+xml&quot;&gt;
+&lt;link rel=&quot;alternate&quot; type=&quot;application/rss+xml&quot; title=&quot;curl Releases&quot; href=&quot;https://github.com/curl/curl/releases.atom&quot;&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+.sponsors {
+  padding: 5px 5px 5px 5px;
+  border: 2px black solid;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  background: #e0e0e0;
+}
+.logo {
+  max-width: 80%;
+  margin: 20px 0px 0px 0px;
+}
+.sponsors a:hover, .logo:hover {
+  background: transparent;
+}
+.sidebar-box {
+  padding: 5px;
+  margin-bottom: 20px;
+  border: 2px black solid;
+  border-radius: 10px;
+  background: #e0e0e0;
+}
+td {
+  vertical-align: top;
+}
+.left {
+  font-weight: bold;
+  padding: 4px 4px 4px 4px;
+  font-size: 110%;
+}
+.right {
+  padding: 4px 4px 4px 4px;
+}
+.l {
+  background: #093754;
+  border: 0px;
+  padding: 15px;
+}
+.r {
+  background: #0f564d;
+  border: 0px;
+}
+.supports {
+  color: #f0f0f0;
+  font-size: 90%;
+  padding: 0 0 0 0;
+}
+@media (prefers-color-scheme: dark) {
+  .sidebar-box {
+    border-color: #999;
+    background: #404040;
+  }
+  .sponsors {
+    border-color: #999;
+    background: #404040;
+  }
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;main&quot;&gt;
+&lt;div class=&quot;menu&quot;&gt;
+&lt;div class=&quot;curlsymbol&quot;&gt;
+  &lt;a href=&quot;/&quot;&gt;
+    &lt;img src=&quot;/logo/curl-white-symbol.svg&quot;&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dropdown&quot;&gt;
+  &lt;a class=&quot;dropbtn&quot; href=&quot;/download.html&quot;&gt;Download&lt;/a&gt;
+  &lt;div class=&quot;dropdown-content&quot;&gt;
+    &lt;a href=&quot;https://github.com/curl/curl&quot;&gt;Browse source&lt;/a&gt;
+    &lt;a href=&quot;/ch/&quot;&gt;Changelog&lt;/a&gt;
+    &lt;a href=&quot;/rc/&quot;&gt;Release candidates&lt;/a&gt;
+    &lt;a href=&quot;/docs/releases.html&quot;&gt;Release log&lt;/a&gt;
+    &lt;a href=&quot;/tiny/&quot;&gt;tiny-curl&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dropdown&quot;&gt;
+  &lt;a class=&quot;dropbtn&quot; href=&quot;/docs/&quot;&gt;Documentation&lt;/a&gt;
+  &lt;div class=&quot;dropdown-content&quot;&gt;
+    &lt;a href=&quot;/docs/projdocs.html&quot;&gt;Project&lt;/a&gt;
+      &lt;small&gt;
+      &lt;a href=&quot;/docs/faq.html&quot;&gt;FAQ&lt;/a&gt;
+      &lt;a href=&quot;/docs/help-us.html&quot;&gt;&amp;nbsp; Help us&lt;/a&gt;
+      &lt;a href=&quot;/docs/knownbugs.html&quot;&gt;&amp;nbsp; Known bugs&lt;/a&gt;
+      &lt;a href=&quot;/docs/knownrisks.html&quot;&gt;&amp;nbsp; Known risks&lt;/a&gt;
+      &lt;a href=&quot;/docs/todo.html&quot;&gt;&amp;nbsp; TODO&lt;/a&gt;
+      &lt;/small&gt;
+    &lt;a href=&quot;/docs/protdocs.html&quot;&gt;Protocols&lt;/a&gt;
+      &lt;small&gt;
+      &lt;a href=&quot;/docs/caextract.html&quot;&gt;&amp;nbsp; CA bundle&lt;/a&gt;
+      &lt;a href=&quot;/docs/http-cookies.html&quot;&gt;&amp;nbsp; HTTP Cookies&lt;/a&gt;
+      &lt;a href=&quot;/docs/sslcerts.html&quot;&gt;&amp;nbsp; SSL Certs&lt;/a&gt;
+      &lt;/small&gt;
+    &lt;a href=&quot;/docs/reldocs.html&quot;&gt;Releases&lt;/a&gt;
+      &lt;small&gt;
+      &lt;a href=&quot;/docs/security.html&quot;&gt;&amp;nbsp; Security&lt;/a&gt;
+      &lt;a href=&quot;/docs/versions.html&quot;&gt;&amp;nbsp; Version numbers&lt;/a&gt;
+      &lt;a href=&quot;/docs/vulnerabilities.html&quot;&gt;&amp;nbsp; Vulnerabilities&lt;/a&gt;
+      &lt;/small&gt;
+    &lt;a href=&quot;/docs/tooldocs.html&quot;&gt;curl tool&lt;/a&gt;
+      &lt;small&gt;
+      &lt;a href=&quot;/docs/manpage.html&quot;&gt;&amp;nbsp; man page&lt;/a&gt;
+      &lt;a href=&quot;/docs/tutorial.html&quot;&gt;&amp;nbsp; Tutorial&lt;/a&gt;
+      &lt;a href=&quot;/docs/httpscripting.html&quot;&gt;&amp;nbsp; HTTP scripting&lt;/a&gt;
+      &lt;/small&gt;
+    &lt;a href=&quot;/trurl/&quot;&gt;trurl&lt;/a&gt;
+    &lt;a href=&quot;/wcurl/&quot;&gt;wcurl&lt;/a&gt;
+    &lt;a href=&quot;/docs/videos/&quot;&gt;Videos&lt;/a&gt;
+    &lt;a href=&quot;/docs/whodocs.html&quot;&gt;Who and Why&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dropdown&quot;&gt;
+  &lt;a class=&quot;dropbtn&quot; href=&quot;/libcurl/&quot;&gt;libcurl&lt;/a&gt;
+  &lt;div class=&quot;dropdown-content&quot;&gt;
+    &lt;a href=&quot;/libcurl/c/&quot;&gt;API&lt;/a&gt;
+    &lt;a href=&quot;/libcurl/c/example.html&quot;&gt;Examples&lt;/a&gt;
+    &lt;a href=&quot;/libcurl/features.html&quot;&gt;Features&lt;/a&gt;
+    &lt;a href=&quot;/mail/list.cgi?list=curl-library&quot;&gt;Mailing list&lt;/a&gt;
+    &lt;a href=&quot;/libcurl/c/symbols-in-versions.html&quot;&gt;Symbols&lt;/a&gt;
+    &lt;a href=&quot;/libcurl/using/&quot;&gt;Using libcurl&lt;/a&gt;
+    &lt;a href=&quot;/libcurl/c/libcurl-tutorial.html&quot;&gt;Tutorial&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dropdown&quot;&gt;
+  &lt;a class=&quot;dropbtn&quot; href=&quot;/gethelp.html&quot;&gt;Get Help&lt;/a&gt;
+  &lt;div class=&quot;dropdown-content&quot;&gt;
+    &lt;a href=&quot;https://lists.haxx.se/listinfo/curl-library&quot;&gt;curl-library&lt;/a&gt;
+    &lt;a href=&quot;https://lists.haxx.se/listinfo/curl-users&quot;&gt;curl-users&lt;/a&gt;
+    &lt;a href=&quot;/docs/irc.html&quot;&gt;IRC / chat&lt;/a&gt;
+    &lt;a href=&quot;/mail/&quot;&gt;Mailing lists&lt;/a&gt;
+    &lt;a href=&quot;/book.html&quot;&gt;Everything curl [book]&lt;/a&gt;
+    &lt;a href=&quot;/docs/videos/&quot;&gt;Video presentations&lt;/a&gt;
+    &lt;a href=&quot;https://github.com/curl/curl/issues&quot;&gt;Report a bug&lt;/a&gt;
+    &lt;a href=&quot;/dev/vuln-disclosure.html&quot;&gt;Report security issue&lt;/a&gt;
+    &lt;a href=&quot;/support.html&quot;&gt;Paid support&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dropdown&quot;&gt;
+  &lt;a class=&quot;dropbtn&quot; href=&quot;/dev/&quot;&gt;Development&lt;/a&gt;
+  &lt;div class=&quot;dropdown-content&quot;&gt;
+    &lt;a href=&quot;/dev/builds.html&quot;&gt;Autobuilds&lt;/a&gt;
+    &lt;a href=&quot;/dev/code-review.html&quot;&gt;Code review&lt;/a&gt;
+    &lt;a href=&quot;/dev/code-style.html&quot;&gt;Code style&lt;/a&gt;
+    &lt;a href=&quot;/dev/contribute.html&quot;&gt;Contribute&lt;/a&gt;
+    &lt;a href=&quot;/dashboard.html&quot;&gt;Dashboard&lt;/a&gt;
+    &lt;a href=&quot;/dev/deprecate.html&quot;&gt;Deprecate&lt;/a&gt;
+    &lt;a href=&quot;/dev/internals.html&quot;&gt;Internals&lt;/a&gt;
+    &lt;a href=&quot;/dev/release-notes.html&quot;&gt;Release Notes&lt;/a&gt;
+    &lt;a href=&quot;/dev/release-procedure.html&quot;&gt;Release Procedure&lt;/a&gt;
+    &lt;a href=&quot;/dev/roadmap.html&quot;&gt;Roadmap&lt;/a&gt;
+    &lt;a href=&quot;/dev/runtests.html&quot;&gt;Run Tests&lt;/a&gt;
+    &lt;a href=&quot;/rfc/&quot;&gt;Specifications&lt;/a&gt;
+    &lt;a href=&quot;/dev/testcurl.html&quot;&gt;Test curl&lt;/a&gt;
+    &lt;a href=&quot;/dev/tests-overview.html&quot;&gt;Tests Overview&lt;/a&gt;
+    &lt;a href=&quot;/dev/vuln-disclosure.html&quot;&gt;Vulnerability Disclosure Policy&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;contents&quot;&gt;
+&lt;center&gt;&lt;img src=&quot;https://curl.se/logo/curl-logo.svg&quot; alt=&quot;curl logo&quot; style=&quot;width:90%; padding-top: 8px;&quot;&gt;
+&lt;/center&gt;
+&lt;p&gt;
+&lt;hr&gt;
+&lt;p style=&quot;font-size: 160%; text-align: center;&quot;&gt;
+  &lt;b&gt;command line tool and
+library&lt;/b&gt;
+  &lt;br&gt;for transferring data with URLs
+  &lt;br&gt;(since 1998)&lt;/p&gt;
+&lt;div style=&quot;float: right; max-width: 10em; margin-left: 40px;&quot;&gt;
+  &lt;div class=&quot;sponsors&quot;&gt;
+  &lt;b&gt;Top&amp;nbsp;Sponsors&lt;/b&gt;
+  &lt;a href=&quot;sponsors.html&quot;&gt;
+  &lt;img class=&quot;logo&quot; src=&quot;pix/haxx.svg&quot; alt=&quot;Haxx&quot;&gt;
+  &lt;img class=&quot;logo&quot; src=&quot;pix/wolfssl.svg&quot; alt=&quot;wolfSSL&quot;&gt;
+  &lt;img class=&quot;logo&quot; src=&quot;pix/fastly.svg&quot; alt=&quot;Fastly&quot;&gt;
+  &lt;img class=&quot;logo&quot; src=&quot;pix/top/github.svg&quot; alt=&quot;GitHub&quot;&gt;
+  &lt;img class=&quot;logo&quot; src=&quot;pix/teamviewer.svg&quot; alt=&quot;Teamviewer&quot;&gt;
+  &lt;/a&gt;
+ &lt;/div&gt;
+ &lt;div class=&quot;sidebar-box&quot;&gt;
+   &lt;img style=&quot;filter: grayscale(100%); float: right;&quot; src=&quot;pix/user.svg&quot; width=&quot;30%&quot;&gt;
+   &lt;a href=&quot;/support.html&quot;&gt;
+   Commercial support available&lt;/a&gt;
+   &lt;div style=&quot;clear: both;&quot;&gt;&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class=&quot;sidebar-box&quot;&gt;
+  &lt;a href=&quot;https://everything.curl.dev/&quot;&gt;Everything curl&lt;/a&gt; is a free ebook
+  about curl and libcurl
+  &lt;p align=&quot;center&quot;&gt;
+  &lt;a href=&quot;https://everything.curl.dev/&quot;&gt;&lt;img src=&quot;pix/everything-curl.jpg&quot;
+  alt=&quot;Everything curl&quot; width=&quot;80%&quot;&gt;&lt;/a&gt;
+ &lt;/div&gt;
+ &lt;div class=&quot;sidebar-box&quot;&gt;
+   &lt;img style=&quot;filter: grayscale(100%); float: right;&quot; src=&quot;pix/cash.svg&quot; width=&quot;40%&quot;&gt;
+   &lt;a href=&quot;/donation.html&quot;&gt;
+   Sponsor curl financially&lt;/a&gt;
+   &lt;div style=&quot;clear: both;&quot;&gt;&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class=&quot;sidebar-box&quot;&gt;
+   Video: &lt;a href=&quot;https://youtu.be/V5vZWHP-RqU&quot;&gt;mastering the curl command line tool&lt;/a&gt;
+   &lt;p align=&quot;center&quot;&gt;
+   &lt;a href=&quot;https://youtu.be/V5vZWHP-RqU&quot;&gt;&lt;img src=&quot;pix/mastering.jpg&quot; width=&quot;80%&quot;&gt;&lt;/a&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+&lt;h2&gt; What is curl used for? &lt;/h2&gt;
+&lt;p&gt;
+curl is used in command lines or scripts to transfer data. curl is
+also &lt;b&gt;libcurl&lt;/b&gt;, used in cars, television sets, routers, printers, audio
+equipment, mobile phones, tablets, medical devices, settop boxes, computer
+games, media players and is the Internet transfer engine for countless
+software applications in over &lt;i&gt;twenty billion installations&lt;/i&gt;.
+&lt;p&gt;
+curl is used daily by virtually every Internet-using human on the globe.
+&lt;h2&gt; curl supports &lt;/h2&gt;
+&lt;table class=&quot;supports&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;
+&lt;tr class=&quot;l&quot;&gt;&lt;td class=&quot;left&quot;&gt;Protocols&lt;/td&gt;
+  &lt;td class=&quot;right&quot;&gt; DICT, FILE, FTP, FTPS, GOPHER, GOPHERS, HTTP, HTTPS,
+IMAP, IMAPS, LDAP, LDAPS, MQTT, MQTTS, POP3, POP3S, RTMP, RTMPS, RTSP, SCP,
+SFTP, SMB, SMBS, SMTP, SMTPS, TELNET, TFTP, WS, WSS &lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;r&quot;&gt;&lt;td class=&quot;left&quot;&gt;Proxies&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt; SOCKS4, SOCKS5, HTTP, HTTPS (HTTP/1 and HTTP/2), tunneling,
+via unix domain sockets, haproxy, SOCKS+HTTP proxy chain&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;l&quot;&gt;&lt;td class=&quot;left&quot;&gt;HTTP&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt;GET, POST, PUT, HEAD, multipart formpost, HTTP/0.9,
+HTTP/1.0, HTTP/1.1, HTTP/2 (h2c, h2, prior knowledge), HTTP/3 (dual connect
+h1/h2 + h3 or h3-only), HSTS, Alt-Svc, cookies, PSL, etags, transfer
+compression, ranges, custom headers, custom method, follow redirects&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;r&quot;&gt;&lt;td class=&quot;left&quot;&gt;FTP&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt;IPv6 (EPRT, EPSV), STLS, upload/download, append, range,
+passive/active, kerberos, directory listing, custom commands&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;l&quot;&gt;&lt;td class=&quot;left&quot;&gt;SCP + SFTP&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt;known hosts, md5/sha256 fingerprint, compression,
+upload/download, directory listing&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;r&quot;&gt;&lt;td class=&quot;left&quot;&gt;TLS&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt; 1.0 - 1.3, mutual authentication, STARTTLS, OCSP stapling,
+ECH, False Start, key pinning, PQC ready, session resumption, early data,
+export/import sessions&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;l&quot;&gt;&lt;td class=&quot;left&quot;&gt;QUIC&lt;/td&gt;
+  &lt;td class=&quot;right&quot;&gt;
+0RTT handshakes
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;r&quot;&gt;&lt;td class=&quot;left&quot;&gt;Auth&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt;Basic, Plain, Digest, CRAM-MD5, SCRAM-SHA, NTLM, Negotiate,
+Kerberos, Bearer tokens, AWS Sigv4, SASL, .netrc&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;l&quot;&gt;&lt;td class=&quot;left&quot;&gt;HTTP&amp;nbsp;compression&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt;gzip, brotli and zstd&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;r&quot;&gt;&lt;td class=&quot;left&quot;&gt;Name resolving&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt;DNS-over-HTTPS, custom address for host, name+port redirect,
+custom DNS servers, DNS caching, HTTPS RR&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;l&quot;&gt;&lt;td class=&quot;left&quot;&gt;Connection&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt;connection reuse, Interface binding, Happy Eyeballs,
+IPv4/IPv6-only, unix domain sockets, TCP keepalive, TCP Fast Open, TCP
+Nodelay, MPTCP, VLAN priority, IP Type Of Service&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;r&quot;&gt;&lt;td class=&quot;left&quot;&gt;Transfers&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt;transfer rate limiting, request rate limiting, stall
+detection, retries, timeouts&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;l&quot;&gt;&lt;td class=&quot;left&quot;&gt;URLs&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt;Unlimited amount, parallel and serial transfers,
+globbing&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;r&quot;&gt;&lt;td class=&quot;left&quot;&gt;Output&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt;IDN hostnames, custom info from transfer, metadata as JSON,
+per content-disposition, libcurl source code, bold headers&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h2&gt; Who makes curl? &lt;/h2&gt;
+&lt;p&gt;
+curl is free and &lt;a href=&quot;docs/copyright.html&quot; title=&quot;curl and libcurl are
+licensed under a MIT/X derivate license&quot;&gt;open source&lt;/a&gt; software and exists
+thanks to &lt;a href=&quot;docs/thanks.html&quot; title=&quot;over 3,000 named
+contributors&quot;&gt;thousands of contributors&lt;/a&gt; and our
+awesome &lt;a href=&quot;/sponsors.html&quot;&gt;sponsors&lt;/a&gt;. The curl
+project &lt;a title=&quot;Adheres to the Core Intrastructure Initiative&#39;s listed best
+practices at Gold level&quot;
+href=&quot;https://bestpractices.coreinfrastructure.org/projects/63&quot;&gt;follows well
+established open source best practices&lt;/a&gt;. You too
+can &lt;a href=&quot;docs/help-us.html&quot;&gt;help us&lt;/a&gt; improve!
+&lt;h2&gt; What is the latest curl? &lt;/h2&gt;
+&lt;p&gt;
+The most recent stable version is &lt;b&gt;8.18.0&lt;/b&gt;, released on 2026-01-07.
+Currently, 102 of the listed &lt;a href=&quot;download.html&quot; title=&quot;Binary download packages for your platform!&quot;&gt;downloads&lt;/a&gt; are of the latest version.
+&lt;h2&gt; Where is the code? &lt;/h2&gt;
+&lt;p&gt;
+ Check out the latest &lt;a href=&quot;https://github.com/curl/curl&quot; title=&quot;git clone
+ the curl code&quot;&gt;source code from GitHub&lt;/a&gt;.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div></div></details></section></div></main></body></html>
