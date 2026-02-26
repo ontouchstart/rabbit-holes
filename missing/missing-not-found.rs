@@ -20,23 +20,3 @@
 //!        .output()
 //!        .expect("Missing: command not found");
 //! ```
-//! Compile and run `not-found.rs`
-//! ```sh
-//! rustc not-found.rs
-//! ./not-found 1> not-found.stdout 2> not-found.stderr
-//! ```
-//! `not-found.stdout` (should be empty)
-//! ```text
-#![doc = include_str!("not-found.stdout")]
-//! ```
-//! `not-found.stderr` (should be non-empty)
-//! ```text
-#![doc = include_str!("not-found.stderr")]
-//! ```
-use std::process::Command;
-fn main() {
-    Command::new("Missing")
-        .arg("Semester")
-        .output()
-        .expect("Missing: command not found");
-}

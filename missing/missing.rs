@@ -1,9 +1,9 @@
 #![doc = include_str!("README.md")]
 //! # Why missing
 //!
-//! [-> why](../why/index.html)
+//! [-> why](../missing_why/index.html)
 //!
 //! # How this doc is generated
 //!
-//! [-> how](../how/index.html)
+//! [-> how](../missing_how/index.html)
 //!

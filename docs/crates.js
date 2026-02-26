@@ -1,2 +1,2 @@
-window.ALL_CRATES = ["fmt_wrap","get_env","how","man_cat","man_echo","man_ed","man_printf","missing","not_found","vi_wrap","why"];
-//{"start":21,"fragment_lengths":[10,10,6,10,11,9,13,10,12,10,6]}
+window.ALL_CRATES = ["fmt_wrap","man_cat","man_echo","man_ed","man_printf","missing","missing_how","missing_not_found","missing_why","playground_cat_security_notice","playground_free_h","playground_read_security_notice","playground_uname","vi_wrap"];
+//{"start":21,"fragment_lengths":[10,10,11,9,13,10,14,20,14,33,20,34,19,10]}
