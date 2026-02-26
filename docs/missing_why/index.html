@@ -61,12 +61,17 @@ find anywhere near as convenient.</p>
 </blockquote>
 <p>So this is not batch computing in the sense of submitting a deck of punch cards
 to the machine and waiting for the output but interactive workflow like a
-writer typing on a typewriter, reviewing, making corrections and repeating.</p>
-<p>This type of interactive creative workflow is very effective because it
-distinguishes <strong>input</strong> from <strong>output</strong>. In UNIX system, the concepts of
-<code>stdin</code>, <code>stdout</code> and <code>stderr</code> are not just for machine operation, but also
-for the user to make a distinguish between them and therefore to have a
-concept of dataflow. This becomes the foundation of UNIX pipe.</p>
-<p>(Note: <a href="https://doc.rust-lang.org/1.93.1/std/io/stdio/fn.stdin.html" title="fn std::io::stdio::stdin">std::io::stdin</a>, <a href="https://doc.rust-lang.org/1.93.1/std/io/stdio/fn.stdout.html" title="fn std::io::stdio::stdout">std::io::stdout</a>, and <a href="https://doc.rust-lang.org/1.93.1/std/io/stdio/fn.stderr.html" title="fn std::io::stdio::stderr">std::io::stderr</a> in Rust
-<a href="https://doc.rust-lang.org/1.93.1/std/io/index.html" title="mod std::io">std::io</a>)</p>
+writer typing on a typewriter, reviewing, making corrections and repeating.
+This process is also called Read-Eval-Print Loop
+(<a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">REPL</a>).</p>
+<p>Another interesting side effect of this workflow is that it distinguishes
+<strong>input</strong> from <strong>output</strong>. In UNIX system, the concepts of <code>stdin</code>, <code>stdout</code>
+and <code>stderr</code> are not just for machine operation, but also for the user to make
+a distinguish between them and therefore to have a concept of dataflow. This
+becomes the foundation of <a href="https://en.wikipedia.org/wiki/Pipeline_(Unix)">UNIX
+pipe</a>.</p>
+<p>(For Rust reference, see <a href="https://doc.rust-lang.org/1.93.1/std/io/stdio/fn.stdin.html" title="fn std::io::stdio::stdin">std::io::stdin</a>, <a href="https://doc.rust-lang.org/1.93.1/std/io/stdio/fn.stdout.html" title="fn std::io::stdio::stdout">std::io::stdout</a>, <a href="https://doc.rust-lang.org/1.93.1/std/io/stdio/fn.stderr.html" title="fn std::io::stdio::stderr">std::io::stderr</a>
+and <a href="https://doc.rust-lang.org/1.93.1/std/process/struct.Stdio.html#method.piped" title="associated function std::process::Stdio::piped">std::process::Stdio::piped</a>.)</p>
+<p>This is covered in <a href="https://missing.csail.mit.edu/2026/course-shell/">[Lecture 1]: Course Overview + Introduction to the
+Shell</a>.</p>
 </div></details></section></div></main></body></html>

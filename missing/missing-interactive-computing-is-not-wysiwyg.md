@@ -34,13 +34,19 @@ Here is an excerpt of [Interview with Dr. Ken Iverson
 So this is not batch computing in the sense of submitting a deck of punch cards
 to the machine and waiting for the output but interactive workflow like a
 writer typing on a typewriter, reviewing, making corrections and repeating.
+This process is also called Read-Eval-Print Loop
+([REPL](https://en.wikipedia.org/wiki/Read–eval–print_loop)).
 
-This type of interactive creative workflow is very effective because it
-distinguishes **input** from **output**. In UNIX system, the concepts of
-`stdin`, `stdout` and `stderr` are not just for machine operation, but also
-for the user to make a distinguish between them and therefore to have a
-concept of dataflow. This becomes the foundation of UNIX pipe.
+Another interesting side effect of this workflow is that it distinguishes
+**input** from **output**. In UNIX system, the concepts of `stdin`, `stdout`
+and `stderr` are not just for machine operation, but also for the user to make
+a distinguish between them and therefore to have a concept of dataflow. This
+becomes the foundation of [UNIX
+pipe](https://en.wikipedia.org/wiki/Pipeline_(Unix)).
 
-(Note: [std::io::stdin], [std::io::stdout], and [std::io::stderr] in Rust
-[std::io])
+(For Rust reference, see [std::io::stdin], [std::io::stdout], [std::io::stderr]
+and [std::process::Stdio::piped].)
+
+This is covered in [[Lecture 1]: Course Overview + Introduction to the
+Shell](https://missing.csail.mit.edu/2026/course-shell/).
 
