@@ -1,0 +1,591 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Naive stripping html tags (not working for CSS etc)"><title>ggml_gpt_oss_20b_GGUF_curl_naive_strip_tags - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-ca0dd0c4.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="ggml_gpt_oss_20b_GGUF_curl_naive_strip_tags" data-themes="" data-resource-suffix="" data-rustdoc-version="1.93.1 (01f6ddf75 2026-02-11)" data-channel="1.93.1" data-search-js="search-9e2438ea.js" data-stringdex-js="stringdex-a3946164.js" data-settings-js="settings-c38705f0.js" ><script src="../static.files/storage-e2aeef58.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-a410ff4d.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-263c88ec.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate ggml_gpt_oss_20b_GGUF_curl_naive_strip_tags</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../ggml_gpt_oss_20b_GGUF_curl_naive_strip_tags/index.html">ggml_<wbr>gpt_<wbr>oss_<wbr>20b_<wbr>GGUF_<wbr>curl_<wbr>naive_<wbr>strip_<wbr>tags</a></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#naive-stripping-html-tags-not-working-for-css-etc" title="Naive stripping html tags (not working for CSS etc)">Naive stripping html tags (not working for CSS etc)</a><ul><li><a href="#html" title="html">html</a></li><li><a href="#text" title="text">text</a></li></ul></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content"><div class="main-heading"><h1>Crate <span>ggml_<wbr>gpt_<wbr>oss_<wbr>20b_<wbr>GGUF_<wbr>curl_<wbr>naive_<wbr>strip_<wbr>tags</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/ggml_gpt_oss_20b_GGUF_curl_naive_strip_tags/ggml-gpt-oss-20b-GGUF-curl-naive-strip_tags.rs.html#1-51">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="naive-stripping-html-tags-not-working-for-css-etc"><a class="doc-anchor" href="#naive-stripping-html-tags-not-working-for-css-etc">§</a>Naive stripping html tags (not working for CSS etc)</h2>
+<p><code>rustc ggml-gpt-oss-20b-GGUF-curl-naive-strip_tags.rs &amp;&amp; ./ggml-gpt-oss-20b-GGUF-curl-naive-strip_tags| tee ggml-gpt-oss-20b-GGUF-curl-naive-strip_tags.log</code></p>
+<h3 id="html"><a class="doc-anchor" href="#html">§</a>html</h3><div class="example-wrap"><pre class="language-text"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;title&gt;curl&lt;/title&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;meta content=&quot;text/html; charset=UTF-8&quot; http-equiv=&quot;Content-Type&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/curl.css&quot;&gt;
+&lt;link rel=&quot;shortcut icon&quot; href=&quot;/favicon.ico&quot;&gt;
+&lt;link rel=&quot;icon&quot; href=&quot;/logo/curl-symbol.svg&quot; type=&quot;image/svg+xml&quot;&gt;
+&lt;link rel=&quot;alternate&quot; type=&quot;application/rss+xml&quot; title=&quot;curl Releases&quot; href=&quot;https://github.com/curl/curl/releases.atom&quot;&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+.sponsors {
+  padding: 5px 5px 5px 5px;
+  border: 2px black solid;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  background: #e0e0e0;
+}
+.logo {
+  max-width: 80%;
+  margin: 20px 0px 0px 0px;
+}
+.sponsors a:hover, .logo:hover {
+  background: transparent;
+}
+.sidebar-box {
+  padding: 5px;
+  margin-bottom: 20px;
+  border: 2px black solid;
+  border-radius: 10px;
+  background: #e0e0e0;
+}
+td {
+  vertical-align: top;
+}
+.left {
+  font-weight: bold;
+  padding: 4px 4px 4px 4px;
+  font-size: 110%;
+}
+.right {
+  padding: 4px 4px 4px 4px;
+}
+.l {
+  background: #093754;
+  border: 0px;
+  padding: 15px;
+}
+.r {
+  background: #0f564d;
+  border: 0px;
+}
+.supports {
+  color: #f0f0f0;
+  font-size: 90%;
+  padding: 0 0 0 0;
+}
+@media (prefers-color-scheme: dark) {
+  .sidebar-box {
+    border-color: #999;
+    background: #404040;
+  }
+  .sponsors {
+    border-color: #999;
+    background: #404040;
+  }
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;main&quot;&gt;
+&lt;div class=&quot;menu&quot;&gt;
+&lt;div class=&quot;curlsymbol&quot;&gt;
+  &lt;a href=&quot;/&quot;&gt;
+    &lt;img src=&quot;/logo/curl-white-symbol.svg&quot;&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dropdown&quot;&gt;
+  &lt;a class=&quot;dropbtn&quot; href=&quot;/download.html&quot;&gt;Download&lt;/a&gt;
+  &lt;div class=&quot;dropdown-content&quot;&gt;
+    &lt;a href=&quot;https://github.com/curl/curl&quot;&gt;Browse source&lt;/a&gt;
+    &lt;a href=&quot;/ch/&quot;&gt;Changelog&lt;/a&gt;
+    &lt;a href=&quot;/rc/&quot;&gt;Release candidates&lt;/a&gt;
+    &lt;a href=&quot;/docs/releases.html&quot;&gt;Release log&lt;/a&gt;
+    &lt;a href=&quot;/tiny/&quot;&gt;tiny-curl&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dropdown&quot;&gt;
+  &lt;a class=&quot;dropbtn&quot; href=&quot;/docs/&quot;&gt;Documentation&lt;/a&gt;
+  &lt;div class=&quot;dropdown-content&quot;&gt;
+    &lt;a href=&quot;/docs/projdocs.html&quot;&gt;Project&lt;/a&gt;
+      &lt;small&gt;
+      &lt;a href=&quot;/docs/faq.html&quot;&gt;FAQ&lt;/a&gt;
+      &lt;a href=&quot;/docs/help-us.html&quot;&gt;&amp;nbsp; Help us&lt;/a&gt;
+      &lt;a href=&quot;/docs/knownbugs.html&quot;&gt;&amp;nbsp; Known bugs&lt;/a&gt;
+      &lt;a href=&quot;/docs/knownrisks.html&quot;&gt;&amp;nbsp; Known risks&lt;/a&gt;
+      &lt;a href=&quot;/docs/todo.html&quot;&gt;&amp;nbsp; TODO&lt;/a&gt;
+      &lt;/small&gt;
+    &lt;a href=&quot;/docs/protdocs.html&quot;&gt;Protocols&lt;/a&gt;
+      &lt;small&gt;
+      &lt;a href=&quot;/docs/caextract.html&quot;&gt;&amp;nbsp; CA bundle&lt;/a&gt;
+      &lt;a href=&quot;/docs/http-cookies.html&quot;&gt;&amp;nbsp; HTTP Cookies&lt;/a&gt;
+      &lt;a href=&quot;/docs/sslcerts.html&quot;&gt;&amp;nbsp; SSL Certs&lt;/a&gt;
+      &lt;/small&gt;
+    &lt;a href=&quot;/docs/reldocs.html&quot;&gt;Releases&lt;/a&gt;
+      &lt;small&gt;
+      &lt;a href=&quot;/docs/security.html&quot;&gt;&amp;nbsp; Security&lt;/a&gt;
+      &lt;a href=&quot;/docs/versions.html&quot;&gt;&amp;nbsp; Version numbers&lt;/a&gt;
+      &lt;a href=&quot;/docs/vulnerabilities.html&quot;&gt;&amp;nbsp; Vulnerabilities&lt;/a&gt;
+      &lt;/small&gt;
+    &lt;a href=&quot;/docs/tooldocs.html&quot;&gt;curl tool&lt;/a&gt;
+      &lt;small&gt;
+      &lt;a href=&quot;/docs/manpage.html&quot;&gt;&amp;nbsp; man page&lt;/a&gt;
+      &lt;a href=&quot;/docs/tutorial.html&quot;&gt;&amp;nbsp; Tutorial&lt;/a&gt;
+      &lt;a href=&quot;/docs/httpscripting.html&quot;&gt;&amp;nbsp; HTTP scripting&lt;/a&gt;
+      &lt;/small&gt;
+    &lt;a href=&quot;/trurl/&quot;&gt;trurl&lt;/a&gt;
+    &lt;a href=&quot;/wcurl/&quot;&gt;wcurl&lt;/a&gt;
+    &lt;a href=&quot;/docs/videos/&quot;&gt;Videos&lt;/a&gt;
+    &lt;a href=&quot;/docs/whodocs.html&quot;&gt;Who and Why&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dropdown&quot;&gt;
+  &lt;a class=&quot;dropbtn&quot; href=&quot;/libcurl/&quot;&gt;libcurl&lt;/a&gt;
+  &lt;div class=&quot;dropdown-content&quot;&gt;
+    &lt;a href=&quot;/libcurl/c/&quot;&gt;API&lt;/a&gt;
+    &lt;a href=&quot;/libcurl/c/example.html&quot;&gt;Examples&lt;/a&gt;
+    &lt;a href=&quot;/libcurl/features.html&quot;&gt;Features&lt;/a&gt;
+    &lt;a href=&quot;/mail/list.cgi?list=curl-library&quot;&gt;Mailing list&lt;/a&gt;
+    &lt;a href=&quot;/libcurl/c/symbols-in-versions.html&quot;&gt;Symbols&lt;/a&gt;
+    &lt;a href=&quot;/libcurl/using/&quot;&gt;Using libcurl&lt;/a&gt;
+    &lt;a href=&quot;/libcurl/c/libcurl-tutorial.html&quot;&gt;Tutorial&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dropdown&quot;&gt;
+  &lt;a class=&quot;dropbtn&quot; href=&quot;/gethelp.html&quot;&gt;Get Help&lt;/a&gt;
+  &lt;div class=&quot;dropdown-content&quot;&gt;
+    &lt;a href=&quot;https://lists.haxx.se/listinfo/curl-library&quot;&gt;curl-library&lt;/a&gt;
+    &lt;a href=&quot;https://lists.haxx.se/listinfo/curl-users&quot;&gt;curl-users&lt;/a&gt;
+    &lt;a href=&quot;/docs/irc.html&quot;&gt;IRC / chat&lt;/a&gt;
+    &lt;a href=&quot;/mail/&quot;&gt;Mailing lists&lt;/a&gt;
+    &lt;a href=&quot;/book.html&quot;&gt;Everything curl [book]&lt;/a&gt;
+    &lt;a href=&quot;/docs/videos/&quot;&gt;Video presentations&lt;/a&gt;
+    &lt;a href=&quot;https://github.com/curl/curl/issues&quot;&gt;Report a bug&lt;/a&gt;
+    &lt;a href=&quot;/dev/vuln-disclosure.html&quot;&gt;Report security issue&lt;/a&gt;
+    &lt;a href=&quot;/support.html&quot;&gt;Paid support&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dropdown&quot;&gt;
+  &lt;a class=&quot;dropbtn&quot; href=&quot;/dev/&quot;&gt;Development&lt;/a&gt;
+  &lt;div class=&quot;dropdown-content&quot;&gt;
+    &lt;a href=&quot;/dev/builds.html&quot;&gt;Autobuilds&lt;/a&gt;
+    &lt;a href=&quot;/dev/code-review.html&quot;&gt;Code review&lt;/a&gt;
+    &lt;a href=&quot;/dev/code-style.html&quot;&gt;Code style&lt;/a&gt;
+    &lt;a href=&quot;/dev/contribute.html&quot;&gt;Contribute&lt;/a&gt;
+    &lt;a href=&quot;/dashboard.html&quot;&gt;Dashboard&lt;/a&gt;
+    &lt;a href=&quot;/dev/deprecate.html&quot;&gt;Deprecate&lt;/a&gt;
+    &lt;a href=&quot;/dev/internals.html&quot;&gt;Internals&lt;/a&gt;
+    &lt;a href=&quot;/dev/release-notes.html&quot;&gt;Release Notes&lt;/a&gt;
+    &lt;a href=&quot;/dev/release-procedure.html&quot;&gt;Release Procedure&lt;/a&gt;
+    &lt;a href=&quot;/dev/roadmap.html&quot;&gt;Roadmap&lt;/a&gt;
+    &lt;a href=&quot;/dev/runtests.html&quot;&gt;Run Tests&lt;/a&gt;
+    &lt;a href=&quot;/rfc/&quot;&gt;Specifications&lt;/a&gt;
+    &lt;a href=&quot;/dev/testcurl.html&quot;&gt;Test curl&lt;/a&gt;
+    &lt;a href=&quot;/dev/tests-overview.html&quot;&gt;Tests Overview&lt;/a&gt;
+    &lt;a href=&quot;/dev/vuln-disclosure.html&quot;&gt;Vulnerability Disclosure Policy&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;contents&quot;&gt;
+&lt;center&gt;&lt;img src=&quot;https://curl.se/logo/curl-logo.svg&quot; alt=&quot;curl logo&quot; style=&quot;width:90%; padding-top: 8px;&quot;&gt;
+&lt;/center&gt;
+&lt;p&gt;
+&lt;hr&gt;
+&lt;p style=&quot;font-size: 160%; text-align: center;&quot;&gt;
+  &lt;b&gt;command line tool and
+library&lt;/b&gt;
+  &lt;br&gt;for transferring data with URLs
+  &lt;br&gt;(since 1998)&lt;/p&gt;
+&lt;div style=&quot;float: right; max-width: 10em; margin-left: 40px;&quot;&gt;
+  &lt;div class=&quot;sponsors&quot;&gt;
+  &lt;b&gt;Top&amp;nbsp;Sponsors&lt;/b&gt;
+  &lt;a href=&quot;sponsors.html&quot;&gt;
+  &lt;img class=&quot;logo&quot; src=&quot;pix/haxx.svg&quot; alt=&quot;Haxx&quot;&gt;
+  &lt;img class=&quot;logo&quot; src=&quot;pix/wolfssl.svg&quot; alt=&quot;wolfSSL&quot;&gt;
+  &lt;img class=&quot;logo&quot; src=&quot;pix/fastly.svg&quot; alt=&quot;Fastly&quot;&gt;
+  &lt;img class=&quot;logo&quot; src=&quot;pix/top/github.svg&quot; alt=&quot;GitHub&quot;&gt;
+  &lt;img class=&quot;logo&quot; src=&quot;pix/teamviewer.svg&quot; alt=&quot;Teamviewer&quot;&gt;
+  &lt;/a&gt;
+ &lt;/div&gt;
+ &lt;div class=&quot;sidebar-box&quot;&gt;
+   &lt;img style=&quot;filter: grayscale(100%); float: right;&quot; src=&quot;pix/user.svg&quot; width=&quot;30%&quot;&gt;
+   &lt;a href=&quot;/support.html&quot;&gt;
+   Commercial support available&lt;/a&gt;
+   &lt;div style=&quot;clear: both;&quot;&gt;&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class=&quot;sidebar-box&quot;&gt;
+  &lt;a href=&quot;https://everything.curl.dev/&quot;&gt;Everything curl&lt;/a&gt; is a free ebook
+  about curl and libcurl
+  &lt;p align=&quot;center&quot;&gt;
+  &lt;a href=&quot;https://everything.curl.dev/&quot;&gt;&lt;img src=&quot;pix/everything-curl.jpg&quot;
+  alt=&quot;Everything curl&quot; width=&quot;80%&quot;&gt;&lt;/a&gt;
+ &lt;/div&gt;
+ &lt;div class=&quot;sidebar-box&quot;&gt;
+   &lt;img style=&quot;filter: grayscale(100%); float: right;&quot; src=&quot;pix/cash.svg&quot; width=&quot;40%&quot;&gt;
+   &lt;a href=&quot;/donation.html&quot;&gt;
+   Sponsor curl financially&lt;/a&gt;
+   &lt;div style=&quot;clear: both;&quot;&gt;&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class=&quot;sidebar-box&quot;&gt;
+   Video: &lt;a href=&quot;https://youtu.be/V5vZWHP-RqU&quot;&gt;mastering the curl command line tool&lt;/a&gt;
+   &lt;p align=&quot;center&quot;&gt;
+   &lt;a href=&quot;https://youtu.be/V5vZWHP-RqU&quot;&gt;&lt;img src=&quot;pix/mastering.jpg&quot; width=&quot;80%&quot;&gt;&lt;/a&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+&lt;h2&gt; What is curl used for? &lt;/h2&gt;
+&lt;p&gt;
+curl is used in command lines or scripts to transfer data. curl is
+also &lt;b&gt;libcurl&lt;/b&gt;, used in cars, television sets, routers, printers, audio
+equipment, mobile phones, tablets, medical devices, settop boxes, computer
+games, media players and is the Internet transfer engine for countless
+software applications in over &lt;i&gt;twenty billion installations&lt;/i&gt;.
+&lt;p&gt;
+curl is used daily by virtually every Internet-using human on the globe.
+&lt;h2&gt; curl supports &lt;/h2&gt;
+&lt;table class=&quot;supports&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;
+&lt;tr class=&quot;l&quot;&gt;&lt;td class=&quot;left&quot;&gt;Protocols&lt;/td&gt;
+  &lt;td class=&quot;right&quot;&gt; DICT, FILE, FTP, FTPS, GOPHER, GOPHERS, HTTP, HTTPS,
+IMAP, IMAPS, LDAP, LDAPS, MQTT, MQTTS, POP3, POP3S, RTMP, RTMPS, RTSP, SCP,
+SFTP, SMB, SMBS, SMTP, SMTPS, TELNET, TFTP, WS, WSS &lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;r&quot;&gt;&lt;td class=&quot;left&quot;&gt;Proxies&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt; SOCKS4, SOCKS5, HTTP, HTTPS (HTTP/1 and HTTP/2), tunneling,
+via unix domain sockets, haproxy, SOCKS+HTTP proxy chain&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;l&quot;&gt;&lt;td class=&quot;left&quot;&gt;HTTP&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt;GET, POST, PUT, HEAD, multipart formpost, HTTP/0.9,
+HTTP/1.0, HTTP/1.1, HTTP/2 (h2c, h2, prior knowledge), HTTP/3 (dual connect
+h1/h2 + h3 or h3-only), HSTS, Alt-Svc, cookies, PSL, etags, transfer
+compression, ranges, custom headers, custom method, follow redirects&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;r&quot;&gt;&lt;td class=&quot;left&quot;&gt;FTP&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt;IPv6 (EPRT, EPSV), STLS, upload/download, append, range,
+passive/active, kerberos, directory listing, custom commands&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;l&quot;&gt;&lt;td class=&quot;left&quot;&gt;SCP + SFTP&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt;known hosts, md5/sha256 fingerprint, compression,
+upload/download, directory listing&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;r&quot;&gt;&lt;td class=&quot;left&quot;&gt;TLS&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt; 1.0 - 1.3, mutual authentication, STARTTLS, OCSP stapling,
+ECH, False Start, key pinning, PQC ready, session resumption, early data,
+export/import sessions&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;l&quot;&gt;&lt;td class=&quot;left&quot;&gt;QUIC&lt;/td&gt;
+  &lt;td class=&quot;right&quot;&gt;
+0RTT handshakes
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;r&quot;&gt;&lt;td class=&quot;left&quot;&gt;Auth&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt;Basic, Plain, Digest, CRAM-MD5, SCRAM-SHA, NTLM, Negotiate,
+Kerberos, Bearer tokens, AWS Sigv4, SASL, .netrc&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;l&quot;&gt;&lt;td class=&quot;left&quot;&gt;HTTP&amp;nbsp;compression&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt;gzip, brotli and zstd&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;r&quot;&gt;&lt;td class=&quot;left&quot;&gt;Name resolving&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt;DNS-over-HTTPS, custom address for host, name+port redirect,
+custom DNS servers, DNS caching, HTTPS RR&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;l&quot;&gt;&lt;td class=&quot;left&quot;&gt;Connection&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt;connection reuse, Interface binding, Happy Eyeballs,
+IPv4/IPv6-only, unix domain sockets, TCP keepalive, TCP Fast Open, TCP
+Nodelay, MPTCP, VLAN priority, IP Type Of Service&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;r&quot;&gt;&lt;td class=&quot;left&quot;&gt;Transfers&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt;transfer rate limiting, request rate limiting, stall
+detection, retries, timeouts&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;l&quot;&gt;&lt;td class=&quot;left&quot;&gt;URLs&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt;Unlimited amount, parallel and serial transfers,
+globbing&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;r&quot;&gt;&lt;td class=&quot;left&quot;&gt;Output&lt;/td&gt;
+&lt;td class=&quot;right&quot;&gt;IDN hostnames, custom info from transfer, metadata as JSON,
+per content-disposition, libcurl source code, bold headers&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h2&gt; Who makes curl? &lt;/h2&gt;
+&lt;p&gt;
+curl is free and &lt;a href=&quot;docs/copyright.html&quot; title=&quot;curl and libcurl are
+licensed under a MIT/X derivate license&quot;&gt;open source&lt;/a&gt; software and exists
+thanks to &lt;a href=&quot;docs/thanks.html&quot; title=&quot;over 3,000 named
+contributors&quot;&gt;thousands of contributors&lt;/a&gt; and our
+awesome &lt;a href=&quot;/sponsors.html&quot;&gt;sponsors&lt;/a&gt;. The curl
+project &lt;a title=&quot;Adheres to the Core Intrastructure Initiative&#39;s listed best
+practices at Gold level&quot;
+href=&quot;https://bestpractices.coreinfrastructure.org/projects/63&quot;&gt;follows well
+established open source best practices&lt;/a&gt;. You too
+can &lt;a href=&quot;docs/help-us.html&quot;&gt;help us&lt;/a&gt; improve!
+&lt;h2&gt; What is the latest curl? &lt;/h2&gt;
+&lt;p&gt;
+The most recent stable version is &lt;b&gt;8.18.0&lt;/b&gt;, released on 2026-01-07.
+Currently, 102 of the listed &lt;a href=&quot;download.html&quot; title=&quot;Binary download packages for your platform!&quot;&gt;downloads&lt;/a&gt; are of the latest version.
+&lt;h2&gt; Where is the code? &lt;/h2&gt;
+&lt;p&gt;
+ Check out the latest &lt;a href=&quot;https://github.com/curl/curl&quot; title=&quot;git clone
+ the curl code&quot;&gt;source code from GitHub&lt;/a&gt;.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div><h3 id="text"><a class="doc-anchor" href="#text">§</a>text</h3><div class="example-wrap"><pre class="language-text"><code>
+
+curl
+
+
+
+
+
+
+
+.sponsors {
+  padding: 5px 5px 5px 5px;
+  border: 2px black solid;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  background: #e0e0e0;
+}
+.logo {
+  max-width: 80%;
+  margin: 20px 0px 0px 0px;
+}
+.sponsors a:hover, .logo:hover {
+  background: transparent;
+}
+.sidebar-box {
+  padding: 5px;
+  margin-bottom: 20px;
+  border: 2px black solid;
+  border-radius: 10px;
+  background: #e0e0e0;
+}
+td {
+  vertical-align: top;
+}
+.left {
+  font-weight: bold;
+  padding: 4px 4px 4px 4px;
+  font-size: 110%;
+}
+.right {
+  padding: 4px 4px 4px 4px;
+}
+.l {
+  background: #093754;
+  border: 0px;
+  padding: 15px;
+}
+.r {
+  background: #0f564d;
+  border: 0px;
+}
+.supports {
+  color: #f0f0f0;
+  font-size: 90%;
+  padding: 0 0 0 0;
+}
+@media (prefers-color-scheme: dark) {
+  .sidebar-box {
+    border-color: #999;
+    background: #404040;
+  }
+  .sponsors {
+    border-color: #999;
+    background: #404040;
+  }
+}
+
+
+
+
+
+
+  
+    
+  
+
+
+  Download
+  
+    Browse source
+    Changelog
+    Release candidates
+    Release log
+    tiny-curl
+  
+
+
+  Documentation
+  
+    Project
+      
+      FAQ
+      &amp;nbsp; Help us
+      &amp;nbsp; Known bugs
+      &amp;nbsp; Known risks
+      &amp;nbsp; TODO
+      
+    Protocols
+      
+      &amp;nbsp; CA bundle
+      &amp;nbsp; HTTP Cookies
+      &amp;nbsp; SSL Certs
+      
+    Releases
+      
+      &amp;nbsp; Security
+      &amp;nbsp; Version numbers
+      &amp;nbsp; Vulnerabilities
+      
+    curl tool
+      
+      &amp;nbsp; man page
+      &amp;nbsp; Tutorial
+      &amp;nbsp; HTTP scripting
+      
+    trurl
+    wcurl
+    Videos
+    Who and Why
+  
+
+
+  libcurl
+  
+    API
+    Examples
+    Features
+    Mailing list
+    Symbols
+    Using libcurl
+    Tutorial
+  
+
+
+  Get Help
+  
+    curl-library
+    curl-users
+    IRC / chat
+    Mailing lists
+    Everything curl [book]
+    Video presentations
+    Report a bug
+    Report security issue
+    Paid support
+  
+
+
+  Development
+  
+    Autobuilds
+    Code review
+    Code style
+    Contribute
+    Dashboard
+    Deprecate
+    Internals
+    Release Notes
+    Release Procedure
+    Roadmap
+    Run Tests
+    Specifications
+    Test curl
+    Tests Overview
+    Vulnerability Disclosure Policy
+  
+
+
+
+
+
+
+
+
+  command line tool and
+library
+  for transferring data with URLs
+  (since 1998)
+
+  
+  Top&amp;nbsp;Sponsors
+  
+  
+  
+  
+  
+  
+  
+ 
+ 
+   
+   
+   Commercial support available
+   
+ 
+ 
+  Everything curl is a free ebook
+  about curl and libcurl
+  
+  
+ 
+ 
+   
+   
+   Sponsor curl financially
+   
+ 
+ 
+   Video: mastering the curl command line tool
+   
+   
+ 
+
+ What is curl used for? 
+
+curl is used in command lines or scripts to transfer data. curl is
+also libcurl, used in cars, television sets, routers, printers, audio
+equipment, mobile phones, tablets, medical devices, settop boxes, computer
+games, media players and is the Internet transfer engine for countless
+software applications in over twenty billion installations.
+
+curl is used daily by virtually every Internet-using human on the globe.
+ curl supports 
+
+Protocols
+   DICT, FILE, FTP, FTPS, GOPHER, GOPHERS, HTTP, HTTPS,
+IMAP, IMAPS, LDAP, LDAPS, MQTT, MQTTS, POP3, POP3S, RTMP, RTMPS, RTSP, SCP,
+SFTP, SMB, SMBS, SMTP, SMTPS, TELNET, TFTP, WS, WSS 
+Proxies
+ SOCKS4, SOCKS5, HTTP, HTTPS (HTTP/1 and HTTP/2), tunneling,
+via unix domain sockets, haproxy, SOCKS+HTTP proxy chain
+HTTP
+GET, POST, PUT, HEAD, multipart formpost, HTTP/0.9,
+HTTP/1.0, HTTP/1.1, HTTP/2 (h2c, h2, prior knowledge), HTTP/3 (dual connect
+h1/h2 + h3 or h3-only), HSTS, Alt-Svc, cookies, PSL, etags, transfer
+compression, ranges, custom headers, custom method, follow redirects
+FTP
+IPv6 (EPRT, EPSV), STLS, upload/download, append, range,
+passive/active, kerberos, directory listing, custom commands
+SCP + SFTP
+known hosts, md5/sha256 fingerprint, compression,
+upload/download, directory listing
+TLS
+ 1.0 - 1.3, mutual authentication, STARTTLS, OCSP stapling,
+ECH, False Start, key pinning, PQC ready, session resumption, early data,
+export/import sessions
+QUIC
+  
+0RTT handshakes
+
+Auth
+Basic, Plain, Digest, CRAM-MD5, SCRAM-SHA, NTLM, Negotiate,
+Kerberos, Bearer tokens, AWS Sigv4, SASL, .netrc
+HTTP&amp;nbsp;compression
+gzip, brotli and zstd
+Name resolving
+DNS-over-HTTPS, custom address for host, name+port redirect,
+custom DNS servers, DNS caching, HTTPS RR
+Connection
+connection reuse, Interface binding, Happy Eyeballs,
+IPv4/IPv6-only, unix domain sockets, TCP keepalive, TCP Fast Open, TCP
+Nodelay, MPTCP, VLAN priority, IP Type Of Service
+Transfers
+transfer rate limiting, request rate limiting, stall
+detection, retries, timeouts
+URLs
+Unlimited amount, parallel and serial transfers,
+globbing
+Output
+IDN hostnames, custom info from transfer, metadata as JSON,
+per content-disposition, libcurl source code, bold headers
+
+ Who makes curl? 
+
+curl is free and open source software and exists
+thanks to thousands of contributors and our
+awesome sponsors. The curl
+project follows well
+established open source best practices. You too
+can help us improve!
+ What is the latest curl? 
+
+The most recent stable version is 8.18.0, released on 2026-01-07.
+Currently, 102 of the listed downloads are of the latest version.
+ Where is the code? 
+
+ Check out the latest source code from GitHub.
+
+
+</code></pre></div></div></details></section></div></main></body></html>
