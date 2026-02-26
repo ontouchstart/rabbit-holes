@@ -15,6 +15,7 @@ doc:
 	$(RUSTDOC) playground-uname.rs
 	$(RUSTDOC) playground-cat-security_notice.rs
 	$(RUSTDOC) playground-read-security_notice.rs
+	$(RUSTDOC) playground-free-h.rs
 	$(RUSTDOC) how.rs
 	$(RUSTDOC) why.rs
 get-env:
