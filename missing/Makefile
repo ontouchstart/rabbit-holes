@@ -12,7 +12,7 @@ doc:
 	$(RUSTDOC) vi-wrap.rs
 	$(RUSTDOC) fmt-wrap.rs
 	$(RUSTDOC) get-env.rs
-	$(RUSTDOC) get-uname.rs
+	$(RUSTDOC) playground-uname.rs
 	$(RUSTDOC) how.rs
 	$(RUSTDOC) why.rs
 get-env:
@@ -23,10 +23,6 @@ not-found:
 	rustfmt not-found.rs
 	rustc not-found.rs
 	-./not-found 1> not-found.stdout 2> not-found.stderr
-
-get-uname:
-	rustfmt get-uname.rs
-	rustc get-uname.rs
 
 clean:
 	rm -f get-env not-found get-uname

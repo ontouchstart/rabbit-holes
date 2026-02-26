@@ -10,14 +10,3 @@
 //!              .stdout).unwrap());
 //! ```
 //!
-fn main() {
-    let stdout = String::from_utf8(
-        std::process::Command::new("uname")
-            .arg("-a")
-            .output()
-            .unwrap()
-            .stdout,
-    )
-    .unwrap();
-    println!("{}", stdout);
-}
