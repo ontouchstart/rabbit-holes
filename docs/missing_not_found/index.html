@@ -9,6 +9,6 @@ bash: Missing: command not found</code></pre></div>
 <p>We can implement the above with rust <a href="https://doc.rust-lang.org/1.93.1/std/process/struct.Command.html" title="struct std::process::Command">std::process::Command</a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code>std::process::Command::new(<span class="string">"Missing"</span>)
-       .arg(<span class="string">"Semester"</span>)
-       .output()
-       .expect(<span class="string">"Missing: command not found"</span>);</code></pre><a class="test-arrow" target="_blank" title="Run code" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0A++++std::process::Command::new(%22Missing%22)%0A+++++++++++.arg(%22Semester%22)%0A+++++++++++.output()%0A+++++++++++.expect(%22Missing:+command+not+found%22);%0A%7D&amp;edition=2024"></a></div></div></details></section></div></main></body></html>
+    .arg(<span class="string">"Semester"</span>)
+    .output()
+    .expect(<span class="string">"Missing: command not found"</span>);</code></pre><a class="test-arrow" target="_blank" title="Run code" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0A++++std::process::Command::new(%22Missing%22)%0A++++++++.arg(%22Semester%22)%0A++++++++.output()%0A++++++++.expect(%22Missing:+command+not+found%22);%0A%7D&amp;edition=2024"></a></div></div></details></section></div></main></body></html>

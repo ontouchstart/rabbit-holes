@@ -3,3 +3,4 @@ all:
 	make -C missing
 	make -C man
 	make -C playground
+	make -C llama-cpp
