@@ -2,15 +2,5 @@
 //! This will show the output of `free -h` in the playground.
 //!
 //! ```
-//! println!(
-//!     "{}",
-//!     String::from_utf8(
-//!         std::process::Command::new("free")
-//!             .arg("-h")
-//!             .output()
-//!             .unwrap()
-//!             .stdout
-//!        )
-//!        .unwrap()
-//! );
+#![doc = include_str!("free-h.rs")]
 //! ```
