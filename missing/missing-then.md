@@ -1,5 +1,5 @@
 # What was missing then
-Back then I only had a dummy terminal without GUI. Not enough memory
+Back then I only had a dumb terminal without GUI. Not enough memory
 or bandwidth to run IDEs like Emacs with sophisticated key binding and buffers.
 Even copy and paste was hard. So I have to type the command by hand, no tab completion.
 
@@ -8,7 +8,7 @@ the text above was not inserted by an editor, although following is done via `vi
 
 ```sh
 cat <<EOF >> missing/missing-then.md
-heredoc> Back then I only had a dummy terminal without GUI. Not enough memory                                          
+heredoc> Back then I only had a dumb terminal without GUI. Not enough memory
 heredoc> or bandwidth to run IDEs like Emacs with sophisticated key binding and buffers.
 heredoc> Even copy and paste was hard. So I have to type the command by hand, no tab completion. 
 heredoc> 
