@@ -16,7 +16,7 @@
 //!
 //! ```
 //! std::process::Command::new("Missing")
-//!        .arg("Semester")
-//!        .output()
-//!        .expect("Missing: command not found");
+//!     .arg("Semester")
+//!     .output()
+//!     .expect("Missing: command not found");
 //! ```
