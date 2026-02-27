@@ -1,11 +1,15 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `ggml_gpt_oss_20b_GGUF_hello_c_in_memory` crate."><title>ggml_gpt_oss_20b_GGUF_hello_c_in_memory - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-ca0dd0c4.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="ggml_gpt_oss_20b_GGUF_hello_c_in_memory" data-themes="" data-resource-suffix="" data-rustdoc-version="1.93.1 (01f6ddf75 2026-02-11)" data-channel="1.93.1" data-search-js="search-9e2438ea.js" data-stringdex-js="stringdex-a3946164.js" data-settings-js="settings-c38705f0.js" ><script src="../static.files/storage-e2aeef58.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-a410ff4d.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-263c88ec.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate ggml_gpt_oss_20b_GGUF_hello_c_in_memory</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../ggml_gpt_oss_20b_GGUF_hello_c_in_memory/index.html">ggml_<wbr>gpt_<wbr>oss_<wbr>20b_<wbr>GGUF_<wbr>hello_<wbr>c_<wbr>in_<wbr>memory</a></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#system-prompt" title="System prompt">System prompt</a></li><li><a href="#prompt" title="Prompt">Prompt</a></li><li><a href="#session-log" title="Session log">Session log</a></li><li><a href="#run-the-code-in-playground" title="Run the code in playground">Run the code in playground</a></li><li><a href="#run-the-code-locally" title="Run the code locally">Run the code locally</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content"><div class="main-heading"><h1>Crate <span>ggml_<wbr>gpt_<wbr>oss_<wbr>20b_<wbr>GGUF_<wbr>hello_<wbr>c_<wbr>in_<wbr>memory</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/ggml_gpt_oss_20b_GGUF_hello_c_in_memory/ggml-gpt-oss-20b-GGUF-hello-c-in-memory.rs.html#1-31">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><div class="example-wrap"><pre class="language-sh"><code>../llama-cpp/ggml-org/llama.cpp/build/bin/llama-completion -hf ggml-org/gpt-oss-20b-GGUF -sys &quot;You will help me     write rust programs without Cargo.&quot;</code></pre></div><h2 id="system-prompt"><a class="doc-anchor" href="#system-prompt">§</a>System prompt</h2>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `ggml_gpt_oss_20b_GGUF_hello_c_in_memory` crate."><title>ggml_gpt_oss_20b_GGUF_hello_c_in_memory - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-ca0dd0c4.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="ggml_gpt_oss_20b_GGUF_hello_c_in_memory" data-themes="" data-resource-suffix="" data-rustdoc-version="1.93.1 (01f6ddf75 2026-02-11)" data-channel="1.93.1" data-search-js="search-9e2438ea.js" data-stringdex-js="stringdex-a3946164.js" data-settings-js="settings-c38705f0.js" ><script src="../static.files/storage-e2aeef58.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-a410ff4d.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-263c88ec.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate ggml_gpt_oss_20b_GGUF_hello_c_in_memory</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../ggml_gpt_oss_20b_GGUF_hello_c_in_memory/index.html">ggml_<wbr>gpt_<wbr>oss_<wbr>20b_<wbr>GGUF_<wbr>hello_<wbr>c_<wbr>in_<wbr>memory</a></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#system-prompt" title="System prompt">System prompt</a></li><li><a href="#prompt" title="Prompt">Prompt</a></li><li><a href="#session-log" title="Session log">Session log</a></li><li><a href="#run-the-code-in-playground" title="Run the code in playground">Run the code in playground</a></li><li><a href="#run-the-code-locally" title="Run the code locally">Run the code locally</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content"><div class="main-heading"><h1>Crate <span>ggml_<wbr>gpt_<wbr>oss_<wbr>20b_<wbr>GGUF_<wbr>hello_<wbr>c_<wbr>in_<wbr>memory</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/ggml_gpt_oss_20b_GGUF_hello_c_in_memory/ggml-gpt-oss-20b-GGUF-hello-c-in-memory.rs.html#1-35">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><div class="example-wrap"><pre class="language-sh"><code>../llama-cpp/ggml-org/llama.cpp/build/bin/llama-completion -hf ggml-org/gpt-oss-20b-GGUF -sys &quot;You will help me     write rust programs without Cargo.&quot;</code></pre></div><h2 id="system-prompt"><a class="doc-anchor" href="#system-prompt">§</a>System prompt</h2>
 <p>&lt;|start|&gt;system&lt;|message|&gt;You will help me write rust programs without Cargo.&lt;|end|&gt;</p>
 <h2 id="prompt"><a class="doc-anchor" href="#prompt">§</a>Prompt</h2>
 <blockquote>
-<p>Write a rust program to create a hello world in C, compile and run it in child process, don’t use fs, everthing should be in memory, and there should be no unsafe code. Avoid /dev unless it is the final println output.
-&lt;|start|&gt;system&lt;|message|&gt;You will help me write rust programs without Cargo.&lt;|end|&gt;</p>
+<p>Write a rust program to create a hello world in C, compile and run it in child process, don’t use fs, everthing should be in memory, and there should be no unsafe code. Avoid /dev unless it is the final println output.</p>
 </blockquote>
-<p>Write a rust program that create a hello world in C, save it as a file hello.c, compile and run it in child process.</p>
+<p>&lt;|start|&gt;system&lt;|message|&gt;You will help me write rust programs without Cargo.&lt;|end|&gt;</p>
+<p>…</p>
+<blockquote>
+<p>Le’t relax it a little bit, we can’t save hello.c to the disk but the binary hello can be.</p>
+</blockquote>
+<p>&lt;|channel|&gt;analysis&lt;|message|&gt;The user wants to relax the constraint: we can write the binary to disk, but we cannot write the source file hello.c to disk. So we can write the source code to a temporary file or compile from stdin. But we cannot write the source to disk. But we can compile the C source from stdin, capture the output binary in memory, and then write that binary to a file, like “hello”. That satisfies the new constraint: no source file written, but binary can be written.</p>
 <p>…</p>
 <h2 id="session-log"><a class="doc-anchor" href="#session-log">§</a>Session log</h2>
 <p><a href="ggml-gpt-oss-20b-GGUF-hello-c-in-memory-llm.log">ggml-gpt-oss-20b-GGUF-hello-c-in-memory-llm.log</a></p>
@@ -14,66 +18,66 @@
 <span class="kw">use </span>std::io::Write;
 
 <span class="kw">fn </span>main() -&gt; std::io::Result&lt;()&gt; {
-   <span class="comment">/* --------------------------------------------------------------------
-      1️⃣  C source kept entirely in memory
-   -------------------------------------------------------------------- */
-   </span><span class="kw">let </span>c_source = <span class="string">r#"
-       #include &lt;stdio.h&gt;
-       int main(void) {
-           puts("Hello world");
-           return 0;
-       }
-   "#</span>;
+    <span class="comment">/* --------------------------------------------------------------------
+       1️⃣  C source kept entirely in memory
+    -------------------------------------------------------------------- */
+    </span><span class="kw">let </span>c_source = <span class="string">r#"
+        #include &lt;stdio.h&gt;
+        int main(void) {
+            puts("Hello world");
+            return 0;
+        }
+    "#</span>;
 
-   <span class="comment">/* --------------------------------------------------------------------
-      2️⃣  Compile the C source, letting cc write the binary directly
-   -------------------------------------------------------------------- */
-   // `-o hello`   -&gt; write the output to the file `hello`
-   // `-`          -&gt; read the source from stdin
-   // `-pipe`      -&gt; don’t create temporary files for the compiler’s internals
-   </span><span class="kw">let </span><span class="kw-2">mut </span>cc = Command::new(<span class="string">"cc"</span>)          <span class="comment">// or "clang"
-       </span>.args(<span class="kw-2">&amp;</span>[<span class="string">"-x"</span>, <span class="string">"c"</span>, <span class="string">"-pipe"</span>, <span class="string">"-o"</span>, <span class="string">"hello"</span>, <span class="string">"-"</span>])
-       .stdin(Stdio::piped())
-       .stderr(Stdio::inherit())
-       .spawn()
-       .expect(<span class="string">"Failed to launch C compiler"</span>);
+    <span class="comment">/* --------------------------------------------------------------------
+       2️⃣  Compile the C source, letting cc write the binary directly
+    -------------------------------------------------------------------- */
+    // `-o hello`   -&gt; write the output to the file `hello`
+    // `-`          -&gt; read the source from stdin
+    // `-pipe`      -&gt; don’t create temporary files for the compiler’s internals
+    </span><span class="kw">let </span><span class="kw-2">mut </span>cc = Command::new(<span class="string">"cc"</span>)          <span class="comment">// or "clang"
+        </span>.args(<span class="kw-2">&amp;</span>[<span class="string">"-x"</span>, <span class="string">"c"</span>, <span class="string">"-pipe"</span>, <span class="string">"-o"</span>, <span class="string">"hello"</span>, <span class="string">"-"</span>])
+        .stdin(Stdio::piped())
+        .stderr(Stdio::inherit())
+        .spawn()
+        .expect(<span class="string">"Failed to launch C compiler"</span>);
 
-   <span class="comment">// Feed the source code to the compiler
-   </span>{
-       <span class="kw">let </span><span class="kw-2">mut </span>stdin = cc.stdin.take().expect(<span class="string">"Failed to open compiler stdin"</span>);
-       stdin.write_all(c_source.as_bytes())<span class="question-mark">?</span>;
-   }
+    <span class="comment">// Feed the source code to the compiler
+    </span>{
+        <span class="kw">let </span><span class="kw-2">mut </span>stdin = cc.stdin.take().expect(<span class="string">"Failed to open compiler stdin"</span>);
+        stdin.write_all(c_source.as_bytes())<span class="question-mark">?</span>;
+    }
 
-   <span class="comment">// Wait for compilation to finish
-   </span><span class="kw">let </span>status = cc.wait()<span class="question-mark">?</span>;
-   <span class="kw">if </span>!status.success() {
-       <span class="macro">eprintln!</span>(<span class="string">"Compilation failed (status {})"</span>, status);
-       <span class="kw">return </span><span class="prelude-val">Err</span>(std::io::Error::new(
-           std::io::ErrorKind::Other,
-           <span class="string">"Compilation failed"</span>,
-       ));
-   }
+    <span class="comment">// Wait for compilation to finish
+    </span><span class="kw">let </span>status = cc.wait()<span class="question-mark">?</span>;
+    <span class="kw">if </span>!status.success() {
+        <span class="macro">eprintln!</span>(<span class="string">"Compilation failed (status {})"</span>, status);
+        <span class="kw">return </span><span class="prelude-val">Err</span>(std::io::Error::new(
+            std::io::ErrorKind::Other,
+            <span class="string">"Compilation failed"</span>,
+        ));
+    }
 
-   <span class="comment">/* --------------------------------------------------------------------
-      3️⃣  Run the binary we just got from the compiler
-   -------------------------------------------------------------------- */
-   </span><span class="kw">let </span>status = Command::new(<span class="string">"./hello"</span>)
-       .stdout(Stdio::inherit())   <span class="comment">// let the program print directly
-       </span>.stderr(Stdio::inherit())
-       .status()<span class="question-mark">?</span>;
+    <span class="comment">/* --------------------------------------------------------------------
+       3️⃣  Run the binary we just got from the compiler
+    -------------------------------------------------------------------- */
+    </span><span class="kw">let </span>status = Command::new(<span class="string">"./hello"</span>)
+        .stdout(Stdio::inherit())   <span class="comment">// let the program print directly
+        </span>.stderr(Stdio::inherit())
+        .status()<span class="question-mark">?</span>;
 
-   <span class="kw">if </span>!status.success() {
-       <span class="macro">eprintln!</span>(<span class="string">"Execution failed (status {})"</span>, status);
-       <span class="kw">return </span><span class="prelude-val">Err</span>(std::io::Error::new(
-           std::io::ErrorKind::Other,
-           <span class="string">"Execution failed"</span>,
-       ));
-   }
+    <span class="kw">if </span>!status.success() {
+        <span class="macro">eprintln!</span>(<span class="string">"Execution failed (status {})"</span>, status);
+        <span class="kw">return </span><span class="prelude-val">Err</span>(std::io::Error::new(
+            std::io::ErrorKind::Other,
+            <span class="string">"Execution failed"</span>,
+        ));
+    }
 
-   <span class="comment">/* --------------------------------------------------------------------
-      4️⃣  (Optional) Clean up – delete the file we created
-   -------------------------------------------------------------------- */
-   </span>std::fs::remove_file(<span class="string">"hello"</span>)<span class="question-mark">?</span>;
+    <span class="comment">/* --------------------------------------------------------------------
+       4️⃣  (Optional) Clean up – delete the file we created
+    -------------------------------------------------------------------- */
+    </span>std::fs::remove_file(<span class="string">"hello"</span>)<span class="question-mark">?</span>;
 
-   <span class="prelude-val">Ok</span>(())
-}</code></pre><a class="test-arrow" target="_blank" title="Run code" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Ause+std::process::%7BCommand,+Stdio%7D;%0Ause+std::io::Write;%0A%0Afn+main()+-%3E+std::io::Result%3C()%3E+%7B%0A+++/*+--------------------------------------------------------------------%0A++++++1%EF%B8%8F%E2%83%A3++C+source+kept+entirely+in+memory%0A+++--------------------------------------------------------------------+*/%0A+++let+c_source+=+r%23%22%0A+++++++%23include+%3Cstdio.h%3E%0A+++++++int+main(void)+%7B%0A+++++++++++puts(%22Hello+world%22);%0A+++++++++++return+0;%0A+++++++%7D%0A+++%22%23;%0A%0A+++/*+--------------------------------------------------------------------%0A++++++2%EF%B8%8F%E2%83%A3++Compile+the+C+source,+letting+cc+write+the+binary+directly%0A+++--------------------------------------------------------------------+*/%0A+++//+%60-o+hello%60+++-%3E+write+the+output+to+the+file+%60hello%60%0A+++//+%60-%60++++++++++-%3E+read+the+source+from+stdin%0A+++//+%60-pipe%60++++++-%3E+don%E2%80%99t+create+temporary+files+for+the+compiler%E2%80%99s+internals%0A+++let+mut+cc+=+Command::new(%22cc%22)++++++++++//+or+%22clang%22%0A+++++++.args(%26%5B%22-x%22,+%22c%22,+%22-pipe%22,+%22-o%22,+%22hello%22,+%22-%22%5D)%0A+++++++.stdin(Stdio::piped())%0A+++++++.stderr(Stdio::inherit())%0A+++++++.spawn()%0A+++++++.expect(%22Failed+to+launch+C+compiler%22);%0A%0A+++//+Feed+the+source+code+to+the+compiler%0A+++%7B%0A+++++++let+mut+stdin+=+cc.stdin.take().expect(%22Failed+to+open+compiler+stdin%22);%0A+++++++stdin.write_all(c_source.as_bytes())?;%0A+++%7D%0A%0A+++//+Wait+for+compilation+to+finish%0A+++let+status+=+cc.wait()?;%0A+++if+!status.success()+%7B%0A+++++++eprintln!(%22Compilation+failed+(status+%7B%7D)%22,+status);%0A+++++++return+Err(std::io::Error::new(%0A+++++++++++std::io::ErrorKind::Other,%0A+++++++++++%22Compilation+failed%22,%0A+++++++));%0A+++%7D%0A%0A+++/*+--------------------------------------------------------------------%0A++++++3%EF%B8%8F%E2%83%A3++Run+the+binary+we+just+got+from+the+compiler%0A+++--------------------------------------------------------------------+*/%0A+++let+status+=+Command::new(%22./hello%22)%0A+++++++.stdout(Stdio::inherit())+++//+let+the+program+print+directly%0A+++++++.stderr(Stdio::inherit())%0A+++++++.status()?;%0A%0A+++if+!status.success()+%7B%0A+++++++eprintln!(%22Execution+failed+(status+%7B%7D)%22,+status);%0A+++++++return+Err(std::io::Error::new(%0A+++++++++++std::io::ErrorKind::Other,%0A+++++++++++%22Execution+failed%22,%0A+++++++));%0A+++%7D%0A%0A+++/*+--------------------------------------------------------------------%0A++++++4%EF%B8%8F%E2%83%A3++(Optional)+Clean+up+%E2%80%93+delete+the+file+we+created%0A+++--------------------------------------------------------------------+*/%0A+++std::fs::remove_file(%22hello%22)?;%0A%0A+++Ok(())%0A%7D&amp;edition=2024"></a></div><h2 id="run-the-code-locally"><a class="doc-anchor" href="#run-the-code-locally">§</a>Run the code locally</h2><div class="example-wrap"><pre class="language-sh"><code>Hello world</code></pre></div></div></details></section></div></main></body></html>
+    <span class="prelude-val">Ok</span>(())
+}</code></pre><a class="test-arrow" target="_blank" title="Run code" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Ause+std::process::%7BCommand,+Stdio%7D;%0Ause+std::io::Write;%0A%0Afn+main()+-%3E+std::io::Result%3C()%3E+%7B%0A++++/*+--------------------------------------------------------------------%0A+++++++1%EF%B8%8F%E2%83%A3++C+source+kept+entirely+in+memory%0A++++--------------------------------------------------------------------+*/%0A++++let+c_source+=+r%23%22%0A++++++++%23include+%3Cstdio.h%3E%0A++++++++int+main(void)+%7B%0A++++++++++++puts(%22Hello+world%22);%0A++++++++++++return+0;%0A++++++++%7D%0A++++%22%23;%0A%0A++++/*+--------------------------------------------------------------------%0A+++++++2%EF%B8%8F%E2%83%A3++Compile+the+C+source,+letting+cc+write+the+binary+directly%0A++++--------------------------------------------------------------------+*/%0A++++//+%60-o+hello%60+++-%3E+write+the+output+to+the+file+%60hello%60%0A++++//+%60-%60++++++++++-%3E+read+the+source+from+stdin%0A++++//+%60-pipe%60++++++-%3E+don%E2%80%99t+create+temporary+files+for+the+compiler%E2%80%99s+internals%0A++++let+mut+cc+=+Command::new(%22cc%22)++++++++++//+or+%22clang%22%0A++++++++.args(%26%5B%22-x%22,+%22c%22,+%22-pipe%22,+%22-o%22,+%22hello%22,+%22-%22%5D)%0A++++++++.stdin(Stdio::piped())%0A++++++++.stderr(Stdio::inherit())%0A++++++++.spawn()%0A++++++++.expect(%22Failed+to+launch+C+compiler%22);%0A%0A++++//+Feed+the+source+code+to+the+compiler%0A++++%7B%0A++++++++let+mut+stdin+=+cc.stdin.take().expect(%22Failed+to+open+compiler+stdin%22);%0A++++++++stdin.write_all(c_source.as_bytes())?;%0A++++%7D%0A%0A++++//+Wait+for+compilation+to+finish%0A++++let+status+=+cc.wait()?;%0A++++if+!status.success()+%7B%0A++++++++eprintln!(%22Compilation+failed+(status+%7B%7D)%22,+status);%0A++++++++return+Err(std::io::Error::new(%0A++++++++++++std::io::ErrorKind::Other,%0A++++++++++++%22Compilation+failed%22,%0A++++++++));%0A++++%7D%0A%0A++++/*+--------------------------------------------------------------------%0A+++++++3%EF%B8%8F%E2%83%A3++Run+the+binary+we+just+got+from+the+compiler%0A++++--------------------------------------------------------------------+*/%0A++++let+status+=+Command::new(%22./hello%22)%0A++++++++.stdout(Stdio::inherit())+++//+let+the+program+print+directly%0A++++++++.stderr(Stdio::inherit())%0A++++++++.status()?;%0A%0A++++if+!status.success()+%7B%0A++++++++eprintln!(%22Execution+failed+(status+%7B%7D)%22,+status);%0A++++++++return+Err(std::io::Error::new(%0A++++++++++++std::io::ErrorKind::Other,%0A++++++++++++%22Execution+failed%22,%0A++++++++));%0A++++%7D%0A%0A++++/*+--------------------------------------------------------------------%0A+++++++4%EF%B8%8F%E2%83%A3++(Optional)+Clean+up+%E2%80%93+delete+the+file+we+created%0A++++--------------------------------------------------------------------+*/%0A++++std::fs::remove_file(%22hello%22)?;%0A%0A++++Ok(())%0A%7D&amp;edition=2024"></a></div><h2 id="run-the-code-locally"><a class="doc-anchor" href="#run-the-code-locally">§</a>Run the code locally</h2><div class="example-wrap"><pre class="language-sh"><code>Hello world</code></pre></div></div></details></section></div></main></body></html>
