@@ -1,3 +1,4 @@
 ggml-gpt-oss-20b-GGUF-curl
 ggml-gpt-oss-20b-GGUF-curl-naive-strip_tags
 hello-c
+hello-c-in-memory

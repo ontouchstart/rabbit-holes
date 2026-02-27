@@ -4,7 +4,9 @@ all:
 	$(RUSTDOC) ggml-gpt-oss-20b-GGUF-curl.rs
 	$(RUSTDOC) ggml-gpt-oss-20b-GGUF-curl-naive-strip_tags.rs
 	$(RUSTDOC) ggml-gpt-oss-20b-GGUF-hello-c.rs
+	$(RUSTDOC) ggml-gpt-oss-20b-GGUF-hello-c-in-memory.rs
 	cp ggml-gpt-oss-20b-GGUF-hello-c-llm.log ../docs/ggml_gpt_oss_20b_GGUF_hello_c/
+	cp ggml-gpt-oss-20b-GGUF-hello-c-in-memory-llm.log ../docs/ggml_gpt_oss_20b_GGUF_hello_c/
 
 cli:	../llama-cpp/ggml-org/llama.cpp/build/bin
 	../llama-cpp/ggml-org/llama.cpp/build/bin/llama-completion -hf ggml-org/gpt-oss-20b-GGUF -sys &quot;You will help me write rust programs without Cargo.&quot;
@@ -16,5 +18,6 @@ run:
 	rustc ggml-gpt-oss-20b-GGUF-curl.rs &amp;&amp; ./ggml-gpt-oss-20b-GGUF-curl | tee ggml-gpt-oss-20b-GGUF-curl.log
 	rustc ggml-gpt-oss-20b-GGUF-curl-naive-strip_tags.rs &amp;&amp; ./ggml-gpt-oss-20b-GGUF-curl-naive-strip_tags| tee ggml-gpt-oss-20b-GGUF-curl-naive-strip_tags.log
 	rustc hello-c.rs &amp;&amp; ./hello-c | tee ggml-gpt-oss-20b-GGUF-hello-c.log
+	rustc hello-c-in-memory.rs &amp;&amp; ./hello-c-in-memory | tee ggml-gpt-oss-20b-GGUF-hello-c-in-memory.log
 	cat -n hello.c
 	rm -f  hello.c hello </code></pre></div></div></details></section></div></main></body></html>
