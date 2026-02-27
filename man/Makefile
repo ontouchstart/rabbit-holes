@@ -4,3 +4,4 @@ all:
 	$(RUSTDOC) man-echo.rs
 	$(RUSTDOC) man-ed.rs
 	$(RUSTDOC) man-printf.rs
+	$(RUSTDOC) man-tmux.rs
