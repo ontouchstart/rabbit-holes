@@ -15,6 +15,6 @@ cli:	../llama-cpp/ggml-org/llama.cpp/build/bin
 run:
 	rustc ggml-gpt-oss-20b-GGUF-curl.rs && ./ggml-gpt-oss-20b-GGUF-curl | tee ggml-gpt-oss-20b-GGUF-curl.log
 	rustc ggml-gpt-oss-20b-GGUF-curl-naive-strip_tags.rs && ./ggml-gpt-oss-20b-GGUF-curl-naive-strip_tags| tee ggml-gpt-oss-20b-GGUF-curl-naive-strip_tags.log
-	rustc ggml-gpt-oss-20b-GGUF-hello-c.rs && ./ggml-gpt-oss-20b-GGUF-hello-c | tee ggml-gpt-oss-20b-GGUF-hello-c.log
+	rustc hello-c.rs && ./hello-c | tee ggml-gpt-oss-20b-GGUF-hello-c.log
 	cat -n hello.c
-	rm -f  hello.c hello
+	rm -f  hello.c hello 
