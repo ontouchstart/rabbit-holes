@@ -10,4 +10,4 @@
 //! ```
 //!
 //! # LLM log
-//! [ggml-gpt-oss-20b-GGUF-hello-c.llm](../ggml-gpt-oss-20b-GGUF/ggml-gpt-oss-20b-GGUF-hello-c.llm)
+//! [ggml-gpt-oss-20b-GGUF-hello-c-llm.log](ggml-gpt-oss-20b-GGUF-hello-c-llm.log)

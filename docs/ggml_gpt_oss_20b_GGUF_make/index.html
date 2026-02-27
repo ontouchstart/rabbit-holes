@@ -4,6 +4,7 @@ all:
 	$(RUSTDOC) ggml-gpt-oss-20b-GGUF-curl.rs
 	$(RUSTDOC) ggml-gpt-oss-20b-GGUF-curl-naive-strip_tags.rs
 	$(RUSTDOC) ggml-gpt-oss-20b-GGUF-hello-c.rs
+	cp ggml-gpt-oss-20b-GGUF-hello-c-llm.log ../docs/ggml_gpt_oss_20b_GGUF_hello_c/
 
 cli:	../llama-cpp/ggml-org/llama.cpp/build/bin
 	../llama-cpp/ggml-org/llama.cpp/build/bin/llama-completion -hf ggml-org/gpt-oss-20b-GGUF -sys &quot;You will help me write rust programs without Cargo.&quot;
