@@ -2,4 +2,4 @@
 
 Every 🕳️has a [🕳️](missing) underneath.
 
-© 2026  [Sam Liu](https://github.com/ontouchstart/rabbit-holes)
+© 2026 [🕳️](https://github.com/ontouchstart/rabbit-holes)
