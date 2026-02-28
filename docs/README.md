@@ -1,19 +1,5 @@
 # 👨🏻‍✈️🤖💻🐢🐇🕳️🐍🦀🤔
 
-Every pothole has a rabbit hole underneath.
+Every pothole has a rabbit [hole](missing) underneath.
 
-## [from-hoare-to-hoare](from-hoare-to-hoare)
-## [gitbutler](gitbutler)
-## [jj](jj)
-## [gg](gg)
-## [review](review)
-## [openclaw](openclaw)
-## [git](git)
-## [turing](turing)
-## [tree-sitter](tree-sitter)
-## [llama.cpp](llama.cpp)
-## [mistral.rs](mistral.rs)
-## [missing](missing)
-## [6 or 8](6-or-8)
-
-© 2026  [Sam Liu](https://github.com/ontouchstart)
+© 2026  [Sam Liu](https://github.com/ontouchstart/rabbitholes)
