@@ -3,6 +3,7 @@ CLI = ../llama-cpp/ggml-org/llama.cpp/build/bin/llama-completion -hf ggml-org/gp
 
 all:	../llama-cpp/ggml-org/llama.cpp/build/bin
 	$(RUSTDOC) hello-c-in-memory.rs
+	cp -r hello-c-in-memory/* ../docs/hello_c_in_memory
 
 llm-hello:
 	# Use UNIX file descriptor convention: 0 (stdin) 1 (stdout) 2 (stderr)

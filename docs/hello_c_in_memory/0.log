@@ -1,0 +1,2 @@
+Write a rust program to create a hello world in C, don't save the c file, compile and save it to a uniq file in `/tmp`,
+run it in child process, then delete the tmp file. There should be no unsafe code.
