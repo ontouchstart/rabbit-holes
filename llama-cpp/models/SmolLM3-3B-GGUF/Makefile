@@ -1,3 +1,4 @@
-all:	
-	../../ggml-org/llama.cpp/build/bin/llama-cli -hf ggml-org/Ministral-3-14B-Instruct-2512-GGUF
+MODEL := $(shell basename `pwd`) 
+all:
+	../../ggml-org/llama.cpp/build/bin/llama-cli -hf ggml-org/$(MODEL)
 

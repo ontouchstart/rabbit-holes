@@ -1,14 +1,14 @@
 https://huggingface.co/ggml-org/SmolLM3-3B-GGUF
 
 ```
-sam@Mac rabbit-holes % make -C llama-cpp cli-ggml-org/SmolLM3-3B-GGUF
-ggml-org/llama.cpp/build/bin/llama-cli -hf ggml-org/SmolLM3-3B-GGUF --jinja
+sam@Sams-MacBook-Pro rabbit-holes % make -C llama-cpp/models/SmolLM3-3B-GGUF 
+../../ggml-org/llama.cpp/build/bin/llama-cli -hf ggml-org/SmolLM3-3B-GGUF 
 ggml_metal_device_init: testing tensor API for f16 support
 ggml_metal_library_compile_pipeline: compiling pipeline: base = 'dummy_kernel', name = 'dummy_kernel'
-ggml_metal_library_compile_pipeline: loaded dummy_kernel                                  0x103b4db10 | th_max = 1024 | th_width =   32
+ggml_metal_library_compile_pipeline: loaded dummy_kernel                                  0x102077310 | th_max = 1024 | th_width =   32
 ggml_metal_device_init: testing tensor API for bfloat support
 ggml_metal_library_compile_pipeline: compiling pipeline: base = 'dummy_kernel', name = 'dummy_kernel'
-ggml_metal_library_compile_pipeline: loaded dummy_kernel                                  0x103b4cf10 | th_max = 1024 | th_width =   32
+ggml_metal_library_compile_pipeline: loaded dummy_kernel                                  0x102076390 | th_max = 1024 | th_width =   32
 ggml_metal_library_init: using embedded metal library
 ggml_metal_library_init: loaded in 0.009 sec
 ggml_metal_rsets_init: creating a residency set collection (keep_alive = 180 s)
