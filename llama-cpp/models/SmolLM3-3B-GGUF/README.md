@@ -646,3 +646,10 @@ In summary, the experiment offers a **game-changing capability** for companies t
 
 > 
 
+> /exit
+
+Exiting...
+llama_memory_breakdown_print: | memory breakdown [MiB] | total    free    self   model   context   compute    unaccounted |
+llama_memory_breakdown_print: |   - MTL0 (Apple M5)    | 18186 = 11503 + (6681 =  1819 +    4608 +     254) +           0 |
+llama_memory_breakdown_print: |   - Host               |                   341 =   205 +       0 +     136                |
+ggml_metal_free: deallocating
