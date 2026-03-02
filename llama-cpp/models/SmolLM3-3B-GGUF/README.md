@@ -1,7 +1,6 @@
 https://huggingface.co/ggml-org/SmolLM3-3B-GGUF
 
-
-
+```
 sam@Mac rabbit-holes % make -C llama-cpp cli-ggml-org/SmolLM3-3B-GGUF
 ggml-org/llama.cpp/build/bin/llama-cli -hf ggml-org/SmolLM3-3B-GGUF --jinja
 ggml_metal_device_init: testing tensor API for f16 support
@@ -51,7 +50,7 @@ available commands:
   /clear              clear the chat history
   /read               add a text file
 
-
+```
 > What is SmolLM3?
 
 [Start thinking]
