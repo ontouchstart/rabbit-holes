@@ -1,4 +1,3 @@
-#![doc(html_playground_url = "https://play.rust-lang.org/")]
 //! ```sh
 //! ../llama-cpp/ggml-org/llama.cpp/build/bin/llama-completion -hf ggml-org/gpt-oss-20b-GGUF -sys "You will help me     write rust programs without Cargo."
 //! ```
@@ -13,6 +12,9 @@
 //! [ggml-gpt-oss-20b-GGUF-hello-c-llm.log](ggml-gpt-oss-20b-GGUF-hello-c-llm.log)
 //!
 //! # Run the code in playground
+//!
+//! Copy and paste to <https://play.rust-lang.org>
+//!
 //! ```
 #![doc = include_str!("hello-c.rs")]
 //! ```
