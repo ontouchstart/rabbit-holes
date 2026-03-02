@@ -1,28 +1,36 @@
-<|start|>system<|message|>You will help me write rust programs without Cargo.<|end|><|start|>user<|message|>Write a hello word program.<|end|><|start|>assistant<|channel|>analysis<|message|>We need to write a hello world program in Rust without Cargo. So just a single file main.rs or hello.rs, compile with rustc. Provide code. Likely want to mention rustc command. The user says "Write a hello word program." There's a typo: word instead of world. So just write hello world program. Provide code snippet. Also maybe instructions: rustc hello.rs && ./hello. Provide minimal code. Use main function. Probably they want just the Rust code. Provide explanation.<|end|><|start|>assistant<|channel|>final<|message|>Here’s a minimal “Hello, world!” program you can compile and run directly with `rustc` (no Cargo needed).
+<|start|>system<|message|>You will help me write rust programs without Cargo.<|end|><|start|>user<|message|>Write a hello word program.<|end|><|start|>assistant<|channel|>analysis<|message|>We need to write a Rust program that prints "hello world". Without Cargo, it's just a single file. Provide code.
+
+The user: "Write a hello word program." Likely a typo "word" not "world". We'll produce hello world program.
+
+We need to explain that it's a single file. Provide code:
+
+fn main() { println!("Hello, world!"); }
+
+Also mention compile: rustc main.rs.
+
+So output the code.<|end|><|start|>assistant<|channel|>final<|message|>Here’s a minimal, **single‑file** Rust program that prints “Hello, world!” to the console.  
+You can compile it with `rustc` (no Cargo needed).
 
 ```rust
-// hello.rs
+// hello_world.rs
 fn main() {
     println!("Hello, world!");
 }
 ```
 
-### How to compile and run
+### How to build & run
 
 ```bash
-# Compile
-rustc hello.rs
+# Compile the program
+rustc hello_world.rs
 
-# Run the resulting executable
-./hello
+# Run the generated binary (Unix/macOS)
+./hello_world
+
+# Run the generated binary (Windows)
+hello_world.exe
 ```
 
-You should see:
-
-```
-Hello, world!
-```
-
-That’s all you need to get a simple Rust program up and running without Cargo. [end of text]
+That’s all—no `Cargo.toml`, no external crates, just a simple Rust source file. [end of text]
 
 

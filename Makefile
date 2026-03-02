@@ -5,3 +5,4 @@ all:
 	make -C playground
 	make -C llama-cpp
 	make -C ggml-gpt-oss-20b-GGUF
+	make -C ggml-gpt-oss-20b-GGUF-single-turn

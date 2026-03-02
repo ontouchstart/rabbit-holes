@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `index` crate."><title>index - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-ca0dd0c4.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="index" data-themes="" data-resource-suffix="" data-rustdoc-version="1.93.1 (01f6ddf75 2026-02-11)" data-channel="1.93.1" data-search-js="search-9e2438ea.js" data-stringdex-js="stringdex-a3946164.js" data-settings-js="settings-c38705f0.js" ><script src="../static.files/storage-e2aeef58.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-a410ff4d.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-263c88ec.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate index</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../index/index.html">index</a></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content"><div class="main-heading"><h1>Crate <span>index</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/index/index.rs.html#1-6">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock">
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>std::env;
+<span class="kw">use </span>std::fs;
+<span class="kw">use </span>std::io::Write;
+<span class="kw">use </span>std::path::PathBuf;
+<span class="kw">use </span>std::process::{Command, Stdio};
+<span class="kw">use </span>std::time::{SystemTime, UNIX_EPOCH};
+
+<span class="kw">fn </span>main() -&gt; std::io::Result&lt;()&gt; {
+    <span class="comment">// ------------------------------------------------------------
+    // 1. Build a unique name for the temporary executable
+    // ------------------------------------------------------------
+    // `temp_dir()` is usually `/tmp` on Unix-like systems.
+    </span><span class="kw">let </span>temp_dir = env::temp_dir();
+
+    <span class="comment">// Compose a file name that is very unlikely to collide:
+    //   &lt;process‑id&gt;_&lt;timestamp‑in‑nanoseconds&gt;
+    </span><span class="kw">let </span>pid = std::process::id();
+    <span class="kw">let </span>ts = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .expect(<span class="string">"Time went backwards"</span>)
+        .as_nanos();
+    <span class="kw">let </span>exe_name = <span class="macro">format!</span>(<span class="string">"hello_{}_{}.exe"</span>, pid, ts);
+
+    <span class="kw">let </span>exe_path: PathBuf = temp_dir.join(exe_name);
+
+    <span class="comment">// ------------------------------------------------------------
+    // 2. Compile the C source (sent via stdin)
+    // ------------------------------------------------------------
+    // The C program that prints “Hello, World!”.
+    </span><span class="kw">let </span>c_source = <span class="string">r#"#include &lt;stdio.h&gt;
+        int main(){
+            printf("Hello, World!\n"); 
+            return 0;
+        }"#</span>;
+
+    <span class="comment">// `cc` is a very common C compiler driver (it might be a symlink to
+    // `gcc`, `clang`, …).  The arguments mean:
+    //   -x c      : treat the input as C code
+    //   -         : read source from stdin
+    //   -o &lt;file&gt; : write the executable to &lt;file&gt;
+    </span><span class="kw">let </span><span class="kw-2">mut </span>compiler = Command::new(<span class="string">"cc"</span>)
+        .args(<span class="kw-2">&amp;</span>[<span class="string">"-x"</span>, <span class="string">"c"</span>, <span class="string">"-"</span>])
+        .arg(<span class="string">"-o"</span>)
+        .arg(<span class="kw-2">&amp;</span>exe_path)
+        .stdin(Stdio::piped())
+        .stderr(Stdio::inherit())   <span class="comment">// show compile errors if any
+        </span>.spawn()<span class="question-mark">?</span>;                  <span class="comment">// start the compiler
+
+    // Write the source to the compiler's stdin.
+    </span><span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">mut </span>stdin) = compiler.stdin.take() {
+        stdin.write_all(c_source.as_bytes())<span class="question-mark">?</span>;
+    }
+
+    <span class="comment">// Wait for the compiler to finish.
+    </span><span class="kw">let </span>status = compiler.wait()<span class="question-mark">?</span>;
+    <span class="kw">if </span>!status.success() {
+        <span class="macro">eprintln!</span>(<span class="string">"Compilation failed."</span>);
+        std::process::exit(<span class="number">1</span>);
+    }
+
+    <span class="comment">// ------------------------------------------------------------
+    // 3. Run the compiled binary
+    // ------------------------------------------------------------
+    </span><span class="kw">let </span>output = Command::new(<span class="kw-2">&amp;</span>exe_path)
+        .output()
+        .expect(<span class="string">"Failed to execute the compiled program"</span>);
+
+    <span class="comment">// Print the stdout of the child process.
+    </span><span class="kw">let </span>stdout_text = String::from_utf8_lossy(<span class="kw-2">&amp;</span>output.stdout);
+    <span class="macro">print!</span>(<span class="string">"{}"</span>, stdout_text);
+
+    <span class="comment">// (Optional) If you want to see any error output from the program:
+    </span><span class="kw">let </span>stderr_text = String::from_utf8_lossy(<span class="kw-2">&amp;</span>output.stderr);
+    <span class="kw">if </span>!stderr_text.is_empty() {
+        <span class="macro">eprintln!</span>(<span class="string">"stderr: {}"</span>, stderr_text);
+    }
+
+    <span class="comment">// ------------------------------------------------------------
+    // 4. Clean up: delete the temporary executable
+    // ------------------------------------------------------------
+    </span>fs::remove_file(<span class="kw-2">&amp;</span>exe_path)<span class="question-mark">?</span>;
+
+    <span class="prelude-val">Ok</span>(())
+}</code></pre><a class="test-arrow" target="_blank" title="Run code" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Ause+std::env;%0Ause+std::fs;%0Ause+std::io::Write;%0Ause+std::path::PathBuf;%0Ause+std::process::%7BCommand,+Stdio%7D;%0Ause+std::time::%7BSystemTime,+UNIX_EPOCH%7D;%0A%0Afn+main()+-%3E+std::io::Result%3C()%3E+%7B%0A++++//+------------------------------------------------------------%0A++++//+1.+Build+a+unique+name+for+the+temporary+executable%0A++++//+------------------------------------------------------------%0A++++//+%60temp_dir()%60+is+usually+%60/tmp%60+on+Unix-like+systems.%0A++++let+temp_dir+=+env::temp_dir();%0A%0A++++//+Compose+a+file+name+that+is+very+unlikely+to+collide:%0A++++//+++%3Cprocess%E2%80%91id%3E_%3Ctimestamp%E2%80%91in%E2%80%91nanoseconds%3E%0A++++let+pid+=+std::process::id();%0A++++let+ts+=+SystemTime::now()%0A++++++++.duration_since(UNIX_EPOCH)%0A++++++++.expect(%22Time+went+backwards%22)%0A++++++++.as_nanos();%0A++++let+exe_name+=+format!(%22hello_%7B%7D_%7B%7D.exe%22,+pid,+ts);%0A%0A++++let+exe_path:+PathBuf+=+temp_dir.join(exe_name);%0A%0A++++//+------------------------------------------------------------%0A++++//+2.+Compile+the+C+source+(sent+via+stdin)%0A++++//+------------------------------------------------------------%0A++++//+The+C+program+that+prints+%E2%80%9CHello,+World!%E2%80%9D.%0A++++let+c_source+=+r%23%22%23include+%3Cstdio.h%3E%0A++++++++int+main()%7B%0A++++++++++++printf(%22Hello,+World!%5Cn%22);+%0A++++++++++++return+0;%0A++++++++%7D%22%23;%0A%0A++++//+%60cc%60+is+a+very+common+C+compiler+driver+(it+might+be+a+symlink+to%0A++++//+%60gcc%60,+%60clang%60,+%E2%80%A6).++The+arguments+mean:%0A++++//+++-x+c++++++:+treat+the+input+as+C+code%0A++++//+++-+++++++++:+read+source+from+stdin%0A++++//+++-o+%3Cfile%3E+:+write+the+executable+to+%3Cfile%3E%0A++++let+mut+compiler+=+Command::new(%22cc%22)%0A++++++++.args(%26%5B%22-x%22,+%22c%22,+%22-%22%5D)%0A++++++++.arg(%22-o%22)%0A++++++++.arg(%26exe_path)%0A++++++++.stdin(Stdio::piped())%0A++++++++.stderr(Stdio::inherit())+++//+show+compile+errors+if+any%0A++++++++.spawn()?;++++++++++++++++++//+start+the+compiler%0A%0A++++//+Write+the+source+to+the+compiler's+stdin.%0A++++if+let+Some(mut+stdin)+=+compiler.stdin.take()+%7B%0A++++++++stdin.write_all(c_source.as_bytes())?;%0A++++%7D%0A%0A++++//+Wait+for+the+compiler+to+finish.%0A++++let+status+=+compiler.wait()?;%0A++++if+!status.success()+%7B%0A++++++++eprintln!(%22Compilation+failed.%22);%0A++++++++std::process::exit(1);%0A++++%7D%0A%0A++++//+------------------------------------------------------------%0A++++//+3.+Run+the+compiled+binary%0A++++//+------------------------------------------------------------%0A++++let+output+=+Command::new(%26exe_path)%0A++++++++.output()%0A++++++++.expect(%22Failed+to+execute+the+compiled+program%22);%0A%0A++++//+Print+the+stdout+of+the+child+process.%0A++++let+stdout_text+=+String::from_utf8_lossy(%26output.stdout);%0A++++print!(%22%7B%7D%22,+stdout_text);%0A%0A++++//+(Optional)+If+you+want+to+see+any+error+output+from+the+program:%0A++++let+stderr_text+=+String::from_utf8_lossy(%26output.stderr);%0A++++if+!stderr_text.is_empty()+%7B%0A++++++++eprintln!(%22stderr:+%7B%7D%22,+stderr_text);%0A++++%7D%0A%0A++++//+------------------------------------------------------------%0A++++//+4.+Clean+up:+delete+the+temporary+executable%0A++++//+------------------------------------------------------------%0A++++fs::remove_file(%26exe_path)?;%0A%0A++++Ok(())%0A%7D&amp;edition=2024"></a></div></div></details></section></div></main></body></html>
