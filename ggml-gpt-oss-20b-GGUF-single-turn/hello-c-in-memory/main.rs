@@ -13,7 +13,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let ts = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)?
         .as_millis();
-    exe_path.push(format!("hello_{}_{}.exe", pid, ts));
+    exe_path.push(format!("hello_{}_{}", pid, ts));
 
     /* ──────────────────────────────────────────────────────────────────────
        2️⃣  Prepare the C source code – it will be piped to gcc
