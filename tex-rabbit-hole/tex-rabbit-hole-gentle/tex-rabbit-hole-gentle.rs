@@ -1,5 +1,5 @@
 //! # A Gentle Introduction to TeX
-//! //! [gentle.pdf](gentle.pdf)
+//! [gentle.pdf](gentle.pdf)
 //! ```makefile
 #! [doc = include_str!("Makefile")]
 //! ```
