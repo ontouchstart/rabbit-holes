@@ -19,3 +19,5 @@ cli:	ggml-org/llama.cpp/build/bin
 server: ggml-org/llama.cpp/build/bin
 	ggml-org/llama.cpp/build/bin/llama-server -hf ggml-org/gpt-oss-20b-GGUF --n-cpu-moe 12 -c 32768 --jinja --no-mmap
 
+clean:
+	rm -rf ./ggml-org
