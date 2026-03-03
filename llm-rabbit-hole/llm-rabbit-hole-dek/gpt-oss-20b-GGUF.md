@@ -14,7 +14,9 @@ Also mention open problem for even m.
 
 We should avoid heavy math notation.
 
-Let's produce a clear, friendly explanation.<<<reasoning_content_end>>>## What the article is about – in plain English
+Let's produce a clear, friendly explanation.<<<reasoning_content_end>>>
+
+## What the article is about – in plain English
 
 ### 1. The puzzle that was asked
 
