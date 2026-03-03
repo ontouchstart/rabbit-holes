@@ -115,3 +115,11 @@ llama_memory_breakdown_print: |   - Host               |                   688 =
 ggml_metal_free: deallocating
 ggml_metal_free: deallocating
 ```
+
+
+![](Screenshot 2026-03-03 at 3.11.18 PM.png)
+
+![](Screenshot 2026-03-03 at 3.11.33 PM.png)
+
+![](Screenshot 2026-03-03 at 3.11.50 PM.png)
+
