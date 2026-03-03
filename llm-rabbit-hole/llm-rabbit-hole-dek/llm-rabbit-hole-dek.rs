@@ -6,4 +6,8 @@
 //!
 //! ![](screenshot.png)
 //!
-#![doc = include_str!("gpt-oss-20b-GGUF.md")]
+#![doc = include_str!("gpt-oss-20b-GGUF-layman.md")]
+//!
+#![doc = include_str!("gpt-oss-20b-GGUF-highschool.md")]
+//!
+#![doc = include_str!("gpt-oss-20b-GGUF-proof.md")]
