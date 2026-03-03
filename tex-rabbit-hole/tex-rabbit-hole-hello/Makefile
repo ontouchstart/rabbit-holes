@@ -1,0 +1,2 @@
+all:
+	pdftex main.tex
