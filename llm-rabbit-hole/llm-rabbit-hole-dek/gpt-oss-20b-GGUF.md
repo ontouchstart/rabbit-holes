@@ -1,6 +1,8 @@
 > Explain this article to a layman.
 
-<<<reasoning_content_start>>>We need to explain this article to a layman. The article is about a combinatorial problem: decomposing a directed graph of size m^3 vertices into three directed Hamiltonian cycles, for odd m, solved by Claude Opus 4.6. The article is written in a humorous style, referencing Knuth, etc. The explanation should simplify concepts: directed graph, Hamiltonian cycle, decomposition, the problem, how the AI solved it, the algorithmic process, the significance, and the results.
+<<<reasoning_content_start>>>
+
+We need to explain this article to a layman. The article is about a combinatorial problem: decomposing a directed graph of size m^3 vertices into three directed Hamiltonian cycles, for odd m, solved by Claude Opus 4.6. The article is written in a humorous style, referencing Knuth, etc. The explanation should simplify concepts: directed graph, Hamiltonian cycle, decomposition, the problem, how the AI solved it, the algorithmic process, the significance, and the results.
 
 We need to explain terms like digraph, directed Hamiltonian cycle, decomposition into cycles, the idea of a "fiber" decomposition, "serpentine pattern," modular Gray code, etc. Also mention the significance of AI solving a problem, the process, the number of solutions, etc.
 
@@ -16,7 +18,9 @@ Also mention open problem for even m.
 
 We should avoid heavy math notation.
 
-Let's produce a clear, friendly explanation.<<<reasoning_content_end>>>
+Let's produce a clear, friendly explanation.
+
+<<<reasoning_content_end>>>
 
 ## What the article is about – in plain English
 
@@ -84,7 +88,11 @@ Knuth’s note is a playful, inside‑joke‑filled account of how an AI solved 
 
 > It is still too complicated, can we explain it to a high school student? 
 
-<<<reasoning_content_start>>>We need to explain in simpler terms, for high school student. Provide intuitive explanation of the problem, the solution, and AI involvement. Let's produce a simpler narrative, with diagrams perhaps. Let's explain the cube, arrows, cycles, the rule, and why it works for odd sizes. Let's avoid technical jargon. Use simple terms. Provide a step-by-step explanation.<<<reasoning_content_end>>>
+<<<reasoning_content_start>>>
+
+We need to explain in simpler terms, for high school student. Provide intuitive explanation of the problem, the solution, and AI involvement. Let's produce a simpler narrative, with diagrams perhaps. Let's explain the cube, arrows, cycles, the rule, and why it works for odd sizes. Let's avoid technical jargon. Use simple terms. Provide a step-by-step explanation.
+
+<<<reasoning_content_end>>>
 
 ## The puzzle in a nutshell  
 Think of a very big 3‑D chessboard.
