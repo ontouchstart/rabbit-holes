@@ -1,2 +1,0 @@
-all:
-	pdftex main.tex
