@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Claude’s Cycles"><title>llm_rabbit_hole_dek - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-ca0dd0c4.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="llm_rabbit_hole_dek" data-themes="" data-resource-suffix="" data-rustdoc-version="1.93.1 (01f6ddf75 2026-02-11)" data-channel="1.93.1" data-search-js="search-9e2438ea.js" data-stringdex-js="stringdex-a3946164.js" data-settings-js="settings-c38705f0.js" ><script src="../static.files/storage-e2aeef58.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-a410ff4d.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-263c88ec.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate llm_rabbit_hole_dek</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../llm_rabbit_hole_dek/index.html">llm_<wbr>rabbit_<wbr>hole_<wbr>dek</a></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#claudes-cycles" title="Claude’s Cycles">Claude’s Cycles</a><ul><li><a href="#1-the-puzzle-that-was-asked" title="1. The puzzle that was asked">1. The puzzle that was asked</a></li><li><a href="#2-why-its-interesting" title="2. Why it’s interesting">2. Why it’s interesting</a></li><li><a href="#3-how-the-ai-claude-opus-46-got-to-the-answer" title="3. How the AI (Claude Opus 4.6) got to the answer">3. How the AI (Claude Opus 4.6) got to the answer</a></li><li><a href="#4-how-many-solutions-exist" title="4. How many solutions exist">4. How many solutions exist</a></li><li><a href="#5-the-evensize-mystery" title="5. The even‑size mystery">5. The even‑size mystery</a></li><li><a href="#6-why-this-matters" title="6. Why this matters">6. Why this matters</a></li><li><a href="#7-bottom-line" title="7. Bottom line">7. Bottom line</a></li></ul></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content"><div class="main-heading"><h1>Crate <span>llm_<wbr>rabbit_<wbr>hole_<wbr>dek</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/llm_rabbit_hole_dek/llm-rabbit-hole-dek.rs.html#1-9">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="claudes-cycles"><a class="doc-anchor" href="#claudes-cycles">§</a>Claude’s Cycles</h2>
+<p><a href="https://www-cs-faculty.stanford.edu/~knuth/papers/claude-cycles.pdf">https://www-cs-faculty.stanford.edu/~knuth/papers/claude-cycles.pdf</a></p>
+<p><a href="https://news.ycombinator.com/item?id=47230710">https://news.ycombinator.com/item?id=47230710</a></p>
+<p><img src="screenshot.png" alt="" /></p>
+<p>&lt;&lt;&lt;reasoning_content_start&gt;&gt;&gt;We need to explain this article to a layman. The article is about a combinatorial problem: decomposing a directed graph of size m^3 vertices into three directed Hamiltonian cycles, for odd m, solved by Claude Opus 4.6. The article is written in a humorous style, referencing Knuth, etc. The explanation should simplify concepts: directed graph, Hamiltonian cycle, decomposition, the problem, how the AI solved it, the algorithmic process, the significance, and the results.</p>
+<p>We need to explain terms like digraph, directed Hamiltonian cycle, decomposition into cycles, the idea of a “fiber” decomposition, “serpentine pattern,” modular Gray code, etc. Also mention the significance of AI solving a problem, the process, the number of solutions, etc.</p>
+<p>Let’s craft a layman explanation.</p>
+<p>We’ll start by describing the problem in simple terms: imagine a 3D grid of points, each point has arrows to three other points, we want to find three loops that together cover all arrows exactly once.</p>
+<p>Explain the AI’s process: it tried various strategies, tried patterns, used backtracking, simulated annealing, discovered a pattern that works for all odd sizes. Provide intuitive explanation.</p>
+<p>Mention the significance: shows AI can help solve difficult math problems, etc.</p>
+<p>Also mention open problem for even m.</p>
+<p>We should avoid heavy math notation.</p>
+<p>Let’s produce a clear, friendly explanation.&lt;&lt;&lt;reasoning_content_end&gt;&gt;&gt;## What the article is about – in plain English</p>
+<h4 id="1-the-puzzle-that-was-asked"><a class="doc-anchor" href="#1-the-puzzle-that-was-asked">§</a>1. The puzzle that was asked</h4>
+<p>Imagine a cube that is <strong>much, much bigger</strong> – not a 3‑by‑3‑by‑3 cube, but a cube that has <em>m</em> points along each edge, so it contains (m^3) points.<br />
+Each point has <strong>three little arrows</strong> that point to other points:</p>
+<ul>
+<li>one arrow goes one step forward in the first direction,</li>
+<li>one arrow goes one step forward in the second direction,</li>
+<li>one arrow goes one step forward in the third direction.</li>
+</ul>
+<p>(If you run off one side of the cube you “wrap around” to the other side, like in a video‑game world.)</p>
+<p>The question is: <strong>can we split all those arrows into exactly three big loops, each loop touching every point exactly once?</strong><br />
+In graph‑theory language that means: <em>can we decompose the directed graph into three disjoint directed Hamiltonian cycles?</em><br />
+(Think of a Hamiltonian cycle as a path that visits every vertex exactly once and comes back to where it started.)</p>
+<p>Knuth, a famous computer‑science professor, had been thinking about this problem for years. He was sure that it was possible for all sizes of cube that are <strong>odd</strong> (3, 5, 7, …) but had no proof, and it was completely unknown for <strong>even</strong> sizes.</p>
+<h4 id="2-why-its-interesting"><a class="doc-anchor" href="#2-why-its-interesting">§</a>2. Why it’s interesting</h4>
+<ul>
+<li>It is a neat piece of pure mathematics that people have been trying to solve.</li>
+<li>It has a very clear, visual description – a cube with arrows – but the answer is surprisingly hard to find.</li>
+<li>If a computer or an AI can figure it out, that would be a spectacular example of “machine‑assisted proof”.</li>
+</ul>
+<h4 id="3-how-the-ai-claude-opus-46-got-to-the-answer"><a class="doc-anchor" href="#3-how-the-ai-claude-opus-46-got-to-the-answer">§</a>3. How the AI (Claude Opus 4.6) got to the answer</h4>
+<p>The article is written as a story: Knuth writes a note to himself, telling us how the AI tried many different approaches and finally succeeded. Here’s the gist, step by step:</p>
+<div><table><thead><tr><th><strong>What the AI tried</strong></th><th><strong>What it learned</strong></th><th><strong>Outcome</strong></th></tr></thead><tbody>
+<tr><td><strong>1. Simple guesses</strong> – “maybe the arrows follow a simple formula.”</td><td>No simple formula works.</td><td></td></tr>
+<tr><td><strong>2. Brute force search</strong> – try all possible ways to assign arrows to loops for small cubes (m = 3).</td><td>Too slow.</td><td></td></tr>
+<tr><td><strong>3. “Serpentine patterns”</strong> – patterns that snake through the cube, inspired by Gray codes (a way to list all numbers so that only one digit changes each step).</td><td>Found a good pattern for 2‑dimensional slices of the cube.</td><td></td></tr>
+<tr><td><strong>4. “Fiber decomposition”</strong> – think of the cube as layers (fibers) where each layer has a fixed sum of coordinates modulo m.</td><td>This gave a neat way to think about the problem, but still didn’t give a full solution.</td><td></td></tr>
+<tr><td><strong>5. Random local search / simulated annealing</strong> – let the AI tweak a random assignment a bit at a time, hoping to improve it.</td><td>Found working assignments for a handful of odd sizes (5, 7, 9, …) but no general rule.</td><td></td></tr>
+<tr><td><strong>6. Observation</strong> – the successful assignments depended only on whether a coordinate was 0, (m-1), or “something else”.</td><td>This hint led to a <em>pattern</em> that actually works for <strong>every odd m</strong>.</td><td></td></tr>
+<tr><td><strong>7. Coding a generator</strong> – wrote a small program that, given a point (i,j,k), decides which direction to go based on those “special” values.</td><td>The program produces three loops that cover all arrows for any odd m.</td><td></td></tr>
+</tbody></table>
+</div>
+<p>So the AI <em>did not</em> discover a single magic formula in one shot. It tried many different ideas, discarded the ones that didn’t work, and finally discovered a <em>simple rule</em> that depends only on whether coordinates are at the extremes (0 or (m-1)). That rule turns out to produce a valid decomposition for every odd cube.</p>
+<h4 id="4-how-many-solutions-exist"><a class="doc-anchor" href="#4-how-many-solutions-exist">§</a>4. How many solutions exist</h4>
+<ul>
+<li>For a 3‑by‑3‑by‑3 cube there are <strong>11 502</strong> different ways to make three loops that cover all arrows.</li>
+<li>Among those, only <strong>1 012</strong> “generalise” to a solution for a 5‑by‑5‑by‑5 cube.</li>
+<li>Even fewer, <strong>996</strong>, generalise to both 5 and 7, and those 996 actually work for <em>every</em> odd size.</li>
+</ul>
+<p>The AI’s particular solution is one of 760 “Claude‑like” solutions that work for all odd sizes – but it is not necessarily the simplest or the most elegant. Knuth notes that none of the 136 solutions that stay the same if you cyclically permute the coordinates (swap i→j→k) are common to all three permutations, so symmetry is limited.</p>
+<h4 id="5-the-evensize-mystery"><a class="doc-anchor" href="#5-the-evensize-mystery">§</a>5. The even‑size mystery</h4>
+<p>For even sizes (2, 4, 6, 8, …) the problem is still unsolved. The AI briefly found some assignments for 4, 6, and 8, but could not figure out a general pattern. Knuth tried to ask the AI to keep looking, but it got stuck and stopped working. So the even case remains open.</p>
+<h4 id="6-why-this-matters"><a class="doc-anchor" href="#6-why-this-matters">§</a>6. Why this matters</h4>
+<ul>
+<li>It shows an AI (Claude Opus 4.6) can <em>discover</em> a new mathematical construction that no human had found before. That is a big deal in the field of “computer‑assisted mathematics”.</li>
+<li>The method – starting with many different heuristics, then observing a pattern, and finally proving it works – mirrors how mathematicians often work: try, test, refine, observe, prove.</li>
+<li>The result will be added to Knuth’s famous “The Art of Computer Programming” series, which already contains many combinatorial constructions.</li>
+</ul>
+<h4 id="7-bottom-line"><a class="doc-anchor" href="#7-bottom-line">§</a>7. Bottom line</h4>
+<p>Knuth’s note is a playful, inside‑joke‑filled account of how an AI solved a long‑standing puzzle about how to break a huge directed cube into three loops. For odd sizes, a clean, general rule was found; for even sizes, the mystery remains. The story is a showcase of how modern AI can aid human mathematicians by exploring vast search spaces, spotting patterns, and ultimately delivering a proof.</p>
+</div></details></section></div></main></body></html>

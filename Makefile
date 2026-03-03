@@ -7,3 +7,4 @@ all:
 	make -C ggml-gpt-oss-20b-GGUF
 	make -C ggml-gpt-oss-20b-GGUF-single-turn
 	make -C tex-rabbit-hole
+	make -C llm-rabbit-hole
