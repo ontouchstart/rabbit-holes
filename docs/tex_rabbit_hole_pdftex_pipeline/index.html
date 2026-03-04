@@ -13,13 +13,7 @@
                    \hbox to #2{\hss#3\hss}\vss 
                    \hrule}\vrule}}</code></pre></div>
 <p><code>diagram.tex</code></p>
-<div class="example-wrap"><pre class="language-tex"><code>%%%%%%%%%%% macro to put a box around the text %%%%%%%%%%%%%%%% 
-\def\makebox#1#2#3% vsize, hsize, inserted text 
-{\hbox{\vrule 
-       \vbox to  #1{\hrule \vss 
-                   \hbox to #2{\hss#3\hss}\vss 
-                   \hrule}\vrule}}
-$$ 
+<div class="example-wrap"><pre class="language-tex"><code>$$ 
 {\hbox {editor ({\tt vi}) \quad} \atop \longrightarrow } 
 \lower .6cm \makebox {1.5cm} {1.8cm}%
 {\vbox{\hbox{\tt main.tex}}}
