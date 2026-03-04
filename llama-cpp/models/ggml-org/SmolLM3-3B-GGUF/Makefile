@@ -1,10 +1,10 @@
-MODEL := $(shell basename `pwd`) 
+MODEL := $(shell pwd | sed -n 's|.*/models/||p') 
 CLI := ../../../ggml-org/llama.cpp/build/bin/llama-cli
 SERVER := ../../../ggml-org/llama.cpp/build/bin/llama-server
 
 cli:
-	$(CLI) -hf ggml-org/$(MODEL)
+	$(CLI) -hf $(MODEL)
 
 server:
-	$(SERVER) -hf ggml-org/$(MODEL)
+	$(SERVER) -hf $(MODEL)
 
