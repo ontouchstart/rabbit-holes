@@ -1,0 +1,15 @@
+%%%%%%%%%%% macro to put a box around the text %%%%%%%%%%%%%%%% 
+\def\makebox#1#2#3% vsize, hsize, inserted text 
+{\hbox{\vrule 
+       \vbox to  #1{\hrule \vss 
+                   \hbox to #2{\hss#3\hss}\vss 
+                   \hrule}\vrule}}
+$$ 
+{\hbox {editor ({\tt vi}) \quad} \atop \longrightarrow } 
+\lower .6cm \makebox {1.5cm} {1.8cm}%
+{\vbox{\hbox{\tt main.tex}}}
+{\hbox{\quad program ({\tt pdftex})\quad} \atop \longrightarrow} 
+\lower .6cm \makebox{1.5cm}{1.8cm}% 
+{\vbox{\hbox{\tt main.pdf}}} 
+$$ 
+\bye
