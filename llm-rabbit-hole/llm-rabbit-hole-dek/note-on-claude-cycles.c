@@ -63,9 +63,6 @@ void trace(int m, const char *start_str, int cycle_type, int total_states) {
 }
 
 int main() {
-    printf("$ m \\in \\{ 3, 5, 7, 9, 11\\} ,");
-    printf("c \\in \\{ 0, 1, 2\\}.$\n\n\n");
-
     // Define n values: 1, 2, 3
     int n_values[] = {1, 2, 3, 4, 5};
     int num_tests = 5;
