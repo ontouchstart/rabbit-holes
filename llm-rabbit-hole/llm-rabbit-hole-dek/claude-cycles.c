@@ -11,7 +11,7 @@ void run_simulation(int m, const char *start_str) {
     k = start_str[2] - '0';
     
     // Print header
-    printf("%d Cycle (starting %s):\n", m, start_str);
+    printf("%d Cycle (starting %s):\n\n", m, start_str);
 
     // Run for exactly m^3 steps
     for (t = 0; t < m * m * m; t++) {
@@ -36,13 +36,13 @@ void run_simulation(int m, const char *start_str) {
         
         // Print arrow unless it is the last step
         if (t < m * m * m - 1) {
-            printf(" -> ");
+            printf(" $\\rightarrow$ ");
         }
     }
     
     // Print the final closing arrow to complete the loop back to start
     // This matches the paper's visual style where the sequence ends with -> StartVertex
-    printf(" -> %s\n", start_str);
+    printf(" $\\rightarrow$ %s\n", start_str);
     
     printf("\n");
 }
