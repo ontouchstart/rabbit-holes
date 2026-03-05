@@ -1,0 +1,35 @@
+\documentclass[10pt, letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{verbatim}
+
+% Adjust margins for a clean, readable note format
+\geometry{margin=1in}
+
+% Title
+\title{\textbf{A Note on the Implementation of \textbf{Claude's Cycles}}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+This note addresses a discrepancy in the implementation of the algorithm proposed in Don Knuth's recent paper on \textit{Claude's Cycles}. While the paper confirms the existence of a valid decomposition into three Hamiltonian cycles for all odd $m > 1$ via an original Python program, the provided C code simplification contains a logical flaw that prevents it from generating valid cycles for indices $c=1$ and $c=2$.
+
+The problem lies in the state transition logic of the simplified rules. Specifically, the logic imposes contradictory constraints on the $i$-coordinate. The cycle is forced to increment $i$ only when the state sum $s = (i+j+k) \pmod m$ is strictly between $0$ and $m-1$. However, as soon as $s$ hits the boundary values $0$ or $m-1$, the ability to change $i$ is revoked. Because the rules for these boundary states force moves only in $j$ and $k$, the cycle gets trapped in a subset of the state space where $i$ remains fixed. It cannot escape this trap to visit vertices with a different $i$-coordinate until $s$ returns to the ``middle'' zone, which happens too infrequently to cover the full $m^3$ space.
+
+This creates a structural bottleneck. The cycle visits a subset of vertices (often exactly $m^2$ or less, depending on $m$) and then repeats, failing to be Hamiltonian. This does not invalidate the discovery of Claude Opus 4.6 or the existence of a general solution; it simply highlights that the ``simplification'' presented on page 2 of the original note is an incorrect representation of the true solution. The true solution likely involves a more complex set of permutations or logic conditions not captured by the snippet.
+
+For reference, the problematic C code from the original note is reproduced below:
+
+\include{note-on-claude-cycles-code}
+
+It is worth noting that the validity of the decomposition for $c=0$ holds under these simplified rules, as the logic for that specific cycle correctly manages the flow between the hyperplanes $s=0$ and $s=m-1$. The failure is isolated strictly to the secondary cycles $c=1$ and $c=2$.
+
+\include{note-on-claude-cycles-output}
+
+\end{document}
+
