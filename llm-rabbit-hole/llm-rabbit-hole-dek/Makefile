@@ -1,5 +1,6 @@
-all:
+all:	claude-cycles-correction.pdf note-on-claude-cycles.pdf
 	rustdoc llm-rabbit-hole-dek.rs -o ../../docs
+	cp claude-cycles.pdf ../../docs/llm_rabbit_hole_dek
 
 claude-cycles-correction.pdf: claude-cycles-correction.tex
 	cc claude-cycles-correction.c && ./a.out > claude-cycles-correction-output.tex
