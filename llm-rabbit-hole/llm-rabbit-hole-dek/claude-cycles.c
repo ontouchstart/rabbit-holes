@@ -41,7 +41,8 @@ void run_simulation(int m, const char *start_str) {
     }
     
     // Print the final closing arrow to complete the loop back to start
-    // This matches the paper's visual style where the sequence ends with -> StartVertex
+    // This matches the paper's visual style where the sequence ends with 
+    // -> StartVertex
     printf(" $\\rightarrow$ %s\n", start_str);
     
     printf("\n");
