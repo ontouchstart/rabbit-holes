@@ -9,11 +9,17 @@ claude-cycles-correction.pdf: claude-cycles-correction.tex
 	echo '\\end{verbatim}' >> claude-cycles-correction-code.tex
 	pdflatex claude-cycles-correction.tex
 	cp claude-cycles-correction.pdf ../../docs/llm_rabbit_hole_dek
+	rm a.out
 
 note-on-claude-cycles.pdf: note-on-claude-cycles.tex
-	echo '\\begin{verbatim}' > note-on-claude-cycles-code.tex
-	cat -n note-on-claude-cycles.c >> note-on-claude-cycles-code.tex
-	echo '\\end{verbatim}' >> note-on-claude-cycles-code.tex
-	cc note-on-claude-cycles.c && ./a.out > note-on-claude-cycles-output.tex
+	echo '\\begin{verbatim}' > note-on-claude-cycles-c-code.tex
+	cat -n note-on-claude-cycles.c >> note-on-claude-cycles-c-code.tex
+	echo '\\end{verbatim}' >> note-on-claude-cycles-c-code.tex
+	cc note-on-claude-cycles.c && ./a.out > note-on-claude-cycles-c-output.tex
+	echo '\\begin{verbatim}' > note-on-claude-cycles-rs-code.tex
+	cat -n note-on-claude-cycles.rs >> note-on-claude-cycles-rs-code.tex
+	echo '\\end{verbatim}' >> note-on-claude-cycles-rs-code.tex
+	rustc note-on-claude-cycles.rs && ./note-on-claude-cycles > note-on-claude-cycles-rs-output.tex
 	pdflatex note-on-claude-cycles.tex
 	cp note-on-claude-cycles.pdf ../../docs/llm_rabbit_hole_dek
+	rm a.out note-on-claude-cycles
