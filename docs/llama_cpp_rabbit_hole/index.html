@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Makefile"><title>llama_cpp_rabbit_hole - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-77263533.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="llama_cpp_rabbit_hole" data-themes="" data-resource-suffix="" data-rustdoc-version="1.94.0 (4a4ef493e 2026-03-02)" data-channel="1.94.0" data-search-js="search-9e2438ea.js" data-stringdex-js="stringdex-b897f86f.js" data-settings-js="settings-c38705f0.js" ><script src="../static.files/storage-e2aeef58.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-7bab91a1.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-ffcac47a.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate llama_cpp_rabbit_hole</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../llama_cpp_rabbit_hole/index.html">llama_<wbr>cpp_<wbr>rabbit_<wbr>hole</a></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#makefile" title="Makefile">Makefile</a></li><li><a href="#trace" title="Trace">Trace</a><ul><li><a href="#code-path-and-key-dependencies" title="Code Path and Key Dependencies:">Code Path and Key Dependencies:</a></li><li><a href="#summary" title="Summary:">Summary:</a></li></ul></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content"><div class="main-heading"><h1>Crate <span>llama_<wbr>cpp_<wbr>rabbit_<wbr>hole</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/llama_cpp_rabbit_hole/llama-cpp-rabbit-hole.rs.html#1-12">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="makefile"><a class="doc-anchor" href="#makefile">§</a>Makefile</h2><div class="example-wrap"><pre class="language-makefile"><code>RUSTDOC = rustdoc --edition 2024 -o ../docs
+docs:
+	$(RUSTDOC) llama-cpp-rabbit-hole.rs
+
+build:	ggml-org/llama.cpp/build/bin
+	ls ./ggml-org/llama.cpp/build/bin
+
+ggml-org/llama.cpp:
+	git clone https://github.com/ggml-org/llama.cpp.git ggml-org/llama.cpp
+
+ggml-org/llama.cpp/build/bin: ggml-org/llama.cpp
+	cd ggml-org/llama.cpp &amp;&amp; cmake -B build &amp;&amp; cmake --build build --config Release -j 8
+
+clean:
+	rm -rf ./ggml-org</code></pre></div><h2 id="trace"><a class="doc-anchor" href="#trace">§</a>Trace</h2>
+<p>Here’s the clear dependency chain for the <code>llama-cli</code> binary:</p>
+<h3 id="code-path-and-key-dependencies"><a class="doc-anchor" href="#code-path-and-key-dependencies">§</a>Code Path and Key Dependencies:</h3>
+<ol>
+<li>
+<p><strong>Binary (<code>build/bin/llama-cli</code>)</strong></p>
+<ul>
+<li>Source: <code>tools/cli/cli.cpp</code> (contains <code>int main</code> function)</li>
+<li>Direct Dependencies:
+<ul>
+<li><strong><code>server-context</code></strong> (from <code>tools/server/server-context.cpp</code>)</li>
+<li><strong><code>common</code></strong> library</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>server-context.h</code> and <code>server-context.cpp</code>:</strong></p>
+<ul>
+<li>Loads and manages the LLM model via <code>common_init_from_params</code> and <code>llama_init</code>.</li>
+<li>Relies on the <code>llama</code> library functions for core inference (loaded by <code>@rpath/libllama.0.dylib</code>).</li>
+</ul>
+</li>
+<li>
+<p><strong>Core LLM Library (<code>libllama.0.dylib</code>)</strong></p>
+<ul>
+<li>Provides:
+<ul>
+<li>Model loading: <code>llama_model_load_from_file</code> and related APIs.</li>
+<li>Context management: <code>llama_context</code>, <code>llama_init</code>, etc.</li>
+</ul>
+</li>
+<li>Depends on <code>libggml</code> (via <code>@rpath/libggml.0.dylib</code> and its sub-libraries).</li>
+</ul>
+</li>
+<li>
+<p><strong>Direct Calls in <code>cli.cpp</code>:</strong></p>
+<ul>
+<li>Calls <code>server-context</code> for model initialization (<code>load_model</code>, <code>start_loop</code>).</li>
+<li>Uses core LLM functions for token generation and completion.</li>
+</ul>
+</li>
+</ol>
+<h3 id="summary"><a class="doc-anchor" href="#summary">§</a>Summary:</h3>
+<p>The <code>llama-cli</code> binary directly depends on:</p>
+<ul>
+<li><code>tools/cli/cli.cpp</code> (entry point)</li>
+<li><code>server-context</code> (for model management)</li>
+<li><code>common</code> (shared utilities)</li>
+<li><code>libllama.0.dylib</code> (core inference engine)</li>
+<li><code>libggml</code> and its backends (optimized computation)</li>
+</ul>
+<p>If you want to trace a function call, start from the <code>int main</code> in <code>cli.cpp</code> and see how it calls through <code>server-context</code>. For example, <code>generate_completion</code> invokes <code>ctx_server.get_response_reader()</code>, which uses <code>server_context</code>’s methods.</p>
+<p><strong><code>llama-cli</code> directly depends on <code>server-context</code></strong> even though it’s a CLI tool. Here’s why and how:</p>
+<hr />
+<h4 id="dependency-breakdown"><a class="doc-anchor" href="#dependency-breakdown">§</a><strong>Dependency Breakdown</strong></h4><h5 id="1-build-time-dependency"><a class="doc-anchor" href="#1-build-time-dependency">§</a><strong>1. Build-Time Dependency</strong></h5>
+<ul>
+<li><strong><code>tools/cli/CMakeLists.txt</code></strong>:<div class="example-wrap"><pre class="language-cmake"><code>target_link_libraries(${TARGET} PRIVATE server-context)</code></pre></div>
+<ul>
+<li>The <code>cli.cpp</code> binary is linked against the <code>server-context</code> library.</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-runtime-dependency"><a class="doc-anchor" href="#2-runtime-dependency">§</a><strong>2. Runtime Dependency</strong></h5>
+<ul>
+<li><strong><code>cli.cpp</code> Logic</strong>:
+<ul>
+<li>Creates and uses a <code>server_context ctx_server;</code> object.</li>
+<li>Calls methods like <code>ctx_server.load_model()</code> and <code>ctx_server.start_loop()</code>.</li>
+<li>Uses <code>ctx_server.get_llama_context()</code> for inference.</li>
+</ul>
+</li>
+</ul>
+<h5 id="3-code-structure-explanation"><a class="doc-anchor" href="#3-code-structure-explanation">§</a><strong>3. Code Structure Explanation</strong></h5>
+<ul>
+<li><strong><code>server-context</code></strong> serves as a <strong>shared wrapper</strong> between CLI and core inference:
+<ul>
+<li>It provides a structured API for <strong>model loading</strong>, <strong>context management</strong>, and <strong>inference loops</strong>.</li>
+<li>Core LLM logic (<code>libllama</code>) is encapsulated in <code>server-context</code>.</li>
+<li>This ensures consistency between <code>cli</code>, <code>server</code>, and other tools.</li>
+</ul>
+</li>
+</ul>
+<h5 id="4-why"><a class="doc-anchor" href="#4-why">§</a><strong>4. Why?</strong></h5>
+<ul>
+<li><strong>Code Reuse</strong>: Both <code>cli</code> and <code>server</code> need to load and run LLMs. Sharing <code>server-context</code> reduces duplication.</li>
+<li><strong>Modularity</strong>: Separates concerns between CLI logic and inference.</li>
+</ul>
+<hr />
+<h4 id="visual-dependency-flow"><a class="doc-anchor" href="#visual-dependency-flow">§</a><strong>Visual Dependency Flow</strong></h4><div class="example-wrap"><pre class="language-text"><code>build/bin/llama-cli
+│
+├── tools/cli/cli.cpp (entry point)
+│   ├── server_context ctx_server;      ← Direct dependency on server-context
+│   ├── Uses ctx_server.load_model()   ← Calls core inference logic
+│   └── Uses ctx_server.get_llama_context() ← Manages LLM context
+│
+└── server-context.cpp (shared logic)
+    ├── llama_init/llama_context       ← Core LLM API (via libllama.0.dylib)
+    └── ggml backend (via libggml)     ← Optimized computation</code></pre></div>
+<hr />
+<h4 id="key-implications"><a class="doc-anchor" href="#key-implications">§</a><strong>Key Implications</strong></h4>
+<ul>
+<li><strong>If you modify <code>server-context</code></strong>, the changes will reflect in <code>llama-cli</code>.</li>
+<li><strong>No direct CLI-server coupling</strong>: The <code>server-context</code> abstraction isolates the CLI from core logic.</li>
+<li><strong>Consistent API</strong>: Ensures <code>cli</code> and <code>server</code> use the same model initialization.</li>
+</ul>
+<hr />
+<h4 id="next-steps"><a class="doc-anchor" href="#next-steps">§</a><strong>Next Steps</strong></h4>
+<p>If you need to <strong>create a tool</strong> using <code>llama-cli</code> as a reference:</p>
+<ol>
+<li><strong>Copy <code>cli.cpp</code></strong> and adapt it to your needs.</li>
+<li><strong>Link <code>server-context</code></strong> in your <code>CMakeLists.txt</code>.</li>
+<li><strong>Use <code>server_context</code></strong> for model handling (e.g., <code>load_model</code>, <code>start_loop</code>).</li>
+</ol>
+<p>This setup is intentional for <strong>code reuse</strong> across tools. If you need a standalone CLI without this dependency, consider <strong>forking and simplifying</strong> the <code>server-context</code> logic.</p>
+<div class="example-wrap"><pre class="language-makefile"><code>ROOT = ggml-org/llama.cpp
+
+trace:
+	find $(ROOT) -type f -name &quot;*.cpp&quot; -exec grep -l &quot;main&quot; {} \; | grep cli &gt; /tmp/llama-cli-trace-step-1.log
+	grep -n -A 5 &quot;int main&quot; $(ROOT)/tools/cli/cli.cpp &gt; /tmp/llama-cli-trace-step-2.log
+	grep -n &quot;^#include&quot; $(ROOT)/tools/cli/cli.cpp &gt; /tmp/llama-cli-trace-step-3.log
+	otool -L $(ROOT)/build/bin/llama-cli &gt; /tmp/llama-cli-trace-step-4.log
+	cat $(ROOT)/tools/cli/CMakeLists.txt | grep -A 5 &quot;target_link_libraries&quot; &gt; /tmp/llama-cli-trace-step-5.log
+	find $(ROOT)/build -name &quot;*context*.a&quot; -o -name &quot;*common*.a&quot; &gt; /tmp/llama-cli-trace-step-6.log
+	ls -l $(ROOT)/build/tools/server/ &gt; /tmp/llama-cli-trace-step-7.log
+	find $(ROOT)/build/tools/server -name &quot;*.h*&quot; &gt; /tmp/llama-cli-trace-step-8.log
+	find $(ROOT)/build -path &quot;*/server/*&quot; -name &quot;*.h*&quot; &gt; /tmp/llama-cli-trace-step-9.log
+	find $(ROOT)/tools/server -type f -name &quot;*.cpp&quot; -o -name &quot;*.h*&quot; | sort &gt; /tmp/llama-cli-trace-step-10.log
+	grep -n server-context $(ROOT)/tools/cli/cli.cpp &gt; /tmp/llama-cli-trace-step-11.log
+	grep -n server_context $(ROOT)/tools/cli/cli.cpp &gt; /tmp/llama-cli-trace-step-12.log
+	grep -n -A 5 &quot;server_context ctx_server&quot; $(ROOT)/tools/cli/cli.cpp &gt; /tmp/llama-cli-trace-step-13.log
+	grep -n -A 10 -B 5 &quot;ctx_server&quot; $(ROOT)/tools/cli/cli.cpp &gt; /tmp/llama-cli-trace-step-14.log
+	cat -n $(ROOT)/tools/server/server-context.h &gt; /tmp/llama-cli-trace-step-15.log
+	grep -n &quot;load_model&quot; $(ROOT)/tools/server/server-context.cpp &gt; /tmp/llama-cli-trace-step-16.log
+	grep -A 20 &quot;bool server_context::load_model&quot; $(ROOT)/tools/server/server-context.cpp &gt; /tmp/llama-cli-trace-step-17.log
+	grep -n -A 15 &quot;impl-&gt;load_model&quot; $(ROOT)/tools/server/server-context.cpp &gt; /tmp/llama-cli-trace-step-18.log
+	grep -n -B 5 &quot;load_model.*const.*params&quot; $(ROOT)/tools/server/server-context.cpp &gt; /tmp/llama-cli-trace-step-19.log
+	grep -n &quot;impl.*load_model.*&quot; $(ROOT)/tools/server/server-context.cpp &gt; /tmp/llama-cli-trace-step-20.log
+	grep -n -B 10 -A 40 &quot;impl-&gt;load_model.*params&quot; $(ROOT)/tools/server/server-context.cpp  &gt; /tmp/llama-cli-trace-step-21.log
+	cat $(ROOT)/tools/server/server-context.cpp | grep -n &quot;load_model&quot; | grep -A 2 -B 2 &quot;{&quot; &gt; /tmp/llama-cli-trace-step-22.log
+	sed -n &#39;612,830p&#39; $(ROOT)/tools/server/server-context.cpp &gt; /tmp/llama-cli-trace-step-23.log</code></pre></div></div></details></section></div></main></body></html>

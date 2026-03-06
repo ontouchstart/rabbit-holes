@@ -1,3 +1,7 @@
+RUSTDOC = rustdoc --edition 2024 -o ../docs
+docs:
+	$(RUSTDOC) llama-cpp-rabbit-hole.rs
+
 build:	ggml-org/llama.cpp/build/bin
 	ls ./ggml-org/llama.cpp/build/bin
 
