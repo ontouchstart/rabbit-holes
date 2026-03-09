@@ -1,3 +1,4 @@
 all:
-	# https://cmake.org/cmake/help/latest/generator/Unix%20Makefiles.html
-	#
+	cmake -G "Unix Makefiles" -B build
+	find build | cat -n 
+	cat -n build/Makefile
