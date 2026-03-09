@@ -1,0 +1,88 @@
+\begin{verbatim}
+     1	#include <stdio.h>
+     2	#include <string.h>
+     3	#include <stdlib.h>
+     4	
+     5	// Helper function to trace a single cycle
+     6	void trace(int m, const char *start_str, int cycle_type, int total_states) {
+     7	    int i, j, k, t, s;
+     8	    char *d;
+     9	    char label[10];
+    10	    char *move_char = "";
+    11	
+    12	    // Determine label
+    13	    if (cycle_type == 0) strcpy(label, "c=0");
+    14	    else if (cycle_type == 1) strcpy(label, "c=1");
+    15	    else if (cycle_type == 2) strcpy(label, "c=2");
+    16	    else strcpy(label, "c=?");
+    17	
+    18	    // Determine which character of 'd' we read
+    19	    if (cycle_type == 0) move_char = "d[0]";
+    20	    else if (cycle_type == 1) move_char = "d[1]";
+    21	    else if (cycle_type == 2) move_char = "d[2]";
+    22	
+    23	    printf("\\paragraph{m=%d, %s (Starting: %s)}\n\n\n", m, label, start_str);
+    24	    
+    25	    i = start_str[0] - '0';
+    26	    j = start_str[1] - '0';
+    27	    k = start_str[2] - '0';
+    28	
+    29	    for (t = 0; t < total_states; t++) {
+    30	        printf("%d%d%d", i, j, k);
+    31	        
+    32	        s = (i + j + k) % m;
+    33	        
+    34	        // --- Logic Selection ---
+    35	        if (s == 0) {
+    36	            if (j == m - 1) d = "012"; else d = "210";
+    37	        } else if (s == m - 1) {
+    38	            if (i > 0) d = "120"; else d = "210";
+    39	        } else {
+    40	            if (i == m - 1) d = "201"; else d = "102";
+    41	        }
+    42	        
+    43	        // --- Execution ---
+    44	        if (cycle_type == 0) { // Read d[0]
+    45	            if (d[0] == '0') i = (i + 1) % m;
+    46	            else if (d[0] == '1') j = (j + 1) % m;
+    47	            else if (d[0] == '2') k = (k + 1) % m;
+    48	        } else if (cycle_type == 1) { // Read d[1]
+    49	            if (d[1] == '0') i = (i + 1) % m;
+    50	            else if (d[1] == '1') j = (j + 1) % m;
+    51	            else if (d[1] == '2') k = (k + 1) % m;
+    52	        } else if (cycle_type == 2) { // Read d[2]
+    53	            if (d[2] == '0') i = (i + 1) % m;
+    54	            else if (d[2] == '1') j = (j + 1) % m;
+    55	            else if (d[2] == '2') k = (k + 1) % m;
+    56	        }
+    57	        
+    58	        if (t < total_states - 1) printf(" $\\rightarrow$ ");
+    59	    }
+    60	    printf(" $\\rightarrow$ %s ", start_str);
+    61	    
+    62	    printf("[Full Hamiltonian Cycle (%d steps)]\n\n", total_states);
+    63	}
+    64	
+    65	int main() {
+    66	    // Define n values: 1, 2, 3
+    67	    int n_values[] = {1, 2, 3, 4, 5};
+    68	    int num_tests = 5;
+    69	
+    70	    for (int idx = 0; idx < num_tests; idx++) {
+    71	        int n = n_values[idx];
+    72	        int m = 2 * n + 1; // Calculate m dynamically
+    73	        int total = m * m * m;
+    74	        char start_state[4] = "000";
+    75	
+    76	        printf("\\paragraph{ m = %d (Total States: %d)}\n\n\n", m, total);
+    77	        
+    78	        // Run c=0, c=1, c=2
+    79	        for (int c = 0; c <= 2; c++) {
+    80	            trace(m, start_state, c, total);
+    81	        }
+    82	    }
+    83	
+    84	    return 0;
+    85	}
+    86	
+\end{verbatim}

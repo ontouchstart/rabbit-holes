@@ -1,0 +1,90 @@
+\begin{verbatim}
+     1	fn trace(m: usize, start: &str, cycle_type: usize, total: usize) {
+     2	    let label = match cycle_type {
+     3	        0 => "c=0",
+     4	        1 => "c=1",
+     5	        2 => "c=2",
+     6	        _ => "c=?",
+     7	    };
+     8	
+     9	    // Escape LaTeX braces {{ }} so Rust doesn't treat them as format arguments
+    10	    println!("\\paragraph{{ m={}, {} (Starting: {})}}\n\n\n", m, label, start);
+    11	
+    12	    // Must be 'mut' because we modify them inside the loop
+    13	    let mut i = start.chars().nth(0).unwrap() as u32 - '0' as u32;
+    14	    let mut j = start.chars().nth(1).unwrap() as u32 - '0' as u32;
+    15	    let mut k = start.chars().nth(2).unwrap() as u32 - '0' as u32;
+    16	
+    17	    for step in 0..total {
+    18	        print!("{}{}{}", i, j, k);
+    19	
+    20	        let m_u32 = m as u32;
+    21	        let s = (i + j + k) % m_u32;
+    22	
+    23	        let d = if s == 0 {
+    24	            if j == m_u32 - 1 {
+    25	                "012"
+    26	            } else {
+    27	                "210"
+    28	            }
+    29	        } else if s == m_u32 - 1 {
+    30	            if i > 0 {
+    31	                "120"
+    32	            } else {
+    33	                "210"
+    34	            }
+    35	        } else {
+    36	            if i == m_u32 - 1 {
+    37	                "201"
+    38	            } else {
+    39	                "102"
+    40	            }
+    41	        };
+    42	
+    43	        let d_char = match cycle_type {
+    44	            0 => d.chars().next().unwrap(),
+    45	            1 => d.chars().nth(1).unwrap(),
+    46	            2 => d.chars().nth(2).unwrap(),
+    47	            _ => panic!("Invalid cycle_type"),
+    48	        };
+    49	
+    50	        match d_char {
+    51	            '0' => i += 1,
+    52	            '1' => j += 1,
+    53	            '2' => k += 1,
+    54	            _ => panic!("Invalid character"),
+    55	        }
+    56	
+    57	        // Wrap around logic
+    58	        if i >= m_u32 {
+    59	            i = 0;
+    60	        }
+    61	        if j >= m_u32 {
+    62	            j = 0;
+    63	        }
+    64	        if k >= m_u32 {
+    65	            k = 0;
+    66	        }
+    67	
+    68	        if step < total - 1 {
+    69	            print!(" $\\rightarrow$ ");
+    70	        }
+    71	    }
+    72	    println!(" $\\rightarrow$ {} ", start);
+    73	    println!("[Full Hamiltonian Cycle ({} steps)]\n\n", total);
+    74	}
+    75	
+    76	fn main() {
+    77	    for n in [1, 2, 3, 4, 5] {
+    78	        let m = 2 * n + 1;
+    79	        let total = m * m * m;
+    80	        let start = "000";
+    81	
+    82	        println!("\\paragraph{{m = {} (Total States: {})}}\n\n\n", m, total);
+    83	
+    84	        for c in 0..=2 {
+    85	            trace(m, start, c, total);
+    86	        }
+    87	    }
+    88	}
+\end{verbatim}
