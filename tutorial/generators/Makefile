@@ -7,4 +7,7 @@ all:
 	# In https://github.com/ontouchstart/rabbit-holes/actions/workflows/windows-2025.yml?query=branch%3Acmake
 	# The default generator will be
 	# * Visual Studio 17 2022        = Generates Visual Studio 2022 project files.
+	# 
+	# We will focus on UNIX Makefile generator in CI because we do not need and IDE support
+	make -C UNIX
 
