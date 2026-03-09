@@ -1,0 +1,33 @@
+% configuration.tex
+\section{Build System Configuration}
+
+\subsection{CMakeLists.txt Structure}
+While the logs primarily show the execution output, the build system is driven by CMakeLists.txt files in each directory. Based on the tutorial steps and compiler detection, the configuration corresponds to the following logic:
+
+\begin{lstlisting}[language=make, caption=Standard CMakeLists.txt Structure]
+cmake_minimum_required(VERSION 3.31)
+project(tutorial)
+
+# Add Executable
+add_executable(main src/main.cc)
+
+# Add Library
+add_library(answer lib/answer.cc)
+
+# Target Link Libraries
+target_link_libraries(main answer)
+\end{lstlisting}
+
+\subsection{Generated Makefile}
+The generated Makefile confirms proper CMake configuration and path handling.
+
+\begin{lstlisting}[breaklines=true, caption=Generated Makefile Structure]
+default_target: all
+.PHONY : default_target
+
+CMAKE_COMMAND = "C:/Program Files/CMake/bin/cmake.exe"
+CMAKE_SOURCE_DIR = D:/a/tutorial/generators/UNIX
+CMAKE_BINARY_DIR = D:/a/tutorial/generators/UNIX/build
+SHELL = /bin/sh
+\end{lstlisting}
+

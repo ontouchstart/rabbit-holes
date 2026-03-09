@@ -1,0 +1,27 @@
+% hierarchy.tex
+\section{File System Hierarchy}
+The tutorial is organized in a hierarchical structure based on the directories referenced in the build logs:
+
+\begin{verbatim}
+tutorial/
+  generators/
+    UNIX/
+      add_excutable/
+        src/
+          main.cc
+      add_library/
+        include/
+          42.h
+          answer.h
+        lib/
+          answer.cc
+      target_link_libraries/
+        include/
+          42.h
+          answer.h
+        lib/
+          answer.cc
+        src/
+          main.cc
+\end{verbatim}
+

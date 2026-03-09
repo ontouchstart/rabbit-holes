@@ -1,0 +1,11 @@
+% introduction.tex
+\section{Introduction}
+This CI pipeline treats the CMake Tutorial not as documentation, but as a set of unit tests for the build system itself. By recursively calling \texttt{make} on isolated tutorial modules, the workflow transforms documentation into a comprehensive verification suite that confirms:
+
+\begin{itemize}
+    \item CMake can generate Unix Makefiles on Windows
+    \item The MinGW64 toolchain (GCC 15.2.0) functions correctly
+    \item Static library generation and linking work properly
+    \item Error handling (non-zero exit codes) is managed correctly
+\end{itemize}
+
