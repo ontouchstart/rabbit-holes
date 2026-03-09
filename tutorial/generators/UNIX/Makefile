@@ -9,3 +9,4 @@ all:
 	cat -n build/Makefile
 	make -C add_excutable
 	make -C add_library
+	make -C target_link_libraries
