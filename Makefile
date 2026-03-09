@@ -1,6 +1,6 @@
 all:
 	# versions
-	cmake --version
 	make --version
-	# intro
-	make -C intro 
+	cmake --version
+	# tutorial
+	make -C tutorial

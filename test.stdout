@@ -1,8 +1,0 @@
-Running tests...
-Test project /Users/sam/github/ontouchstart/rabbit-holes/build
-    Start 1: HelloTest
-1/1 Test #1: HelloTest ........................   Passed    0.17 sec
-
-100% tests passed, 0 tests failed out of 1
-
-Total Test time (real) =   0.17 sec
