@@ -1,0 +1,15 @@
+\begin{verbatim}
+     1	all:
+     2		# https://cmake.org/cmake/help/latest/generator/Unix%20Makefiles.html
+     3		# https://cmake.org/cmake/help/latest/command/cmake_minimum_required.html
+     4		# We set it to 3.31, which is the lowest on in all three CI environments
+     5		# https://cmake.org/cmake/help/latest/command/project.html
+     6		cmake --version
+     7		cat -n CMakeLists.txt
+     8		cmake -G "Unix Makefiles" -B build
+     9		find build | cat -n 
+    10		cat -n build/Makefile
+    11		make -C add_excutable
+    12		make -C add_library
+    13		make -C target_link_libraries
+\end{verbatim}

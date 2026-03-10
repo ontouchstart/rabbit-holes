@@ -1,0 +1,17 @@
+\begin{verbatim}
+     1	all:
+     2		# CMake is a configuration program, sometimes called a "meta" build system. 
+     3		# As with other configuration systems, CMake is not ultimately responsible for running the 
+     4		# commands which produce the software build. 
+     5		# Instead, CMake generates a build system based on project, environment, and user-provided 
+     6		# configuration information.
+     7		# https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html
+     8		cmake -h -G
+     9		# In https://github.com/ontouchstart/rabbit-holes/actions/workflows/windows-2025.yml?query=branch%3Acmake
+    10		# The default generator will be
+    11		# * Visual Studio 17 2022        = Generates Visual Studio 2022 project files.
+    12		# 
+    13		# We will focus on UNIX Makefile generator in CI because we do not need and IDE support
+    14		make -C UNIX
+    15	
+\end{verbatim}

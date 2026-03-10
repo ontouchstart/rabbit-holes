@@ -1,0 +1,24 @@
+\begin{verbatim}
+     1	all:
+     2		# https://cmake.org/cmake/help/latest/command/cmake_minimum_required.html
+     3		# We set it to 3.31, which is the lowest on in all three CI environments
+     4		# https://cmake.org/cmake/help/latest/command/project.html
+     5		# https://cmake.org/cmake/help/latest/command/add_excutable.html
+     6		# https://cmake.org/cmake/help/latest/command/add_library.html
+     7		# https://cmake.org/cmake/help/latest/command/target_link_libraries.html
+     8		cmake --version
+     9		cat -n CMakeLists.txt
+    10		rm -rf build
+    11		cat -n include/42.h
+    12		cat -n include/answer.h
+    13		cat -n lib/answer.cc
+    14		cat -n src/main.cc
+    15		cmake -G "Unix Makefiles" -B build
+    16		find build | cat -n 
+    17		cat -n build/Makefile
+    18		make -C build
+    19		find build | cat -n 
+    20		# The will return
+    21		# make: [all] Error 42 (ignored)
+    22		-./build/main
+\end{verbatim}
