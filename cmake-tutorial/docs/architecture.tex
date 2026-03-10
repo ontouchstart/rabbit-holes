@@ -1,0 +1,13 @@
+% architecture.tex
+\section{Workflow Architecture: Recursive Make}
+The core mechanism of this CI pipeline is the recursive invocation of \texttt{make}. The top-level script runs \texttt{make -C tutorial}, which in turn invokes \texttt{make -C [submodule]}. This architecture allows the CI to isolate and verify specific CMake features without polluting the global build state.
+
+\subsection{The Execution Tree}
+The log reveals a four-level nesting structure:
+\begin{enumerate}
+    \item \textbf{Level 1:} \texttt{make} (Top-level entry)
+    \item \textbf{Level 2:} \texttt{make -C tutorial}
+    \item \textbf{Level 3:} \texttt{make -C generators}
+    \item \textbf{Level 4:} \texttt{make -C [UNIX, add\_excutable, add\_library, target\_link\_libraries]}
+\end{enumerate}
+

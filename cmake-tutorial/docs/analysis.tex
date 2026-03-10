@@ -1,0 +1,28 @@
+% analysis.tex
+\section{Build System Analysis}
+
+\subsection{Unix Makefiles on Windows}
+A critical aspect of this workflow is the explicit selection of the \textbf{Unix Makefiles} generator on a \textbf{Windows} OS:
+
+\begin{lstlisting}
+cmake -G "Unix Makefiles" -B build
+...
+SHELL = /bin/sh
+\end{lstlisting}
+
+This verifies that the MinGW environment correctly supports Unix-style scripts and path handling (forward slashes) within a native Windows context.
+
+\begin{lstlisting}
+find build | cat -n 
+      1	build
+      2	build/CMakeCache.txt
+      3	build/CMakeFiles
+      4	build/CMakeFiles/3.31.6
+      5	build/CMakeFiles/3.31.6/CMakeCCompiler.cmake
+      6	build/CMakeFiles/3.31.6/CMakeCXXCompiler.cmake
+      7	build/CMakeFiles/3.31.6/CMakeDetermineCompilerABI_C.bin
+      8	build/CMakeFiles/3.31.6/CMakeDetermineCompilerABI_CXX.bin
+      9	build/CMakeFiles/3.31.6/CMakeRCCompiler.cmake
+     10	build/CMakeFiles/3.31.6/CMakeSystem.cmake
+\end{lstlisting}
+
