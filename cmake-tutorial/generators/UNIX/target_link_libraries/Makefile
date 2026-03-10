@@ -6,6 +6,7 @@ all:
 	# https://cmake.org/cmake/help/latest/command/add_library.html
 	# https://cmake.org/cmake/help/latest/command/target_link_libraries.html
 	cmake --version
+	cat -n CMakeLists.txt
 	rm -rf build
 	cat -n include/42.h
 	cat -n include/answer.h
