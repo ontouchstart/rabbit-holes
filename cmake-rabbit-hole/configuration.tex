@@ -2,32 +2,51 @@
 \section{Build System Configuration}
 
 \subsection{CMakeLists.txt Structure}
-While the logs primarily show the execution output, the build system is driven by CMakeLists.txt files in each directory. Based on the tutorial steps and compiler detection, the configuration corresponds to the following logic:
+Based on the logs provided for the {\tt add\_executable}, {\tt add\_library}, and {\tt target\_link\_libraries} modules, the build system utilizes modern CMake syntax (specifically {\tt target\_sources}). The configuration corresponds to the following logic:
 
-\begin{lstlisting}[language=make, caption=Standard CMakeLists.txt Structure]
+\begin{lstlisting}[language=make, caption=Modern CMakeLists.txt Structure]
 cmake_minimum_required(VERSION 3.31)
 project(tutorial)
 
-# Add Executable
-add_executable(main src/main.cc)
+Add Executable
+add_executable(main)
 
-# Add Library
-add_library(answer lib/answer.cc)
+Add Library
+add_library(answer)
 
-# Target Link Libraries
+Target Link Libraries
 target_link_libraries(main answer)
 \end{lstlisting}
 
-\subsection{Generated Makefile}
-The generated Makefile confirms proper CMake configuration and path handling.
+\begin{lstlisting}[language=make, caption=Source Assignment via target\_sources]
 
-\begin{lstlisting}[breaklines=true, caption=Generated Makefile Structure]
+Assigning sources to targets (as seen in logs)
+target_sources(main
+PRIVATE
+src/main.cc
+)
+
+target_sources(answer
+PRIVATE
+lib/answer.cc
+PUBLIC
+FILE_SET HEADERS
+BASE_DIRS
+include
+FILES
+include/answer.h
+)
+\end{lstlisting}
+
+\subsection{Generated Makefile}
+The generated Makefile confirms proper CMake configuration and path handling on the Windows Server environment.
+
+\begin{lstlisting}[breaklines=true, language=make, caption=Generated Makefile Structure]
 default_target: all
 .PHONY : default_target
 
 CMAKE_COMMAND = "C:/Program Files/CMake/bin/cmake.exe"
-CMAKE_SOURCE_DIR = D:/a/tutorial/generators/UNIX
-CMAKE_BINARY_DIR = D:/a/tutorial/generators/UNIX/build
+CMAKE_SOURCE_DIR = D:/a/rabbit-holes/rabbit-holes/cmake-tutorial/generators/UNIX
+CMAKE_BINARY_DIR = D:/a/rabbit-holes/rabbit-holes/cmake-tutorial/generators/UNIX/build
 SHELL = /bin/sh
 \end{lstlisting}
-
