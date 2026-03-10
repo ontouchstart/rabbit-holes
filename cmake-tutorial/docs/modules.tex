@@ -4,36 +4,36 @@
 \subsection{Add Executable Module}
 This module demonstrates a simple executable returning an exit code.
 
-\begin{lstlisting}[style=cppstyle, caption=src/main.cc]
+\begin{verbatim}
 int main () { return 42; }
-\end{lstlisting}
+\end{verbatim}
 
 \subsection{Add Library Module}
 This module demonstrates static library creation.
 
-\begin{lstlisting}[style=cppstyle, caption=include/42.h]
+\begin{verbatim}
 #ifndef ANSWER
 #define ANSWER 42
 #endif
-\end{lstlisting}
+\end{verbatim}
 
-\begin{lstlisting}[style=cppstyle, caption=include/answer.h]
+\begin{verbatim}
 #ifndef ANSWER_H
 int answer();
 #endif
-\end{lstlisting}
+\end{verbatim}
 
-\begin{lstlisting}[style=cppstyle, caption=lib/answer.cc]
+\begin{verbatim}
 #include "answer.h"
 #include "42.h"
 int answer () { return ANSWER; }
-\end{lstlisting}
+\end{verbatim}
 
 \subsection{Target Link Libraries Module}
 This module demonstrates linking an executable against a static library.
 
-\begin{lstlisting}[style=cppstyle, caption=src/main.cc (modified)]
+\begin{verbatim}
 #include "answer.h"
 int main () { return answer(); }
-\end{lstlisting}
+\end{verbatim}
 

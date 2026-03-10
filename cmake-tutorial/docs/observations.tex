@@ -4,18 +4,18 @@
 \subsection{Exit Code 42}
 The workflow explicitly handles non-zero exit codes. In the \texttt{add\_excutable} module, the program \texttt{main} is configured to return \texttt{42}:
 
-\begin{lstlisting}
+\begin{verbatim}
 # The will return
 # make: [all] Error 42 (ignored)
 ./build/main
-\end{lstlisting}
+\end{verbatim}
 
 This demonstrates that the CI pipeline is robust enough to treat this specific exit code as a successful validation of error-handling logic rather than a build failure.
 
 \subsection{CMake Configuration Log}
 The CMake configuration output shows successful compiler detection:
 
-\begin{lstlisting}[breaklines=true]
+\begin{verbatim}
 -- The C compiler identification is GNU 15.2.0
 -- The CXX compiler identification is GNU 15.2.0
 -- Detecting C compiler ABI info
@@ -25,5 +25,5 @@ The CMake configuration output shows successful compiler detection:
 -- Configuring done (8.7s)
 -- Generating done (0.0s)
 -- Build files have been written to: ...
-\end{lstlisting}
+\end{verbatim}
 

@@ -4,7 +4,7 @@
 \subsection{CMakeLists.txt Structure}
 Based on the logs provided for the {\tt add\_executable}, {\tt add\_library}, and {\tt target\_link\_libraries} modules, the build system utilizes modern CMake syntax (specifically {\tt target\_sources}). The configuration corresponds to the following logic:
 
-\begin{lstlisting}[language=make, caption=Modern CMakeLists.txt Structure]
+\begin{verbatim}
 cmake_minimum_required(VERSION 3.31)
 project(tutorial)
 
@@ -16,9 +16,9 @@ add_library(answer)
 
 Target Link Libraries
 target_link_libraries(main answer)
-\end{lstlisting}
+\end{verbatim}
 
-\begin{lstlisting}[language=make, caption=Source Assignment via target\_sources]
+\begin{verbatim}
 
 Assigning sources to targets (as seen in logs)
 target_sources(main
@@ -36,12 +36,12 @@ include
 FILES
 include/answer.h
 )
-\end{lstlisting}
+\end{verbatim}
 
 \subsection{Generated Makefile}
 The generated Makefile confirms proper CMake configuration and path handling on the Windows Server environment.
 
-\begin{lstlisting}[breaklines=true, language=make, caption=Generated Makefile Structure]
+\begin{verbatim}
 default_target: all
 .PHONY : default_target
 
@@ -49,4 +49,4 @@ CMAKE_COMMAND = "C:/Program Files/CMake/bin/cmake.exe"
 CMAKE_SOURCE_DIR = D:/a/rabbit-holes/rabbit-holes/cmake-tutorial/generators/UNIX
 CMAKE_BINARY_DIR = D:/a/rabbit-holes/rabbit-holes/cmake-tutorial/generators/UNIX/build
 SHELL = /bin/sh
-\end{lstlisting}
+\end{verbatim}
