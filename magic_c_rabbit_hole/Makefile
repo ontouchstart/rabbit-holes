@@ -3,3 +3,4 @@ all:
 	ar rcs libmagic.a magic.o
 	rustc magic.rs -L . -l magic
 	-./magic
+	rm *.o *.a ./magic
