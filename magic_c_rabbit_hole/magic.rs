@@ -4,7 +4,6 @@ extern "C" {
 
 fn main() {
     // Call the C function
-    let answer = unsafe { magic_answer() };
-
-    println!("The answer is: {}", answer);
+    let status = unsafe { magic_answer() };
+    std::process::exit(status); // Exit with the returned value (42)
 }
