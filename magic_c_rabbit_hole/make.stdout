@@ -1,0 +1,45 @@
+rustfmt magic.rs
+cat -n Makefile
+     1	RUSTDOC = rustdoc --edition 2024 -o ../docs
+     2	all:
+     3		rustfmt magic.rs
+     4		cat -n Makefile
+     5		cat -n magic.rs
+     6		cat -n magic.h
+     7		cat -n magic.c
+     8		gcc -c magic.c -o magic.o
+     9		ar rcs libmagic.a magic.o
+    10		rustc magic.rs -L . -l magic
+    11		-./magic
+    12		rm -rf *.o *.a ./magic
+    13		$(RUSTDOC) magic_c_rabbit_hole.rs
+cat -n magic.rs
+     1	extern "C" {
+     2	    pub fn magic_answer() -> i32;
+     3	}
+     4	
+     5	fn main() {
+     6	    unsafe {
+     7	        std::process::exit(magic_answer());
+     8	    }
+     9	}
+cat -n magic.h
+     1	#ifndef MAGIC_H
+     2	#define MAGIC_H
+     3	
+     4	int magic_answer();
+     5	
+     6	#endif // MAGIC_H
+cat -n magic.c
+     1	#include "magic.h"
+     2	
+     3	int magic_answer() {
+     4	    return 42;
+     5	}
+     6	
+gcc -c magic.c -o magic.o
+ar rcs libmagic.a magic.o
+rustc magic.rs -L . -l magic
+./magic
+rm -rf *.o *.a ./magic
+rustdoc --edition 2024 -o ../docs magic_c_rabbit_hole.rs

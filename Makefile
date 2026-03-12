@@ -3,7 +3,6 @@ all:
 	make -C missing
 	make -C man
 	make -C playground
-	make -C ggml-gpt-oss-20b-GGUF
-	make -C ggml-gpt-oss-20b-GGUF-single-turn
 	make -C tex-rabbit-hole
 	make -C llm-rabbit-hole
+	make -C magic_c_rabbit_hole

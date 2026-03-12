@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="`make 1&#62; make.stdout 2&#62; make.stderr`"><title>magic_c_rabbit_hole - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-77263533.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="magic_c_rabbit_hole" data-themes="" data-resource-suffix="" data-rustdoc-version="1.94.0 (4a4ef493e 2026-03-02)" data-channel="1.94.0" data-search-js="search-9e2438ea.js" data-stringdex-js="stringdex-b897f86f.js" data-settings-js="settings-c38705f0.js" ><script src="../static.files/storage-e2aeef58.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-7bab91a1.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-ffcac47a.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate magic_c_rabbit_hole</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../magic_c_rabbit_hole/index.html">magic_<wbr>c_<wbr>rabbit_<wbr>hole</a></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content"><div class="main-heading"><h1>Crate <span>magic_<wbr>c_<wbr>rabbit_<wbr>hole</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/magic_c_rabbit_hole/magic_c_rabbit_hole.rs.html#1-11">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p><code>make 1&gt; make.stdout 2&gt; make.stderr</code></p>
+<p><code>make.stdout</code></p>
+<div class="example-wrap"><pre class="language-log"><code>rustfmt magic.rs
+cat -n Makefile
+     1	RUSTDOC = rustdoc --edition 2024 -o ../docs
+     2	all:
+     3		rustfmt magic.rs
+     4		cat -n Makefile
+     5		cat -n magic.rs
+     6		cat -n magic.h
+     7		cat -n magic.c
+     8		gcc -c magic.c -o magic.o
+     9		ar rcs libmagic.a magic.o
+    10		rustc magic.rs -L . -l magic
+    11		-./magic
+    12		rm -rf *.o *.a ./magic
+    13		$(RUSTDOC) magic_c_rabbit_hole.rs
+cat -n magic.rs
+     1	extern &quot;C&quot; {
+     2	    pub fn magic_answer() -&gt; i32;
+     3	}
+     4	
+     5	fn main() {
+     6	    unsafe {
+     7	        std::process::exit(magic_answer());
+     8	    }
+     9	}
+cat -n magic.h
+     1	#ifndef MAGIC_H
+     2	#define MAGIC_H
+     3	
+     4	int magic_answer();
+     5	
+     6	#endif // MAGIC_H
+cat -n magic.c
+     1	#include &quot;magic.h&quot;
+     2	
+     3	int magic_answer() {
+     4	    return 42;
+     5	}
+     6	
+gcc -c magic.c -o magic.o
+ar rcs libmagic.a magic.o
+rustc magic.rs -L . -l magic
+./magic
+rm -rf *.o *.a ./magic
+rustdoc --edition 2024 -o ../docs magic_c_rabbit_hole.rs</code></pre></div>
+<p><code>make.stderr</code></p>
+<div class="example-wrap"><pre class="language-log"><code>make: [all] Error 42 (ignored)</code></pre></div></div></details></section></div></main></body></html>
