@@ -4,6 +4,6 @@ extern "C" {
 
 fn main() {
     unsafe {
-        std::process::exit(magic_answer()); // Exit with the returned value (42)
+        std::process::exit(magic_answer());
     }
 }
