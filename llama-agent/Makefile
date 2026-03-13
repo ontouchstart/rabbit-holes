@@ -7,5 +7,8 @@ build:	./llama-agent/build/bin
 ./llama-agent:
 	git clone https://github.com/gary149/llama-agent.git
 
+ci-test: build
+	-./llama-agent/ci/run.sh /tmp/llama-agent-ci/results /tmp/llama-agent-ci/mnt
+
 clean:
 	rm -rf ./llama-agent
