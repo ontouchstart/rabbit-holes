@@ -1,3 +1,5 @@
+all:	./pi-mono
+
 ./pi-mono:
 	git clone https://github.com/badlogic/pi-mono.git
 
