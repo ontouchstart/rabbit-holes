@@ -13,4 +13,15 @@ clean:
 	rm -rf node_modules package-lock.json package.json pi-mono
 
 agent:	package.json
+	mkdir -p ~/.pi/agent
+	cp models.json ~/.pi/agent
+	cp settings.json ~/.pi/agent
 	./node_modules/@mariozechner/pi-coding-agent/dist/cli.js --help
+
+server:
+	make -C ../llama-cpp/models/ggml-org/gpt-oss-20b-GGUF server
+
+# run maker server if it is not running
+pi:	agent
+	./node_modules/@mariozechner/pi-coding-agent/dist/cli.js 
+
