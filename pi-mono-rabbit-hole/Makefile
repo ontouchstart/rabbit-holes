@@ -18,10 +18,3 @@ agent:	package.json
 	cp settings.json ~/.pi/agent
 	./node_modules/@mariozechner/pi-coding-agent/dist/cli.js --help
 
-server:
-	make -C ../llama-cpp/models/ggml-org/gpt-oss-20b-GGUF server
-
-# run maker server if it is not running
-pi:	agent
-	./node_modules/@mariozechner/pi-coding-agent/dist/cli.js 
-
