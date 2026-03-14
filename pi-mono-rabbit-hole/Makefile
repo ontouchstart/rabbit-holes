@@ -1,7 +1,7 @@
 all:	package.json
 	du -hsc node_modules/* | sort -h
 
-package.json: pi-mono
+package.json:
 	npm init -y
 	npm install  @mariozechner/pi-coding-agent
 	cat -n package.json
