@@ -12,9 +12,11 @@
           "id": "unsloth/gpt-oss-20b-GGUF"
         },
         {
+          "id": "unsloth/Ministral-3-8B-Instruct-2512-GGUF"
+        },
+        {
           "id": "unsloth/Qwen3.5-9B-GGUF"
         }
-
       ]
     }
   }
