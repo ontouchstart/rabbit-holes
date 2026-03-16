@@ -7,7 +7,14 @@
       "models": [
         {
           "id": "ggml-org/gpt-oss-20b-GGUF"
+        },
+        {
+          "id": "unsloth/gpt-oss-20b-GGUF"
+        },
+        {
+          "id": "unsloth/Qwen3.5-9B-GGUF"
         }
+
       ]
     }
   }

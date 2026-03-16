@@ -18,3 +18,8 @@ agent:	package.json
 	cp settings.json ~/.pi/agent
 	./node_modules/@mariozechner/pi-coding-agent/dist/cli.js --help
 
+server:
+	../llama-cpp/ggml-org/llama.cpp/build/bin/llama-server
+
+pi:
+	./node_modules/@mariozechner/pi-coding-agent/dist/cli.js
