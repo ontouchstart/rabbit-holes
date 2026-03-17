@@ -1,4 +1,4 @@
-FROM node:20
+FROM node:25
 
 # Install build dependencies
 RUN apt-get update && apt-get install -y \
