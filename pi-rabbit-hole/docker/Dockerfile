@@ -20,6 +20,7 @@ WORKDIR /app
 RUN git clone https://github.com/badlogic/pi-mono.git
 RUN git clone https://github.com/ggml-org/llama.cpp.git
 RUN git clone https://github.com/unslothai/unsloth.git
+RUN git clone https://github.com/openai/codex.git
 
 RUN cd pi-mono && npm install && npm run build
 
