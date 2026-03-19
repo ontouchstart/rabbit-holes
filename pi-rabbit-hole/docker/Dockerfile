@@ -18,10 +18,9 @@ RUN cargo install uv
 WORKDIR /app
 
 RUN git clone https://github.com/badlogic/pi-mono.git
+RUN git clone https://github.com/ggml-org/llama.cpp.git
+RUN git clone https://github.com/unslothai/unsloth.git
 
-WORKDIR /app/pi-mono
-RUN npm install && npm run build
+RUN cd pi-mono && npm install && npm run build
 
-RUN node packages/coding-agent/dist/cli.js --help
-
-CMD ["node", "packages/coding-agent/dist/cli.js"]
+CMD ["node", "/app/pi-mono/packages/coding-agent/dist/cli.js"]
