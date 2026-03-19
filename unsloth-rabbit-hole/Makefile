@@ -8,7 +8,7 @@ unsloth/.venv: unsloth
 	cd unsloth && uv venv --python 3.13
 
 setup: unsloth/.venv
-	cd unsloth && source .venv/bin/activate && uv pip install unsloth==2026.3.7 --torch-backend=auto && unsloth studio setup
+	cd unsloth && source .venv/bin/activate && uv pip install . --torch-backend=auto && unsloth studio setup
 
 studio:
 	cd unsloth && source .venv/bin/activate &&  unsloth studio -H 0.0.0.0 -p 8000
