@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     libpixman-1-dev \
     pkg-config \
     python3 \
+    tesseract-ocr \
     texlive-full \
     && rm -rf /var/lib/apt/lists/*
 
