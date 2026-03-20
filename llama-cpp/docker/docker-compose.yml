@@ -1,0 +1,11 @@
+services:
+  pi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./models.json:/root/.pi/agent/models.json
+      - ./settings.json:/root/.pi/agent/settings.json
+      - ./sessions:/root/.pi/agent/sessions
