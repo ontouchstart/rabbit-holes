@@ -13,3 +13,5 @@ version: # non-interactive
 bash:	# interactive
 	docker compose run --rm -it node bash
 
+test: # non-interactive
+	docker compose run --rm node bash -c 'make test' 
