@@ -15,3 +15,7 @@ bash:	# interactive
 
 test: # non-interactive
 	docker compose run --rm node bash -c 'make test' 
+
+pw-test: # non-interactive
+	docker compose run --rm node bash -c 'cd /playwright && CI=true /playwright/node_modules/.bin/playwright test --config=tests/library/playwright.config.ts'
+
