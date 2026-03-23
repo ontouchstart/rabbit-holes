@@ -7,3 +7,4 @@ services:
       - "8910:8910"
     volumes:
       - ./home:/home
+      - .pi:/root/.pi
