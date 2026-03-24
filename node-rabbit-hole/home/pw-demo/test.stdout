@@ -1,0 +1,11 @@
+docker compose up
+Attaching to app-1
+app-1  | Waiting for server
+app-1  | Server listening on http://localhost:3000
+app-1  | Server ready
+app-1  | 
+app-1  | Running 1 test using 1 worker
+app-1  | ·
+app-1  |   1 passed (897ms)
+[Kapp-1 exited with code 0
+docker compose down

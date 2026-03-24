@@ -1,23 +1,6 @@
 services:
   app:
     build: .
-    container_name: playwright-app
-    ports:
-      - "3000:3000"
-    environment:
-      NODE_ENV: production
-    command: node dist/server/index.js
-  test:
-    build: .
-    depends_on:
-      - app
     environment:
       NODE_ENV: test
-    command: |
-      sh -c "
-        until curl -s http://app:3000/health; do
-          sleep 1
-        done; \
-        echo 'Server up – running tests'; \
-        npx playwright test --reporter=dot
-      "
+    command: node dist/server/index.js
