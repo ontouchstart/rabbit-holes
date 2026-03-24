@@ -1,0 +1,13 @@
+npm install
+
+up to date, audited 4 packages in 296ms
+
+found 0 vulnerabilities
+node src/server.js & SERVER_PID=$!; echo 'Waiting for server'; until curl -s http://localhost:3000/health; do sleep 1; done; echo 'Server ready'; npx playwright test --reporter=dot; TEST_EXIT=$?; kill $SERVER_PID;
+Waiting for server
+Server listening on http://localhost:3000
+Server ready
+
+Running 1 test using 1 worker
+·
+  1 passed (953ms)
