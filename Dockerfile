@@ -16,6 +16,11 @@ RUN apt-get install -y \
     llvm \
     vim 
 RUN rm -rf /var/lib/apt/lists/*
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable
+
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+RUN cargo install uv
 
 WORKDIR /home
 CMD make
