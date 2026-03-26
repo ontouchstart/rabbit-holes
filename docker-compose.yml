@@ -9,6 +9,17 @@ services:
       - ./home/github:/github
     command: bash
 
+  ggml:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./home/ggml/.pi:/root/.pi
+      - ./home/ggml:/home/ggml
+      - ./home/models:/home/ggml/models
+      - ./home/pi:/home/pi
+    command: bash
+
   pi:
     build:
       context: .

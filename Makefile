@@ -18,6 +18,9 @@ llama-cpp-server:
 pi:
 	docker compose run --rm -it pi
 
+ggml:
+	docker compose run --rm -it ggml
+
 claude:
 	docker compose run --rm -it claude
 
