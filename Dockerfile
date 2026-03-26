@@ -4,12 +4,15 @@ FROM ubuntu:resolute-20260312
 RUN apt-get update 
 RUN apt-get install -y \
     build-essential \
+    ccache \
     cmake \
     curl \
+    gdb \
     git \
     nodejs \
     npm \
     python3 \
+    python3.14-venv \
     pkg-config \
     libcairo2-dev \
     libpixman-1-dev \

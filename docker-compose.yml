@@ -6,6 +6,7 @@ services:
     volumes:
       - ./home:/home
       - ./home/.pi:/root/.pi
+      - ./home/github:/github
     command: bash
 
   pi:
@@ -15,6 +16,7 @@ services:
     volumes:
       - ./home/.pi:/root/.pi
       - ./home/pi:/home
+      - ./home/github:/github
 
   claude:
     build:
@@ -22,3 +24,13 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./home/claude:/home
+      - ./home/github:/github
+
+  codex:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./home/codex:/home
+      - ./home/.codex:/root/.codex
+      - ./home/github:/github

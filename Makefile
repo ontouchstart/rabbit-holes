@@ -21,6 +21,9 @@ pi:
 claude:
 	docker compose run --rm -it claude
 
+codex:
+	docker compose run --rm -it codex bash
+
 publish:
 	rm -f docs/crates.js 	
 	make -C missing
