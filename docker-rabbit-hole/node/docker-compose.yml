@@ -1,8 +1,0 @@
-services:
-  node:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - ./models.json:/root/.pi/agent/models.json
-      - ./settings.json:/root/.pi/agent/settings.json
