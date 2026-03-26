@@ -53,6 +53,6 @@
     /* ------------------------------------------------------------------ */                                              
     return {                                                                                                              
       text: body,                                                                                                         
-      summary: `Fetched ${comments.length} comment(s); last comment (ID ${lastComment.id})`,                              
+      summary: `Fetched ${comments.length} comment(s); last comment (ID ${lastComment.id}) contains ${body.length} characters.`,                              
     };                                                                                                                    
   } 

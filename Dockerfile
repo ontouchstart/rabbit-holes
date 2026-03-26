@@ -9,6 +9,7 @@ RUN apt-get install -y \
     curl \
     gdb \
     git \
+    jq \
     nodejs \
     npm \
     python3 \
