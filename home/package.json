@@ -3,8 +3,8 @@
   "private": true,
   "workspaces": ["packages/*"],
   "scripts": {
-    "build": "npm run --workspace=toolchain build",
-    "start": "npm run --workspace=toolchain start"
+    "build": "npm run --workspace=@my/toolchain build",
+    "start": "npm run --workspace=@my/toolchain start"
   },
   "devDependencies": {
     "typescript": "^5.4.5"

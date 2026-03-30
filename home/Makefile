@@ -9,11 +9,11 @@ all: build
 # Root level npm scripts
 .PHONY: build start
 build:
-	# Run the root level build script which delegates to the toolchain
+	# Run the root level build script which delegates to the @my/toolchain package
 	npm run build
 
 start:
-	# Run the root level start script which delegates to the toolchain
+	# Run the root level start script which delegates to the @my/toolchain package
 	npm run start
 
 # Workspace specific npm scripts
@@ -28,8 +28,8 @@ core-test:
 # Toolchain package
 .PHONY: toolchain-build toolchain-start
 toolchain-build:
-	npm run --workspace=toolchain build
+	npm run --workspace=@my/toolchain build
 
 toolchain-start:
-	npm run --workspace=toolchain start
+	npm run --workspace=@my/toolchain start
 
