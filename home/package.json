@@ -1,0 +1,12 @@
+{
+  "name": "pi-mono-root",
+  "private": true,
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "build": "npm run --workspace=toolchain build",
+    "start": "npm run --workspace=toolchain start"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}
