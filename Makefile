@@ -16,16 +16,10 @@ llama-cpp-server:
 	./llama-cpp/ggml-org/llama.cpp/build/bin/llama-server -hf ggml-org/gpt-oss-20b-GGUF
 
 pi:
-	docker compose run --rm -it pi
+	docker compose run --rm -it pi 
 
 ggml:
 	docker compose run --rm -it ggml
-
-claude:
-	docker compose run --rm -it claude
-
-codex:
-	docker compose run --rm -it codex bash
 
 publish:
 	rm -f docs/crates.js 	

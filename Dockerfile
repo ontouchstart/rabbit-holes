@@ -27,4 +27,4 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 RUN cargo install uv
 
 WORKDIR /home
-CMD make
+CMD bash

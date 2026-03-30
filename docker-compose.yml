@@ -5,43 +5,25 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./home:/home
-      - ./home/.pi:/root/.pi
+      - ./home/github/.pi:/root/.pi
       - ./home/github:/github
-    command: bash
 
   ggml:
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./home/ggml/.pi:/root/.pi
+      - ./home/github/.pi:/root/.pi
       - ./home/ggml:/home/ggml
       - ./home/models:/home/ggml/models
       - ./home/pi:/home/pi
-    command: bash
 
   pi:
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./home/.pi:/root/.pi
+      - ./home/github/.pi:/root/.pi
       - ./home/pi:/home
       - ./home/github:/github
 
-  claude:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - ./home/claude:/home
-      - ./home/github:/github
-
-  codex:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - ./home/codex:/home
-      - ./home/.codex:/root/.codex
-      - ./home/github:/github
