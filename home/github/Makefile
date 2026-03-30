@@ -1,7 +1,7 @@
 all:
-	echo "This Makefile should be run outside of docker container"
 	cat -n Makefile
-.pi:
+
+.pi:	# This should run outside of docker container
 	git clone git@github.com:ontouchstart/.pi.git
 
 codex:
