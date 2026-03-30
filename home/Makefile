@@ -33,13 +33,3 @@ toolchain-build:
 toolchain-start:
 	npm run --workspace=toolchain start
 
-# Codex package – only a test script
-.PHONY: codex-test
-codex-test:
-	npm run --workspace=codex test
-
-# Convenience aliases
-.PHONY: test
-# Run all test scripts in workspaces that define a test target
-# (currently core and codex)
-test: core-test codex-test
