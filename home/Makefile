@@ -4,7 +4,7 @@ all:
 	cat -n Makefile	
 
 # Root level npm scripts
-.PHONY: build start
+.PHONY: pi
 build:
 	# Run the root level build script which delegates to the @my/toolchain package
 	npm run build

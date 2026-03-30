@@ -1,8 +1,12 @@
 {
   "name": "my-vibe",
   "version": "0.1.0",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "start": "node src/index.js"
+    "build:rust": "cargo build",
+    "build": "npm run build:rust && tsc && echo 'Build placeholders completed.'",
+    "demo": "node dist/demo.js",
+    "start": "node dist/index.js"
   }
 }
