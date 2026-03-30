@@ -22,7 +22,6 @@ RUN apt-get install -y \
 RUN rm -rf /var/lib/apt/lists/*
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable
 
-RUN npm install -g @mariozechner/pi-coding-agent@latest
 ENV PATH="/root/.cargo/bin:${PATH}"
 
 RUN cargo install uv

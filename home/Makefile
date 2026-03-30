@@ -1,10 +1,7 @@
-# Makefile for npm tasks
-# This file provides make targets that map directly to the npm scripts defined
-# in the various workspace packages and at the repository root.
+pi := /github/pi-mono/packages/coding-agent/dist/cli.js
 
-# Default target – run the root build
-.PHONY: all
-all: build
+all: 
+	cat -n Makefile	
 
 # Root level npm scripts
 .PHONY: build start
@@ -33,3 +30,5 @@ toolchain-build:
 toolchain-start:
 	npm run --workspace=@my/toolchain start
 
+pi:
+	$(pi)
