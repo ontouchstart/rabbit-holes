@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
     "build:rust:linux": "cargo build --target aarch64-unknown-linux-gnu --verbose && mv target/aarch64-unknown-linux-gnu/debug/my-vibe target/debug/my-vibe-linux",
     "build:rust:macos": "cargo build --verbose && mv target/debug/my-vibe target/debug/my-vibe-macos",
