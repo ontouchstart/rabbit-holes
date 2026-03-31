@@ -9,5 +9,15 @@
     "build": "tsc && echo 'Build placeholders completed.'",
     "demo": "node dist/demo.js",
     "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@google/genai": "^1.47.0",
+    "@mariozechner/pi-coding-agent": "^0.64.0",
+    "@mariozechner/pi-tui": "^0.64.0",
+    "@modelcontextprotocol/sdk": "^1.29.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.0",
+    "typescript": "^5.2.0"
   }
 }
