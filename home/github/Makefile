@@ -1,3 +1,5 @@
+pi := /github/pi-mono/packages/coding-agent/dist/cli.js
+
 all:
 	cat -n Makefile
 
@@ -21,5 +23,8 @@ openai-node:
 
 pi-mono:
 	git clone https://github.com/badlogic/pi-mono.git
-	cd pi-mono && npm install && npm run build && npm test
+
+update:
+	cd pi-mono && git pull && npm install && npm run build && npm test
+	cd pi-mono/packages/coding-agent/ && $(pi) -p "Review this package"
 
