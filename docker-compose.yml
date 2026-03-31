@@ -6,6 +6,7 @@ services:
     volumes:
       - ./home:/home
       - ./home/github/.pi:/root/.pi
+      - ./home/github/.claude:/root/.claude
       - ./home/github:/github
 
   ggml:
