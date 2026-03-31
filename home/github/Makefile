@@ -6,6 +6,9 @@ all:
 .pi:	# This should run outside of docker container
 	git clone git@github.com:ontouchstart/.pi.git
 
+.claude:	# This should run outside of docker container
+	git clone git@github.com:ontouchstart/.claude.git
+
 codex:
 	git clone https://github.com/openai/codex.git
 
