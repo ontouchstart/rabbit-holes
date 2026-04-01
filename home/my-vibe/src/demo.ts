@@ -1,5 +1,5 @@
-import { helloRust } from './rust';
-import { helloPython } from './python';
+import { helloRust } from './rust.js';
+import { helloPython } from './python.js';
 
 console.log('Rust:', helloRust());
 console.log('Python:', helloPython());

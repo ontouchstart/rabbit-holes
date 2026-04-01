@@ -1,23 +1,15 @@
-PROJECT_NAME := $(shell basename $(PWD))
+# Makefile for testing dist/*.js files
 
-.PHONY: all npm uv cargo clean
+.PHONY: test-dist
 
-all: npm uv cargo demo
+# Test all dist/*-*.js scripts
+# Each script is executed with node. The task fails if any script exits with non-zero.
+# Usage: make test-dist
 
-npm:
-	# Build the TypeScript code
-	npm run build
+test-dist:
+	@echo "Running dist/*.js tests..."
 
-uv:
-	uv run src/main.py
-
-demo:
-	# Run the demo script after building
-	npm run demo
-
-cargo:
-	cargo build
-	cargo run
-
-clean:
-	@rm -rf node_modules target .uv dist
+	@for f in dist/*-*.js; do \
+		echo "Running $$f"; \
+		MY_ANTHROPIC_KEY=demo node $$f || { echo "Error running $$f"; exit 1; }; \
+	 done

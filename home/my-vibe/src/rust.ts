@@ -16,7 +16,7 @@ export function helloRust(): string {
     throw new Error(`Unsupported platform: ${platform}`);
   }
 
-  const binaryPath = path.resolve(__dirname, '../target/debug', binaryName);
+  const binaryPath = path.resolve(path.dirname(new URL(import.meta.url).pathname), '../target/debug', binaryName);
   try {
     const output = execSync(binaryPath, { encoding: 'utf-8' });
     return output.trim();

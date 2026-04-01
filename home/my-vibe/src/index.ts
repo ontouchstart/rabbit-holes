@@ -1,2 +1,2 @@
-export * from './rust';
-export * from './python';
+export * from './rust.js';
+export * from './python.js';
