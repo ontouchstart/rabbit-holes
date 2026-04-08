@@ -1,30 +1,14 @@
-FROM ubuntu:resolute-20260312
+FROM node:24
 
-# Install build dependencies
 RUN apt-get update 
-RUN apt-get install -y \
-    build-essential \
-    ccache \
-    cmake \
-    curl \
-    gdb \
-    git \
-    jq \
-    nodejs \
-    npm \
-    python3 \
-    python3.14-venv \
-    pkg-config \
-    libcairo2-dev \
-    libpixman-1-dev \
-    llvm \
-    vim 
+RUN npm install -g playwright
+RUN npx playwright install-deps
 RUN rm -rf /var/lib/apt/lists/*
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable
+RUN npx playwright install
 
-ENV PATH="/root/.cargo/bin:${PATH}"
-
-RUN cargo install uv
+RUN git clone https://github.com/ontouchstart/pi-mono.git
+RUN cd pi-mono && npm install && npm run build 
+RUN ln -s /pi-mono/packages/coding-agent/dist/cli.js /usr/local/bin/pi
 
 WORKDIR /home
 CMD bash

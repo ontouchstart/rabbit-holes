@@ -28,7 +28,7 @@ openai-node:
 	git clone https://github.com/openai/openai-node.git
 
 pi-mono:
-	git clone https://github.com/badlogic/pi-mono.git
+	git clone https://github.com/ontouchstart/pi-mono.git
 
 update:
 	cd pi-mono && git pull && npm install && npm run build && npm test
