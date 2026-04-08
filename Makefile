@@ -10,10 +10,16 @@ build-no-cache:
 	docker compose build --no-cache
 
 bash:
-	docker compose run --rm -it bash
+	docker compose run --remove-orphans --rm -it bash
 	
-llama-cpp-server:
-	./llama-cpp/ggml-org/llama.cpp/build/bin/llama-server -hf ggml-org/gpt-oss-20b-GGUF
+llama.cpp:
+	git clone https://github.com/ontouchstart/llama.cpp
+
+llama.cpp/build/bin: llama.cpp
+	cd llama.cpp && cmake -B build && cmake --build build --config Release -j 8
+
+server: llama.cpp/build/bin
+	./llama.cpp/build/bin/llama-server -hf ggml-org/gpt-oss-20b-GGUF
 
 pi:
 	docker compose run --rm -it pi 
