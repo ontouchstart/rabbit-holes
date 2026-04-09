@@ -18,12 +18,6 @@ deno:
 ggml:
 	git clone https://github.com/ggml-org/ggml.git
 
-llama.cpp:
-	git clone https://github.com/ggml-org/llama.cpp.git
-
-review-llama.cpp: llama.cpp
-	cd llama.cpp && $(pi) -p "Review the design, architecture and implementation of this repo."
-
 openai-node:
 	git clone https://github.com/openai/openai-node.git
 

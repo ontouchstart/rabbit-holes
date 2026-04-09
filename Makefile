@@ -21,17 +21,5 @@ llama.cpp/build/bin: llama.cpp
 server: llama.cpp/build/bin
 	./llama.cpp/build/bin/llama-server -hf ggml-org/gpt-oss-20b-GGUF
 
-pi:
-	docker compose run --rm -it pi 
-
-ggml:
-	docker compose run --rm -it ggml
-
-publish:
-	rm -f docs/crates.js 	
-	make -C missing
-	make -C man
-	make -C playground
-	make -C tex-rabbit-hole
-	make -C llm-rabbit-hole
-	make -C magic_c_rabbit_hole
+clean:
+	rm -rf llama.cpp/build
